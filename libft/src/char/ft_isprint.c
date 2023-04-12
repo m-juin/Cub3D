@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gpasquet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/12 16:33:33 by mjuin            ###   ########.fr       */
+/*   Created: 2022/09/26 13:28:39 by gpasquet          #+#    #+#             */
+/*   Updated: 2022/09/26 13:33:12 by gpasquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-#define CUB3D_H
-
-#include "libft.h"
-#define WIDTH 256
-#define HEIGHT 256
-
-#endif
+int	ft_isprint(int c)
+{
+	if (c > 31 && c < 127)
+		return (1);
+	else
+		return (0);
+}

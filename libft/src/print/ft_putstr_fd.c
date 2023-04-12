@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/12 16:33:33 by mjuin            ###   ########.fr       */
+/*   Created: 2022/10/04 11:14:03 by gpasquet          #+#    #+#             */
+/*   Updated: 2023/01/17 11:20:24 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-#define CUB3D_H
+#include "../../include/libft.h"
 
-#include "libft.h"
-#define WIDTH 256
-#define HEIGHT 256
+int	ft_putstr_fd(char *s, int fd)
+{
+	int	size;
 
-#endif
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	size = ft_strlen(s);
+	write(fd, s, size);
+	return (size);
+}

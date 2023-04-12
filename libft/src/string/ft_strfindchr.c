@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   ft_strfindchr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/12 16:33:33 by mjuin            ###   ########.fr       */
+/*   Created: 2023/01/18 11:26:30 by mjuin             #+#    #+#             */
+/*   Updated: 2023/02/09 16:19:17 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-#define CUB3D_H
+#include "../../include/libft.h"
 
-#include "libft.h"
-#define WIDTH 256
-#define HEIGHT 256
+int	ft_strfindchr(const char *str, const char c)
+{
+	int	pos;
 
-#endif
+	pos = 0;
+	if (str == NULL)
+		return (-1);
+	if (c == '\0')
+		return (-1);
+	while (str[pos])
+	{
+		if (str[pos] == c)
+			return (pos);
+		pos++;
+	}
+	return (0);
+}

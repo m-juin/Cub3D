@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gpasquet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/12 16:33:33 by mjuin            ###   ########.fr       */
+/*   Created: 2022/10/07 14:51:34 by gpasquet          #+#    #+#             */
+/*   Updated: 2022/11/03 17:17:19 by gpasquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-#define CUB3D_H
+#include "../../include/libft.h"
 
-#include "libft.h"
-#define WIDTH 256
-#define HEIGHT 256
+int	ft_lstsize(t_list *lst)
+{
+	int	lst_len;
 
-#endif
+	if (!lst)
+		return (0);
+	lst_len = 1;
+	while (lst->next != NULL)
+	{
+		lst_len++;
+		lst = lst->next;
+	}
+	return (lst_len);
+}

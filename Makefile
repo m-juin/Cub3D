@@ -6,15 +6,19 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/12 11:30:00 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/12 16:09:57 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC =	clang
 
-CFLAGS =	-g -Werror -Wextra -Wall -I./includes -I./MLX42/include/MLX42
+CFLAGS =	-g -Werror -Wextra -Wall -I./includes -I./MLX42/include/MLX42 -I./libft/include
 
 LIBMLX	:= ./MLX42
+
+LIBFT = libft/libft.a
+
+LIBFT_PATH = libft --no-print-directory
 
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
@@ -24,21 +28,21 @@ SRC =	srcs/main.c
 
 OBJ =	${SRC:.c=.o}
 
-all:	libmlx ${NAME}
-
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+all:	${LIBFT} ${NAME}
 
 .c.o:
 	@printf "Compiling .c to .o \r"
 	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} $(HEADERS)
 	
 $(NAME): ${OBJ}
-	@${CC} ${CFLAGS} ${OBJ} $(LIBS) $(HEADERS) -o ${NAME} 
+	@${CC} ${CFLAGS} ${OBJ} ${LIBFT} $(LIBS) $(HEADERS) -o ${NAME} 
 	@printf '\e[1;37m%-6s\e[m' "Compilation complete"
 
+$(LIBFT):
+	@make -C ${LIBFT_PATH}
+
 clean:
-	@rm -rf $(LIBMLX)/build
+	@make clean -C ${LIBFT_PATH}
 	@n=1; \
 	for file in $(OBJ); do \
 		if test -e $$file; then \
@@ -51,6 +55,7 @@ clean:
 	done
 
 fclean:	clean
+	@make fclean -C ${LIBFT_PATH}
 	@n=1; \
 	if test -e ${NAME}; then \
 		if [ $$n -eq 1 ]; then \
@@ -62,4 +67,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY:	all clean fclean re libmlx
+.PHONY:	all clean fclean re libmlx 
