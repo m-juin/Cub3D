@@ -1,0 +1,8 @@
+*.a
+*.o
+*.so
+*.out
+*.swp
+*.tmp
+.vscode/
+cub3D
