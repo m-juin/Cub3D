@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/12 16:09:57 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/12 19:55:50 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,10 @@ SRC =	srcs/main.c
 
 OBJ =	${SRC:.c=.o}
 
-all:	${LIBFT} ${NAME}
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+
+all:	libmlx ${LIBFT} ${NAME}
 
 .c.o:
 	@printf "Compiling .c to .o \r"

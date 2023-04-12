@@ -1,3 +1,0 @@
-/home/mjuin/Exo/42/cub3D/MLX42/_deps/glfw-subbuild/CMakeFiles/glfw-populate.dir
-/home/mjuin/Exo/42/cub3D/MLX42/_deps/glfw-subbuild/CMakeFiles/edit_cache.dir
-/home/mjuin/Exo/42/cub3D/MLX42/_deps/glfw-subbuild/CMakeFiles/rebuild_cache.dir
