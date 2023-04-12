@@ -6,71 +6,39 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/12 10:36:23 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/12 11:30:00 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC =	clang
 
-CFLAGS =	-g -Werror -Wextra -Wall -I./includes
+CFLAGS =	-g -Werror -Wextra -Wall -I./includes -I./MLX42/include/MLX42
+
+LIBMLX	:= ./MLX42
+
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 NAME =	cub3D
 
-SRC =	srcs/main.c \
-		srcs/built-ins/exit.c \
-		srcs/built-ins/echo.c \
-		srcs/built-ins/env.c \
-		srcs/built-ins/export.c \
-		srcs/built-ins/unset.c \
-		srcs/built-ins/pwd.c \
-		srcs/built-ins/cd.c \
-		srcs/utils/t_env_utils.c \
-		srcs/utils/free_utils.c \
-		srcs/utils/exec_utils.c \
-		srcs/utils/tree_creation_utils.c \
-		srcs/utils/fd_utils.c \
-		srcs/utils/tab_utils.c \
-		srcs/utils/get_cmd_utils.c \
-		srcs/utils/token_utils.c \
-		srcs/utils/lexing_utils.c \
-		srcs/utils/parsing_utils.c \
-		srcs/utils/counting_utils.c \
-		srcs/utils/redirect_parsing_utils.c \
-		srcs/utils/heredoc_utils.c \
-		srcs/utils/quotes_parsing_utils.c \
-		srcs/utils/pipe_counting_utils.c \
-		srcs/utils/ft_executes_utils.c \
-		srcs/functions/ft_isfile.c \
-		srcs/functions/tree_exec.c \
-		srcs/functions/ft_t_env.c \
-		srcs/functions/ft_single_execute.c \
-		srcs/functions/ft_multiple_execute.c \
-		srcs/functions/signals.c \
-		srcs/functions/individual_exec.c \
-		srcs/parsing/lexer.c \
-		srcs/parsing/param_expansion_function.c \
-		srcs/parsing/counting_functions.c \
-		srcs/parsing/parsing.c \
-		srcs/parsing/quotes_management_functions.c \
-		srcs/parsing/redirection_parsing.c \
-		srcs/parsing/redirin_functions.c \
-		srcs/parsing/heredoc_functions.c \
-		srcs/parsing/heredoc_pipe_functions.c \
-		srcs/parsing/heredoc_fork.c
+SRC =	srcs/main.c
 
 OBJ =	${SRC:.c=.o}
 
-all:	${NAME}
+all:	libmlx ${NAME}
+
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 .c.o:
 	@printf "Compiling .c to .o \r"
-	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} $(HEADERS)
 	
 $(NAME): ${OBJ}
-	@${CC} ${CFLAGS} ${OBJ} -o ${NAME} 
+	@${CC} ${CFLAGS} ${OBJ} $(LIBS) $(HEADERS) -o ${NAME} 
 	@printf '\e[1;37m%-6s\e[m' "Compilation complete"
 
 clean:
+	@rm -rf $(LIBMLX)/build
 	@n=1; \
 	for file in $(OBJ); do \
 		if test -e $$file; then \
@@ -94,4 +62,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY:	all clean fclean re
+.PHONY:	all clean fclean re libmlx
