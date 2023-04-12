@@ -1,5 +1,6 @@
-*.a
-*.o
+libft/*.a
+libft/**/*.o
+srcs/*.o
 *.so
 *.out
 *.swp
