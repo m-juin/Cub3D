@@ -1,3 +1,0 @@
-/home/mjuin/Exo/42/cub3D/MLX42/build/CMakeFiles/mlx42.dir
-/home/mjuin/Exo/42/cub3D/MLX42/build/CMakeFiles/edit_cache.dir
-/home/mjuin/Exo/42/cub3D/MLX42/build/CMakeFiles/rebuild_cache.dir
