@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/12 16:33:33 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/13 13:35:46 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define CUB3D_H
 
 #include "libft.h"
+#include "get_next_line.h"
+
 #define WIDTH 256
 #define HEIGHT 256
 
