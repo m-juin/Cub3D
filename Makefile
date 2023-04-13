@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/12 19:55:50 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/13 10:47:56 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ CC =	clang
 CFLAGS =	-g -Werror -Wextra -Wall -I./includes -I./MLX42/include/MLX42 -I./libft/include
 
 LIBMLX	:= ./MLX42
+
+LIBMLX_NAME = ./MLX42/build/libmlx42.a
 
 LIBFT = libft/libft.a
 
@@ -28,10 +30,10 @@ SRC =	srcs/main.c
 
 OBJ =	${SRC:.c=.o}
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+all:	${LIBMLX_NAME} ${LIBFT} ${NAME}
 
-all:	libmlx ${LIBFT} ${NAME}
+$(LIBMLX_NAME):
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4 ;
 
 .c.o:
 	@printf "Compiling .c to .o \r"
@@ -45,6 +47,7 @@ $(LIBFT):
 	@make -C ${LIBFT_PATH}
 
 clean:
+	@rm -rf $(LIBMLX)/build/
 	@make clean -C ${LIBFT_PATH}
 	@n=1; \
 	for file in $(OBJ); do \
