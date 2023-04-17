@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/15 15:39:43 by mjuin            ###   ########.fr       */
+/*   Created: 2023/04/17 11:09:50 by mjuin             #+#    #+#             */
+/*   Updated: 2023/04/17 11:29:31 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "cub3d.h"
 
-# include "libft.h"
-# include "get_next_line.h"
-
-# define WIDTH 256
-# define HEIGHT 256
-
-typedef struct s_map_data
+/*static void ft_error(void)
 {
-	char	*text_north;
-	char	*text_south;
-	char	*text_east;
-	char	*text_west;
-}	t_map_data;
+	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
+}*/
 
-
-#endif
+void	ft_exit(char *message, int exitcode)
+{
+	if (exitcode == 0)
+		ft_printf_fd(1, "%s\n", message);
+	else
+		ft_printf_fd(2, "%s\n", message);
+	exit(exitcode);
+}

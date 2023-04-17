@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/13 10:47:56 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/17 11:26:13 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,13 @@ LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 NAME =	cub3D
 
-SRC =	srcs/main.c
+SRC =	srcs/main.c \
+		srcs/Utils/free.c \
+		srcs/Utils/exit.c \
+		srcs/Parsing/check.c \
+		srcs/Map/mapget.c \
+		srcs/Map/mapcount.c \
+		srcs/Utils/map.c \
 
 OBJ =	${SRC:.c=.o}
 

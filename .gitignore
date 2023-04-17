@@ -1,7 +1,7 @@
 libft/*.a
 libft/**/*.o
 MLX42/build/
-srcs/*.o
+srcs/**/*.o
 *.so
 *.out
 *.swp

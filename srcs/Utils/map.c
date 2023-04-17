@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/17 11:29:17 by mjuin            ###   ########.fr       */
+/*   Created: 2023/04/17 11:21:59 by mjuin             #+#    #+#             */
+/*   Updated: 2023/04/17 11:22:22 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"
 #include "cub3d.h"
 
-int	main(int ac, char **av)
+void	ft_fill_map_array(int fd, char **map, int lcount)
 {
-	ft_checkarg(ac, av);
-	ft_checkmap_path(av[1]);
-	ft_mapget_content(av[1]);
- 	/*mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Maze of DDD³", false);
-	if (!mlx)
-		ft_error();
-	mlx_loop(mlx);
-	mlx_terminate(mlx);*/
+	char			*readed;
+	int				pos;
+
+	pos = 0;
+	while (pos < lcount)
+	{
+		readed = get_next_line(fd);
+		map[pos] = ft_strtrim(readed, "\t\n ");
+		free(readed);
+		pos++;
+	}
+	close(fd);
+	map[pos] = NULL;
+}
+
+int	ft_map_open(char *map_path)
+{
+	int		fd;
+
+	fd = open(map_path, O_RDONLY);
+	if (fd == -1)
+		ft_exit("Error\nError while opening file", 1);
+	return (fd);
 }

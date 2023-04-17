@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mapcount.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/17 11:29:17 by mjuin            ###   ########.fr       */
+/*   Created: 2023/04/17 11:18:03 by mjuin             #+#    #+#             */
+/*   Updated: 2023/04/17 11:18:16 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"
 #include "cub3d.h"
 
-int	main(int ac, char **av)
+int	ft_mapcount_line(int fd)
 {
-	ft_checkarg(ac, av);
-	ft_checkmap_path(av[1]);
-	ft_mapget_content(av[1]);
- 	/*mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Maze of DDD³", false);
-	if (!mlx)
-		ft_error();
-	mlx_loop(mlx);
-	mlx_terminate(mlx);*/
+	int		counter;
+	char	*readed;
+
+	counter = 0;
+	readed = get_next_line(fd);
+	while (readed != NULL)
+	{
+		free(readed);
+		readed = get_next_line(fd);
+		counter++;
+	}
+	close (fd);
+	return (counter);
 }

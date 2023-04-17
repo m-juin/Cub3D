@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/17 11:29:17 by mjuin            ###   ########.fr       */
+/*   Created: 2023/01/18 11:26:30 by mjuin             #+#    #+#             */
+/*   Updated: 2023/04/17 10:47:21 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"
-#include "cub3d.h"
+#include "../../include/libft.h"
 
-int	main(int ac, char **av)
+int	ft_strfind(char *str, char *searched)
 {
-	ft_checkarg(ac, av);
-	ft_checkmap_path(av[1]);
-	ft_mapget_content(av[1]);
- 	/*mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Maze of DDD³", false);
-	if (!mlx)
-		ft_error();
-	mlx_loop(mlx);
-	mlx_terminate(mlx);*/
+	unsigned int	pos;
+	unsigned int	spos;
+
+	pos = 0;
+	while (str[pos] != '\0')
+	{
+		spos = 0;
+		while (searched[spos] && searched[spos] == str[pos + spos])
+			spos++;
+		if (searched[spos] == '\0')
+			return (pos);
+		pos++;
+	}
+	return (-1);
 }
