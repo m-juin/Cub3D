@@ -6,7 +6,7 @@
 #    By: gpasquet <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                  +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/28 13:38:40 by gpasquet          #+#    #+#              #
-#    Updated: 2023/02/03 15:01:43 by gpasquet         ###   ########.fr        #
+#    Updated: 2023/04/19 12:10:00 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRCS	=	./src/string/ft_split.c			\
 			./src/string/ft_strnstr.c		\
 			./src/string/ft_strlen.c		\
 			./src/string/ft_strfindchr.c	\
-			./src/string/ft_strfind.c	\
+			./src/string/ft_strfind.c		\
+			./src/string/ft_addstr.c		\
 			./src/memory/ft_memchr.c		\
 			./src/memory/ft_calloc.c		\
 			./src/memory/ft_memmove.c		\
@@ -72,7 +73,13 @@ SRCS	=	./src/string/ft_split.c			\
 			./src/print/ft_putptr_fd.c		\
 			./src/print/ft_printf_fd.c		\
 			./src/gnl/get_next_line.c		\
-			./src/gnl/get_next_line_utils.c	
+			./src/gnl/get_next_line_utils.c	\
+			./src/arr/ft_freearr.c			\
+			./src/arr/ft_putarr.c			\
+			./src/arr/ft_arrchr.c			\
+			./src/arr/ft_arrdup.c			\
+			./src/arr/ft_arrjoin.c			\
+			./src/arr/ft_foreach.c
 			
 OBJS= 	${SRCS:%.c=%.o}
 
