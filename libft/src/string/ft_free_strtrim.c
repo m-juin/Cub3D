@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mapcount.c                                         :+:      :+:    :+:   */
+/*   ft_free_strtrim.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 11:18:03 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/17 11:18:16 by mjuin            ###   ########.fr       */
+/*   Created: 2023/04/19 09:41:34 by mjuin             #+#    #+#             */
+/*   Updated: 2023/04/19 09:44:03 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/libft.h"
 
-int	ft_mapcount_line(int fd)
+char *ft_free_strtrim(char *str, char const *charset)
 {
-	int		counter;
-	char	*readed;
+	char	*tmp;
 
-	counter = 0;
-	readed = get_next_line(fd);
-	while (readed != NULL)
-	{
-		free(readed);
-		readed = get_next_line(fd);
-		counter++;
-	}
-	close (fd);
-	return (counter);
+	if (str == NULL)
+		return (NULL);
+	tmp = ft_strtrim(str, charset);
+	free(str);
+	return (tmp);
 }

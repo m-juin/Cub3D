@@ -26,6 +26,7 @@ SRCS	=	./src/string/ft_split.c			\
 			./src/string/ft_strncmp.c		\
 			./src/string/ft_striteri.c		\
 			./src/string/ft_strtrim.c		\
+			./src/string/ft_free_strtrim.c	\
 			./src/string/ft_strmapi.c		\
 			./src/string/ft_strchr.c		\
 			./src/string/ft_strlcat.c		\
@@ -37,7 +38,7 @@ SRCS	=	./src/string/ft_split.c			\
 			./src/string/ft_strnstr.c		\
 			./src/string/ft_strlen.c		\
 			./src/string/ft_strfindchr.c	\
-			./src/string/ft_strfind.c	\
+			./src/string/ft_strfind.c		\
 			./src/memory/ft_memchr.c		\
 			./src/memory/ft_calloc.c		\
 			./src/memory/ft_memmove.c		\
