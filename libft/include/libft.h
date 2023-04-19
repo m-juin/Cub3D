@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:51:33 by gpasquet          #+#    #+#             */
-/*   Updated: 2023/04/19 17:02:00 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/19 17:07:13 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,15 @@ char			**ft_split(char const *s, char c);
 size_t			ft_strlen(const char *s);
 size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
+char			*ft_addstr(char *s1, char *s2);
+
+/* array */
+
+void			ft_freearr(char **arr);
+char			**ft_arrdup(char **arr);
+char			**ft_arrjoin(char **arr, char *to_join);
+int				ft_arrchr(char **arr, char *str);
+void			ft_putarr(char **arr);
+void			ft_foreach(char **arr, void (*f)(char *str));
 
 #endif
