@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/19 17:03:39 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/20 14:57:37 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 
+enum	e_dir
+{
+	north,
+	south,
+	east,
+	west,
+};
+
 typedef struct s_data
 {
 	mlx_texture_t	*north;
@@ -36,7 +44,20 @@ typedef struct s_data
 	mlx_texture_t	*west;
 	int				ground;
 	int				top;
+	char			**map;
 }	t_data;
+
+typedef struct s_ivector
+{
+	int	x;
+	int	y;
+}	t_ivector;
+
+typedef struct s_player
+{
+	t_ivector 		map_pos;
+	enum e_dir		facing_dir;
+}	t_player;
 
 /*	Utils/exit.c	*/
 void	ft_exit(char *message, int exit_code);
@@ -57,14 +78,20 @@ int 	get_a(int rgba);
 void	ft_checkarg(int ac, char **av);
 int		ft_try_open(const char *path);
 
+/*	Parsing/ft_checkmap.c	*/
+void	ft_check_map(t_data *data);
+
 /*	Parsing/ft_get_cub.c	*/
 char	**ft_get_cub(const char *path);
 
 /*	Parsing/ft_parse_data.c	*/
-t_data	*ft_parse_data(char **unparsed_data);
+t_data	*ft_parse_data(char **identifiers, char **map);
 char 	*search_texture_path(char *identifier, char **data);
 
 /*	Parsing/ft_get_rgb_from_id.c	*/
 int		ft_get_rgb_from_id(char *id, char **data);
+
+/*	Parsing/ft_parsing_main.c	*/
+void	ft_parsing_main(char *path);
 
 #endif

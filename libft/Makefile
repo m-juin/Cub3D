@@ -16,7 +16,7 @@ NAME	= 	libft.a
 
 INDI	=	\033[38;5;99m
 
-CFLAGS	= 	-Wall -Wextra -Werror
+CFLAGS	= 	-Wall -Wextra -Werror -g
 
 SRCS	=	./src/string/ft_split.c			\
 			./src/string/ft_strdup.c		\

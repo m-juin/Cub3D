@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:59:51 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/19 16:29:27 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/20 11:32:35 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	free_data(t_data *data)
 		mlx_delete_texture(data->north);
 	if (data->south != NULL)
 		mlx_delete_texture(data->south);
+	ft_double_free(data->map);
 	free(data);
 }

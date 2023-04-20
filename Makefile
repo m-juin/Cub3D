@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/19 16:56:41 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/20 14:56:49 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,14 +26,16 @@ LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 NAME =	cub3D
 
-SRC =	srcs/main.c \
-		srcs/Utils/exit.c \
-		srcs/Utils/free.c \
-		srcs/Utils/colors.c \
-		srcs/Parsing/ft_checkarg.c \
-		srcs/Parsing/ft_get_cub.c \
-		srcs/Parsing/ft_parse_data.c \
-		srcs/Parsing/ft_get_rgb_from_id.c \
+SRC =	srcs/main.c							\
+		srcs/Utils/exit.c					\
+		srcs/Utils/free.c					\
+		srcs/Utils/colors.c					\
+		srcs/Parsing/ft_checkarg.c			\
+		srcs/Parsing/ft_checkmap.c			\
+		srcs/Parsing/ft_get_cub.c			\
+		srcs/Parsing/ft_parse_data.c		\
+		srcs/Parsing/ft_get_rgb_from_id.c	\
+		srcs/Parsing/ft_parsing_main.c
 
 OBJ =	${SRC:.c=.o}
 

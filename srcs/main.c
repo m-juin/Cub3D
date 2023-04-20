@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/19 16:45:55 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/20 14:58:39 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 
 int	main(int ac, char **av)
 {
-	char	**array;
-	t_data	*data;
-
 	ft_checkarg(ac, av);
-	array = ft_get_cub(av[1]);
-	data = ft_parse_data(array);
-	ft_double_free(array);
-	if (data != NULL)
-		free_data(data);
- 	/*mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Maze of DDD³", false);
-	if (!mlx)
-		ft_error();
-	mlx_loop(mlx);
-	mlx_terminate(mlx);*/
+	ft_parsing_main(av[1]);
 }
