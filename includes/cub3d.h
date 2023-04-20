@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/19 16:36:46 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/20 09:43:10 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,55 +15,58 @@
 
 # include "../libft/include/libft.h"
 # include "../libft/include/get_next_line.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-# include <errno.h>
 # include <fcntl.h>
+# include <string.h> 
+# include <errno.h>
 
 /* Window defines */
 
 # define WIDTH 1920
 # define HEIGHT 1080
 
-/* Raycasting defines */
-
-# define PI 3.141592653589793238462643383279502884197
-
-typedef struct s_map_data
+typedef struct s_data
 {
-	char	*text_north;
-	char	*text_south;
-	char	*text_east;
-	char	*text_west;
-	char	*text_ground;
-	char	*text_ceiling;
-}	t_map_data;
-
-/*	Utils/free.c	*/
-
-void		*ft_simple_free(void *arg);
-void		*ft_double_free(char **array);
-void		free_map_data(t_map_data *data);
-
-/*	Utils/check.c	*/
-void		ft_checkmap_path(char *map_path);
-void		ft_checkarg(int ac, char **av);
-void		ft_checkmap_empty(int fd);
+	mlx_texture_t	*north;
+	mlx_texture_t	*south;
+	mlx_texture_t	*east;
+	mlx_texture_t	*west;
+	int				ground;
+	int				top;
+}	t_data;
 
 /*	Utils/exit.c	*/
-void		ft_exit(char *message, int exitcode);
+void	ft_exit(char *message, int exit_code);
+void	ft_print_error(char *message);
 
-/*	Map/mapget.c	*/
-t_map_data	*ft_mapget_content(char *map_path);
+/*	Utils/free.c	*/
+void	*ft_double_free(char **array);
+void	free_data(t_data *data);
 
-/*	Map/mapcount	*/
-int			ft_mapcount_line(int fd);
+/*	Utils/colors.c	*/
+int		get_rgba(int r, int g, int b, int a);
+int 	get_r(int rgba);
+int 	get_g(int rgba);
+int 	get_b(int rgba);
+int 	get_a(int rgba);
 
-/*	Utils/map.c	*/
-void		ft_fill_map_array(int fd, char **map, int lcount);
-int			ft_map_open(char *map_path);
+/*	Parsing/ft_checkarg.c	*/
+void	ft_checkarg(int ac, char **av);
+int		ft_try_open(const char *path);
+
+/*	Parsing/ft_get_cub.c	*/
+char	**ft_get_cub(const char *path);
+
+/*	Parsing/ft_parse_data.c	*/
+t_data	*ft_parse_data(char **unparsed_data);
+char 	*search_texture_path(char *identifier, char **data);
+
+/*	Parsing/ft_get_rgb_from_id.c	*/
+int		ft_get_rgb_from_id(char *id, char **data);
 
 #endif

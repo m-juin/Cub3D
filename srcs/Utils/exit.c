@@ -5,24 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 11:09:50 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/17 11:29:31 by mjuin            ###   ########.fr       */
+/*   Created: 2023/04/19 12:09:47 by mjuin             #+#    #+#             */
+/*   Updated: 2023/04/19 16:08:33 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*static void ft_error(void)
+void	ft_print_error(char *message)
 {
-	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
-}*/
+	static int printed;
 
-void	ft_exit(char *message, int exitcode)
-{
-	if (exitcode == 0)
-		ft_printf_fd(1, "%s\n", message);
-	else
+	if (printed == 0)
+	{
+		ft_printf_fd(2, "%s\n", "Error");
 		ft_printf_fd(2, "%s\n", message);
-	exit(exitcode);
+		printed = 1;
+	}
+}
+
+void	ft_exit(char *message, int exit_code)
+{
+	if (exit_code == 0)
+	{
+		if (message != NULL)
+			ft_printf_fd(1, message);
+		exit(0);
+	}
+	if (message != NULL)
+		ft_print_error(message);
+	exit(exit_code);
 }
