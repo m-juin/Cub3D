@@ -6,15 +6,15 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/17 11:25:46 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/19 16:36:46 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "libft.h"
-# include "get_next_line.h"
+# include "../libft/include/libft.h"
+# include "../libft/include/get_next_line.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -23,8 +23,14 @@
 # include <errno.h>
 # include <fcntl.h>
 
+/* Window defines */
+
 # define WIDTH 1920
 # define HEIGHT 1080
+
+/* Raycasting defines */
+
+# define PI 3.141592653589793238462643383279502884197
 
 typedef struct s_map_data
 {
