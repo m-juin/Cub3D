@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:06:12 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/19 16:09:32 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/21 11:21:57 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_try_open(const char *path)
 		ft_print_error(strerror(errno));
 		return (-1);
 	}
-		close(fd);
+	close(fd);
 	return (1);
 }
 

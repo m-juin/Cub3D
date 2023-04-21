@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/20 14:57:37 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/21 13:33:36 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_ivector
 
 typedef struct s_player
 {
-	t_ivector 		map_pos;
+	t_ivector		map_pos;
 	enum e_dir		facing_dir;
 }	t_player;
 
@@ -69,10 +69,14 @@ void	free_data(t_data *data);
 
 /*	Utils/colors.c	*/
 int		get_rgba(int r, int g, int b, int a);
-int 	get_r(int rgba);
-int 	get_g(int rgba);
-int 	get_b(int rgba);
-int 	get_a(int rgba);
+int		get_r(int rgba);
+int		get_g(int rgba);
+int		get_b(int rgba);
+int		get_a(int rgba);
+
+/*	Utils/empty_line.c	*/
+int		ft_check_identifier_empty_line(char **id);
+int		ft_line_is_empty(char *line);
 
 /*	Parsing/ft_checkarg.c	*/
 void	ft_checkarg(int ac, char **av);
@@ -86,12 +90,15 @@ char	**ft_get_cub(const char *path);
 
 /*	Parsing/ft_parse_data.c	*/
 t_data	*ft_parse_data(char **identifiers, char **map);
-char 	*search_texture_path(char *identifier, char **data);
+char	*search_texture_path(char *identifier, char **data);
 
 /*	Parsing/ft_get_rgb_from_id.c	*/
 int		ft_get_rgb_from_id(char *id, char **data);
 
 /*	Parsing/ft_parsing_main.c	*/
 void	ft_parsing_main(char *path);
+
+/*	Parsing/ft_map_parsing.c	*/
+char	**ft_parse_map(char **src);
 
 #endif

@@ -6,18 +6,17 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:28:11 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/20 14:40:18 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/21 15:16:45 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char *search_texture_path(char *identifier, char **data)
+int	ft_get_identifier_line(char *identifier, char **data)
 {
 	size_t	lcount;
 	size_t	lpos;
 	int		kpos;
-	char	*ret;
 
 	lcount = 0;
 	kpos = -1;
@@ -26,15 +25,27 @@ char *search_texture_path(char *identifier, char **data)
 		lpos = 0;
 		while (data[lcount][lpos] == ' ')
 			lpos++;
-		if (ft_strncmp(&data[lcount][lpos], identifier, ft_strlen(identifier)) == 0 && kpos == -1)
+		if (ft_strncmp(&data[lcount][lpos], identifier,
+			ft_strlen(identifier)) == 0 && kpos == -1)
 			kpos = lcount;
-		else if (ft_strncmp(&data[lcount][lpos], identifier, ft_strlen(identifier)) == 0 && kpos != -1)
+		else if (ft_strncmp(&data[lcount][lpos], identifier,
+			ft_strlen(identifier)) == 0 && kpos != -1)
 		{
 			ft_print_error("Double identifier");
-			return (NULL);
+			return (-1);
 		}
 		lcount++;
 	}
+	return (kpos);
+}
+
+char	*search_texture_path(char *identifier, char **data)
+{
+	size_t	lpos;
+	int		kpos;
+	char	*ret;
+
+	kpos = ft_get_identifier_line(identifier, data);
 	if (kpos == -1)
 	{
 		ft_print_error("Missing identifier");
@@ -48,9 +59,9 @@ char *search_texture_path(char *identifier, char **data)
 	return (ret);
 }
 
-static mlx_texture_t *get_texture_from_id(char *id, char **data)
+static mlx_texture_t	*get_texture_from_id(char *id, char **data)
 {
-	char 			*path;
+	char			*path;
 	size_t			path_len;
 	mlx_texture_t	*text;
 
@@ -74,134 +85,11 @@ static mlx_texture_t *get_texture_from_id(char *id, char **data)
 	return (text);
 }
 
-static int	ft_line_is_empty(char *line)
-{
-	size_t	pos;
-
-	pos = 0;
-	if (line[0] == '\n')
-		return (1);
-	while (line[pos] != '\0' && line[pos] == ' ')
-		pos++;
-	if (line[pos] != '\0')
-	{
-		return (-1);
-	}
-	return (1);
-}
-
-static char **ft_get_proper_map(char **src)
-{
-	size_t	apos;
-	size_t	lpos;
-	char	**tmp;
-
-	apos = 0;
-	while (src[apos] != NULL && ft_line_is_empty(src[apos]) == -1)
-		apos++;
-	tmp = malloc((apos + 1) * sizeof(char *));
-	if (tmp == NULL)
-	{
-		ft_print_error("Error on malloc");
-		return (NULL);
-	}
-	tmp[apos] = NULL;
-	lpos = 0;
-	while (lpos < apos)
-	{
-		tmp[lpos] = ft_strtrim_end(src[lpos], " \n");
-		lpos++;
-	}
-	while(src[apos] != NULL && ft_line_is_empty(src[apos]) == 1)
-		apos++;
-	if (src[apos] != NULL)
-	{
-		ft_print_error("Invalid line in .cub");
-		tmp = ft_double_free(tmp);
-	}
-	return (tmp);
-}
-
-static int	ft_is_valid_map_line(char *line)
-{
-	size_t			pos;
-	static size_t	spawn = 0;
-
-	if (line == NULL)
-		return (-1);
-	pos = 0;
-	while (line[pos] != '\0')
-	{
-		if (line[pos] == 'N' || line[pos] == 'S' || line[pos] == 'W'
-			|| line[pos] == 'E')
-			spawn++;
-		else if (line[pos] != '1' && line[pos] != '0' && line[pos] != ' ')
-		{
-			ft_print_error("Invalid character in map");
-			return (-1);
-		}
-		pos++;
-	}
-	if (spawn > 1)
-	{
-		ft_print_error("Multiple player spawn point");
-		return (-1);
-	}
-	return (1);
-}
-
-static int	ft_check_identifier_empty_line(char **id)
-{
-	size_t	pos;
-	size_t	lpos;
-	pos = 0;
-	while (id[pos] != NULL)
-	{
-		lpos = 0;
-		while (id[pos][lpos] == ' ')
-			lpos++;
-		if (id[pos][lpos] != '\0' && id[pos][lpos] != '\n'
-			&& ft_strncmp(&id[pos][lpos], "NO ", 3) != 0 
-			&& ft_strncmp(&id[pos][lpos], "SO ", 3) != 0
-			&& ft_strncmp(&id[pos][lpos], "EA ", 3) != 0
-			&& ft_strncmp(&id[pos][lpos], "WE ", 3) != 0
-			&& ft_strncmp(&id[pos][lpos], "F ", 2) != 0
-			&& ft_strncmp(&id[pos][lpos], "C ", 2) != 0)
-			{
-				ft_print_error("Invalid line in .cub");
-				return (-1);
-			}
-		pos++;
-	}
-	return (1);
-}
-
-static char	**ft_parse_map(char **src)
-{
-	size_t	apos;
-	char	**map;
-
-	map = ft_get_proper_map(src);
-	if (map == NULL)
-		return (NULL);
-	apos = 0;
-	while (map[apos] != NULL)
-	{
-		if (ft_is_valid_map_line(map[apos]) == -1)
-		{
-			ft_double_free(map);
-			return (NULL);
-		}
-		apos++;
-	}
-	return (map);
-}
-
 t_data	*ft_parse_data(char **identifiers, char **map)
 {
-	t_data *data;
+	t_data	*data;
 
-	if(identifiers == NULL || map == NULL)
+	if (identifiers == NULL || map == NULL)
 		return (NULL);
 	if (ft_check_identifier_empty_line(identifiers) == -1)
 		return (NULL);
@@ -216,7 +104,7 @@ t_data	*ft_parse_data(char **identifiers, char **map)
 	data->top = ft_get_rgb_from_id("C ", identifiers);
 	data->map = ft_parse_map(map);
 	if (data->north == NULL || data->south == NULL || data->east == NULL
-		|| data->west == NULL || get_a(data->top) < 255 
+		|| data->west == NULL || get_a(data->top) < 255
 		|| get_a(data->ground) < 255 || data->map == NULL)
 	{
 		free_data(data);

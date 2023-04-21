@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:44:17 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/20 16:22:02 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/21 11:22:14 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static t_ivector	ft_getstart(char **map)
 	size_t		ypos;
 	size_t		xpos;
 	t_ivector	pos;
+
 	ypos = 0;
 	while (map[ypos] != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:04:23 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/20 10:32:40 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/21 11:21:46 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,5 @@ char	**ft_get_cub(const char *path)
 	lcount = ft_count_line(fd);
 	fd = ft_open(path);
 	map = ft_fill_array(fd, lcount);
-	
 	return (map);
 }

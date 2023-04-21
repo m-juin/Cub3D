@@ -6,13 +6,13 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:45:20 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/20 16:16:58 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/21 11:21:28 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int ft_get_sep_line(char **id)
+static int	ft_get_sep_line(char **id)
 {
 	size_t	pos;
 	size_t	lpos;

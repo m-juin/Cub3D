@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/20 14:56:49 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/21 13:35:22 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,14 @@ SRC =	srcs/main.c							\
 		srcs/Utils/exit.c					\
 		srcs/Utils/free.c					\
 		srcs/Utils/colors.c					\
+		srcs/Utils/empty_line.c 			\
 		srcs/Parsing/ft_checkarg.c			\
 		srcs/Parsing/ft_checkmap.c			\
 		srcs/Parsing/ft_get_cub.c			\
 		srcs/Parsing/ft_parse_data.c		\
 		srcs/Parsing/ft_get_rgb_from_id.c	\
-		srcs/Parsing/ft_parsing_main.c
+		srcs/Parsing/ft_parsing_main.c		\
+		srcs/Parsing/ft_map_parsing.c		\
 
 OBJ =	${SRC:.c=.o}
 

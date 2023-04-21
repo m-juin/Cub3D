@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:07:01 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/19 17:05:01 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/21 11:23:07 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 static int	is_valid_rgb(char *str)
 {
 	size_t	pos;
+	int		atoied;
 
 	pos = 0;
-	int atoied;
-
 	while (str[pos])
 	{
 		if (ft_isdigit(str[pos]) == 0)
@@ -54,7 +53,8 @@ static int	color_from_str(char *str)
 		}
 		pos++;
 	}
-	ret = get_rgba(ft_atoi(splitted_str[0]), ft_atoi(splitted_str[1]), ft_atoi(splitted_str[2]), 255);
+	ret = get_rgba(ft_atoi(splitted_str[0]), ft_atoi(splitted_str[1]),
+			ft_atoi(splitted_str[2]), 255);
 	ft_double_free(splitted_str);
 	return (ret);
 }
