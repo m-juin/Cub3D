@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpasquet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:20:08 by gpasquet          #+#    #+#             */
-/*   Updated: 2022/11/03 17:27:14 by gpasquet         ###   ########.fr       */
+/*   Updated: 2023/04/20 14:12:46 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,17 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (trimmed_s);
 	}
 	trimmed_s = ft_substr(s1, start_ind, trimmed_s_len);
+	return (trimmed_s);
+}
+
+char	*ft_strtrim_end(char const *s1, char const *set)
+{
+	char	*trimmed_s;
+	int		end_ind;
+
+	if (!s1 || !set)
+		return (0);
+	end_ind = ft_search_end(s1, set) + 1;
+	trimmed_s = ft_substr(s1, 0, end_ind);
 	return (trimmed_s);
 }

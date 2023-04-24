@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:09:47 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/19 16:08:33 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/21 11:12:48 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_error(char *message)
 {
-	static int printed;
+	static int	printed;
 
 	if (printed == 0)
 	{
