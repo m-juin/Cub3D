@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 15:05:12 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:44:04 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,12 @@
 # include <fcntl.h>
 # include <string.h> 
 # include <errno.h>
+# include <math.h>
 
 /* Window defines */
 
 # define WIDTH 520
 # define HEIGHT 520
-
-typedef struct s_map_data{
-	int	color;
-	int	state;
-}	t_map_data;
-
-typedef struct s_player_data{
-	int		py;
-	int		px;
-	float	pdx;
-	float	pdy;
-	float	pa;
-	int		color;
-	t_map_data **map_data;
-}	t_player_data;
 
 enum	e_dir
 {
@@ -53,8 +39,37 @@ enum	e_dir
 	west,
 };
 
+typedef struct s_ivector
+{
+	int	x;
+	int	y;
+}	t_ivector;
+
+typedef struct s_pixel
+{
+	int	color;
+	int	state;
+}	t_pixel;
+
+typedef struct s_player
+{
+	t_ivector		map_pos;
+	enum e_dir		facing_dir;
+	int		py;
+	int		px;
+	float	pdx;
+	float	pdy;
+	float	pa;
+	int		color;
+	t_pixel **map_data;
+}	t_player;
+
 typedef struct s_data
 {
+	t_pixel			**pixel_map;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_player		*player;
 	mlx_texture_t	*north;
 	mlx_texture_t	*south;
 	mlx_texture_t	*east;
@@ -64,25 +79,8 @@ typedef struct s_data
 	char			**map;
 }	t_data;
 
-typedef struct s_ivector
+typedef struct s_bresenham 
 {
-	int	x;
-	int	y;
-}	t_ivector;
-
-typedef struct s_player
-{
-	t_ivector		map_pos;
-	enum e_dir		facing_dir;
-}	t_player;
-typedef struct s_trash{
-	t_map_data		**data;
-	mlx_t			*mlx;
-	mlx_image_t		*img;
-	t_player_data	*player;
-}	t_trash;
-
-typedef struct s_bresenham {
 	int		x1;
 	int		x2;
 	int		y1;
@@ -103,7 +101,7 @@ void	ft_print_error(char *message);
 
 /*	Utils/free.c	*/
 void	*ft_double_free(char **array);
-void	ft_free_data(t_data *data);
+void	ft_free_map_data(t_data *data);
 
 /*	Utils/colors.c	*/
 int		get_rgba(int r, int g, int b, int a);
@@ -141,12 +139,13 @@ char	**ft_parse_map(char **src);
 
 /*	Mlx/key_hook.c	*/
 void	handle_key_hook(mlx_key_data_t keydata, void *param);
+
 /* ft_test.c */
-void	ft_map_start(mlx_image_t *img, t_map_data ***data);
-void	ft_put_player(mlx_image_t *img, t_trash *trash);
-void	ft_print_lines(mlx_image_t *img, t_player_data *player);
-void	ft_trace_ray(mlx_image_t *img, t_trash *trash);
-void	ft_print_lines_v2(mlx_image_t *img, t_player_data *player, int rx, int ry);
-void	ft_cast_rays(mlx_image_t *img, t_player_data *player);
+void	ft_map_start(mlx_image_t *img, t_pixel ***data);
+void	ft_put_player(mlx_image_t *img, t_data *trash);
+void	ft_print_lines(mlx_image_t *img, t_player *player);
+void	ft_trace_ray(mlx_image_t *img, t_data *trash);
+void	ft_print_lines_v2(mlx_image_t *img, t_player *player, int rx, int ry);
+void	ft_cast_rays(mlx_image_t *img, t_player *player);
 
 #endif

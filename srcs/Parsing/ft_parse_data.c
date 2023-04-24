@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:28:11 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 10:20:49 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 16:40:13 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_data	*ft_parse_data(char **identifiers, char **map)
 		|| data->west == NULL || get_a(data->top) < 255
 		|| get_a(data->ground) < 255 || data->map == NULL)
 	{
-		ft_free_data(data);
+		ft_free_map_data(data);
 		return (NULL);
 	}
 	return (data);

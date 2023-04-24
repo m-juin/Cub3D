@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/22 14:26:23 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:41:54 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, int color)
 	}
 }
 
-void	ft_print_lines(mlx_image_t *img, t_player_data *player)
+void	ft_print_lines(mlx_image_t *img, t_player *player)
 {
 	t_bresenham *bre;
 
@@ -81,7 +81,7 @@ void	ft_print_lines(mlx_image_t *img, t_player_data *player)
 	free(bre);
 }
 
-void	ft_print_lines_v2(mlx_image_t *img, t_player_data *player, int rx, int ry)
+void	ft_print_lines_v2(mlx_image_t *img, t_player *player, int rx, int ry)
 {
 	t_bresenham *bre;
 

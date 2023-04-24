@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_test.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 09:48:54 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/24 15:00:44 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:41:54 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/cub3d.h"
 #include <math.h>
 
-void	ft_cast_rays_horizontal(mlx_image_t *img, t_player_data *player)
+void	ft_cast_rays_horizontal(mlx_image_t *img, t_player *player)
 {
 	//int	r;
 	int	mx;
@@ -71,7 +71,7 @@ void	ft_cast_rays_horizontal(mlx_image_t *img, t_player_data *player)
 	ft_print_lines_v2(img, player, rx, ry);
 }
 
-void	ft_cast_rays(mlx_image_t *img, t_player_data *player)
+void	ft_cast_rays(mlx_image_t *img, t_player *player)
 {
 	//int	r;
 	int	mx;
@@ -128,11 +128,11 @@ void	ft_cast_rays(mlx_image_t *img, t_player_data *player)
 	ft_print_lines_v2(img, player, rx, ry);
 }
 
-void	ft_trace_ray(mlx_image_t *img, t_trash *trash)
+void	ft_trace_ray(mlx_image_t *img, t_data *trash)
 {
-	t_player_data *player;
+	t_player *player;
 
-	player = malloc(sizeof(t_player_data) * 1);
+	player = malloc(sizeof(t_player) * 1);
 	trash->player = player;
 	player->pa = M_PI * 1.25;
 	player->color = 0x00F0FFFF;
@@ -140,35 +140,35 @@ void	ft_trace_ray(mlx_image_t *img, t_trash *trash)
 	player->py = 200 + 4;
 	player->pdx = player->px + cos(player->pa) * 10;
 	player->pdy = player->py + sin(player->pa) * 10;
-	player->map_data = trash->data;
+	player->map_data = trash->pixel_map;
 	ft_print_lines(img, player);
 	ft_cast_rays(img, player);
 }
 
-void	ft_map_start(mlx_image_t *img, t_map_data ***data)
+void	ft_map_start(mlx_image_t *img, t_pixel ***pixel_map)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	*data = malloc(sizeof(t_map_data *) * WIDTH);
+	*pixel_map = malloc(sizeof(t_pixel *) * WIDTH);
 	while (y < WIDTH)
 	{
 		x = 0;
-		(*data)[y] = malloc(sizeof(t_map_data) * HEIGHT);
+		(*pixel_map)[y] = malloc(sizeof(t_pixel) * HEIGHT);
 		while (x < HEIGHT)
 		{
 			if (x < HEIGHT/32 || y < WIDTH/32 || x > HEIGHT - HEIGHT/32 || y > WIDTH - WIDTH/32)
 			{
-				(*data)[y][x].color = 0x000000FF;
-				(*data)[y][x].state = 1;
+				(*pixel_map)[y][x].color = 0x000000FF;
+				(*pixel_map)[y][x].state = 1;
 			}
 			else
 			{
-				(*data)[y][x].color = 0xFF0000FF;
-				(*data)[y][x].state = 0;
+				(*pixel_map)[y][x].color = 0xFF0000FF;
+				(*pixel_map)[y][x].state = 0;
 			}
-			mlx_put_pixel(img, x, y, (*data)[y][x].color);
+			mlx_put_pixel(img, x, y, (*pixel_map)[y][x].color);
 			x++;
 		}
 		y++;
@@ -179,20 +179,19 @@ void	ft_map_start(mlx_image_t *img, t_map_data ***data)
 		x = 0;
 		while (x < 8)
 		{
-			(*data)[y+40][x+40].color = 0x000000FF;
-			(*data)[y+40][x+40].state = 1;
-			mlx_put_pixel(img, x+40, y+40, (*data)[y+40][x+40].color);
-			(*data)[y+300][x+300].color = 0x000000FF;
-			(*data)[y+300][x+300].state = 1;
-			mlx_put_pixel(img, x+300, y+300, (*data)[y+300][x+300].color);
+			(*pixel_map)[y+40][x+40].color = 0x000000FF;
+			(*pixel_map)[y+40][x+40].state = 1;
+			mlx_put_pixel(img, x+40, y+40, (*pixel_map)[y+40][x+40].color);
+			(*pixel_map)[y+300][x+300].color = 0x000000FF;
+			(*pixel_map)[y+300][x+300].state = 1;
+			mlx_put_pixel(img, x+300, y+300, (*pixel_map)[y+300][x+300].color);
 			x++;
 		}
 		y++;
 	}
-
 }
 
-void	ft_put_player(mlx_image_t *img, t_trash *trash)
+void	ft_put_player(mlx_image_t *img, t_data *trash)
 {
 	int	x;
 	int	y;
@@ -203,9 +202,9 @@ void	ft_put_player(mlx_image_t *img, t_trash *trash)
 		y = 0;
 		while (y < 8)
 		{
-			trash->data[y+200][x+85].color = 0x00F0FFFF;
-			trash->data[y+200][x+85].state = 3;
-			mlx_put_pixel(img, x+85, y+200, trash->data[y+200][x+85].color);
+			trash->pixel_map[y+200][x+85].color = 0x00F0FFFF;
+			trash->pixel_map[y+200][x+85].state = 3;
+			mlx_put_pixel(img, x+85, y+200, trash->pixel_map[y+200][x+85].color);
 			y++;
 		}
 		x++;

@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:44:17 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 10:21:42 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 16:40:13 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,14 @@ void	ft_check_map(t_data *data)
 	ft_normalize_map(data->map);
 	if (start.x == -1)
 	{
-		ft_free_data(data);
+		ft_free_map_data(data);
 		ft_exit("Can't reach player start pos", 1);
 	}
 	startvalue = data->map[start.y][start.x];
 	data->map[start.y][start.x] = '0';
 	if (ft_check_wall(data->map) == -1)
 	{
-		ft_free_data(data);
+		ft_free_map_data(data);
 		ft_exit("Invalid map border", 1);
 	}
 	data->map[start.y][start.x] = startvalue;
