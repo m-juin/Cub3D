@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 15:05:33 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:57:37 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void	ft_move(void *data)
 		trash->player->pa += 0.05;
 		if (trash->player->pa > M_PI * 2)
 			trash->player->pa -= (M_PI * 2);
-		ft_cast_rays(trash->img, trash->player);
+		ft_trace_correct_rays(trash->img, trash->player);
 	}
 	if (mlx_is_key_down(trash->mlx, MLX_KEY_UP))
 	{
 		trash->player->pa -= 0.05;
 		if (trash->player->pa < 0)
 			trash->player->pa += (M_PI * 2);
-		ft_cast_rays(trash->img, trash->player);
+		ft_trace_correct_rays(trash->img, trash->player);
 	}
 }
 
