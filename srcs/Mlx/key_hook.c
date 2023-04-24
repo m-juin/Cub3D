@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 10:16:28 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 10:21:06 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,17 @@ static void	rotation_hook(mlx_key_data_t keydata)
 		printf("Rotate Right\n");
 }
 
-static void	close_hook(mlx_key_data_t keydata, void *param)
+static void	close_hook(mlx_key_data_t keydata, t_data *param)
 {
-	(void)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		ft_exit("", 0);
+	if (keydata.key != MLX_KEY_ESCAPE || keydata.action != MLX_RELEASE)
+		return ;
+	ft_free_data(param);
+	ft_exit("", 0);
 }
 
 void	handle_key_hook(mlx_key_data_t keydata, void *param)
 {
 	movement_hook(keydata);
 	rotation_hook(keydata);
-	close_hook(keydata, param);
+	close_hook(keydata, (t_data *)param);
 }

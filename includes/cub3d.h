@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 10:16:11 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 10:20:50 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_print_error(char *message);
 
 /*	Utils/free.c	*/
 void	*ft_double_free(char **array);
-void	free_data(t_data *data);
+void	ft_free_data(t_data *data);
 
 /*	Utils/colors.c	*/
 int		get_rgba(int r, int g, int b, int a);
