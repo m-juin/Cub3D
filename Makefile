@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/21 13:35:22 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/24 09:53:27 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC =	srcs/main.c							\
 		srcs/Parsing/ft_get_rgb_from_id.c	\
 		srcs/Parsing/ft_parsing_main.c		\
 		srcs/Parsing/ft_map_parsing.c		\
+		srcs/Mlx/key_hook.c					\
 
 OBJ =	${SRC:.c=.o}
 

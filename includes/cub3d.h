@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/21 13:33:36 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 10:16:11 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,12 @@ char	*search_texture_path(char *identifier, char **data);
 int		ft_get_rgb_from_id(char *id, char **data);
 
 /*	Parsing/ft_parsing_main.c	*/
-void	ft_parsing_main(char *path);
+t_data	*ft_parsing_main(char *path);
 
 /*	Parsing/ft_map_parsing.c	*/
 char	**ft_parse_map(char **src);
+
+/*	Mlx/key_hook.c	*/
+void	handle_key_hook(mlx_key_data_t keydata, void *param);
 
 #endif

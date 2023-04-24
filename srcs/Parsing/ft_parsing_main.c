@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:45:20 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/21 11:21:28 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 09:43:52 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static char	**ft_get_id_part(char **src)
 	return (id);
 }
 
-void	ft_parsing_main(char *path)
+t_data	*ft_parsing_main(char *path)
 {
 	char		**identifiers;
 	char		**mapped;
@@ -95,4 +95,5 @@ void	ft_parsing_main(char *path)
 	if (mapped == NULL || identifiers == NULL || data == NULL)
 		ft_exit("Error on malloc", 1);
 	ft_check_map(data);
+	return (data);
 }
