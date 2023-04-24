@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/24 11:02:39 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/24 15:03:06 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 NAME =	cub3D
 
 SRC =	srcs/main.c							\
+		srcs/ft_test.c \
+		srcs/ft_printing.c \
 		srcs/Utils/exit.c					\
 		srcs/Utils/free.c					\
 		srcs/Utils/colors.c					\

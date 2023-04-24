@@ -6,13 +6,14 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 10:50:49 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 15:05:33 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
 
-static mlx_image_t *fill_image(int color, size_t x, size_t y, mlx_t *mlx)
+/*static mlx_image_t *fill_image(int color, size_t x, size_t y, mlx_t *mlx)
 {
 	mlx_image_t	*img;
 	size_t			posx;
@@ -33,35 +34,58 @@ static mlx_image_t *fill_image(int color, size_t x, size_t y, mlx_t *mlx)
 		posy++;
 	}
 	return (img);
+}*/
+
+void	ft_move(void *data)
+{
+	t_trash *trash;
+
+	trash = data;
+	if (mlx_is_key_down(trash->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(trash->mlx);
+	if (mlx_is_key_down(trash->mlx, MLX_KEY_DOWN))
+	{
+		trash->player->pa += 0.05;
+		if (trash->player->pa > M_PI * 2)
+			trash->player->pa -= (M_PI * 2);
+		ft_cast_rays(trash->img, trash->player);
+	}
+	if (mlx_is_key_down(trash->mlx, MLX_KEY_UP))
+	{
+		trash->player->pa -= 0.05;
+		if (trash->player->pa < 0)
+			trash->player->pa += (M_PI * 2);
+		ft_cast_rays(trash->img, trash->player);
+	}
 }
 
 int	main(int ac, char **av)
 {
+	/*char	**array;
 	t_data	*data;
 
 	ft_checkarg(ac, av);
-	data = ft_parsing_main(av[1]);
+	array = ft_get_cub(av[1]);
+	data = ft_parse_data(array);
+	ft_double_free(array);
+	if (data != NULL)
+		free_data(data);*/
+	t_trash	*trash;
+ 	
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	mlx_set_setting(MLX_FULLSCREEN, true);
 	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Maze of DDD³", false);
+	mlx_image_t *img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	ac = 0;
+	av = NULL;
+	trash = malloc(sizeof(t_trash) * 1);
+	trash->mlx = mlx;
+	trash->img = img;
 	/*if (!mlx)
 		ft_error();*/
-	mlx_image_t* img = mlx_texture_to_image(mlx, data->north);
-	mlx_image_t* img2 = mlx_texture_to_image(mlx, data->south);
-	mlx_image_t* img3 = mlx_texture_to_image(mlx, data->east);
-	mlx_image_t* img4 = mlx_texture_to_image(mlx, data->west);
-	mlx_image_t* img5 = fill_image(data->top, WIDTH, HEIGHT / 2, mlx);
-	mlx_image_t* img6 = fill_image(data->ground, WIDTH, HEIGHT / 2, mlx);
-	mlx_image_to_window(mlx, img5, 0, 0);
-	mlx_image_to_window(mlx, img6, 0, HEIGHT / 2);
-	mlx_image_to_window(mlx, img, (WIDTH / 2) - 128, 0);
-	mlx_image_to_window(mlx, img2, (WIDTH / 2) - 128, (HEIGHT) - 256);
-	mlx_image_to_window(mlx, img3, (WIDTH) - 256, (HEIGHT / 2) - 128);
-	mlx_image_to_window(mlx, img4, 0, (HEIGHT / 2) - 128);
-	mlx_key_hook(mlx, &handle_key_hook, data);
-	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Maze of DDD³", false);
-	/*if (!mlx)
-		ft_error();*/
+	ft_map_start(img, &trash->data);
+	ft_put_player(img, trash);
+	mlx_image_to_window(mlx, img, 0, 0);
+	mlx_loop_hook(mlx, &ft_move, trash);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }

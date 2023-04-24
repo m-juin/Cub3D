@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 10:20:50 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 15:05:12 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,23 @@
 
 /* Window defines */
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 520
+# define HEIGHT 520
+
+typedef struct s_map_data{
+	int	color;
+	int	state;
+}	t_map_data;
+
+typedef struct s_player_data{
+	int		py;
+	int		px;
+	float	pdx;
+	float	pdy;
+	float	pa;
+	int		color;
+	t_map_data **map_data;
+}	t_player_data;
 
 enum	e_dir
 {
@@ -60,6 +75,27 @@ typedef struct s_player
 	t_ivector		map_pos;
 	enum e_dir		facing_dir;
 }	t_player;
+typedef struct s_trash{
+	t_map_data		**data;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_player_data	*player;
+}	t_trash;
+
+typedef struct s_bresenham {
+	int		x1;
+	int		x2;
+	int		y1;
+	int		y2;
+	int		xincr;
+	int		yincr;
+	float	ey;
+	float	ex;
+	float	dy;
+	float	dx;
+	int		gdx;
+	int		gdy;
+}			t_bresenham;
 
 /*	Utils/exit.c	*/
 void	ft_exit(char *message, int exit_code);
@@ -105,5 +141,12 @@ char	**ft_parse_map(char **src);
 
 /*	Mlx/key_hook.c	*/
 void	handle_key_hook(mlx_key_data_t keydata, void *param);
+/* ft_test.c */
+void	ft_map_start(mlx_image_t *img, t_map_data ***data);
+void	ft_put_player(mlx_image_t *img, t_trash *trash);
+void	ft_print_lines(mlx_image_t *img, t_player_data *player);
+void	ft_trace_ray(mlx_image_t *img, t_trash *trash);
+void	ft_print_lines_v2(mlx_image_t *img, t_player_data *player, int rx, int ry);
+void	ft_cast_rays(mlx_image_t *img, t_player_data *player);
 
 #endif
