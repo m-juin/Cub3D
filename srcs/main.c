@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 16:40:13 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 16:45:49 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@
 
 int	main(int ac, char **av)
 {
-	t_data	*trash;
+	t_data	*data;
  	
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Maze of DDD³", false);
 	mlx_image_t *img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	ac = 0;
 	av = NULL;
-	trash = malloc(sizeof(t_data) * 1);
-	trash->mlx = mlx;
-	trash->img = img;
-	ft_map_start(img, &trash->pixel_map);
-	ft_put_player(img, trash);
+	data = malloc(sizeof(t_data) * 1);
+	data->mlx = mlx;
+	data->img = img;
+	ft_map_start(img, &data->pixel_map);
+	ft_put_player(img, data);
 	mlx_image_to_window(mlx, img, 0, 0);
-	mlx_key_hook(mlx, handle_key_hook, trash);
+	mlx_key_hook(mlx, handle_key_hook, data);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }
