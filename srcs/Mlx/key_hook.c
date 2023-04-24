@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 16:40:13 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 18:23:36 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	rotation_hook(mlx_key_data_t keydata, t_data *trash)
 			trash->player->pa -= 0.05;
 			if (trash->player->pa < 0)
 				trash->player->pa += (M_PI * 2);
-			ft_cast_rays(trash->img, trash->player);
+			ft_trace_correct_rays(trash->img, trash->player);
 		}
 	else if (keydata.key == MLX_KEY_RIGHT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
@@ -44,7 +44,7 @@ static void	rotation_hook(mlx_key_data_t keydata, t_data *trash)
 			trash->player->pa += 0.05;
 			if (trash->player->pa > M_PI * 2)
 				trash->player->pa -= (M_PI * 2);
-			ft_cast_rays(trash->img, trash->player);
+			ft_trace_correct_rays(trash->img, trash->player);
 		}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 16:44:04 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 18:23:00 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 
 # define WIDTH 520
 # define HEIGHT 520
+
+typedef	struct	s_raycast	t_raycast;
 
 enum	e_dir
 {
@@ -62,6 +64,8 @@ typedef struct s_player
 	float	pa;
 	int		color;
 	t_pixel **map_data;
+	t_raycast	*horizontal;
+	t_raycast	*vertical;
 }	t_player;
 
 typedef struct s_data
@@ -94,6 +98,13 @@ typedef struct s_bresenham
 	int		gdx;
 	int		gdy;
 }			t_bresenham;
+
+struct s_raycast {
+	float	dist;
+	float	dx;
+	float	dy;
+	float	ra;
+};
 
 /*	Utils/exit.c	*/
 void	ft_exit(char *message, int exit_code);
@@ -146,6 +157,8 @@ void	ft_put_player(mlx_image_t *img, t_data *trash);
 void	ft_print_lines(mlx_image_t *img, t_player *player);
 void	ft_trace_ray(mlx_image_t *img, t_data *trash);
 void	ft_print_lines_v2(mlx_image_t *img, t_player *player, int rx, int ry);
-void	ft_cast_rays(mlx_image_t *img, t_player *player);
+void	ft_cast_rays_horizontal(t_player *player, t_raycast *raycast);
+void	ft_cast_rays_vertical(t_player *player, t_raycast *raycast);
+void	ft_trace_correct_rays(mlx_image_t *img, t_player *player);
 
 #endif

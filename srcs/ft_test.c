@@ -6,49 +6,55 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 09:48:54 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/24 16:41:54 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 18:24:26 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 #include <math.h>
+#define RAD M_PI/180.0
 
-void	ft_cast_rays_horizontal(mlx_image_t *img, t_player *player)
+void	ft_dist_calc(t_player *player, t_raycast *raycast)
+{
+	raycast->dist = sqrt((player->px - raycast->dx) * (player->px - raycast->dx) + (raycast->dy - player->py) * (raycast->dy - player->py));
+}
+
+void	ft_cast_rays_vertical(t_player *player, t_raycast *raycast)
 {
 	//int	r;
 	int	mx;
 	int	my;
-	int	mp;
+	//int	mp;
 	int	dof;
 	float	rx;
 	float	ry;
-	float	ra;
 	float	xo;
 	float	yo;
 	float	nTan;
 	int		ratio;
 	
-	ra = player->pa;
 	player->color = 0xFFFF0F0F;
-	nTan = -1 / tan(ra);
+	raycast->dx = player->px;
+	raycast->dy = player->py;
+	nTan = -tan(raycast->ra);
 	dof = 0;
 	ratio = 1;
-	if (ra > M_PI_2 && ra < 3 * M_PI_2)
+	if (raycast->ra > M_PI_2 && raycast->ra < 3 * M_PI_2)
 	{
-		ry = (((int)player->py / ratio) * ratio) - 0.0001;
-		rx = (player->py - ry) * nTan + player->px;
-		yo = -ratio;
-		xo = -yo * nTan;
+		rx = (((int)player->px / ratio) * ratio) - 0.0001;
+		ry = (player->px - rx) * nTan + player->py;
+		xo = -ratio;
+		yo = -xo * nTan;
 	}
-	else if (ra < M_PI_2 || ra > 3 * M_PI_2)
+	else if (raycast->ra < M_PI_2 || raycast->ra > 3 * M_PI_2)
 	{
-		ry = (((int)player->py / ratio) * ratio) + ratio;
-		rx = (player->py - ry) * nTan + player->px;
-		yo = ratio;
-		xo = -yo * nTan;
+		rx = (((int)player->px / ratio) * ratio) + ratio;
+		ry = (player->px - rx) * nTan + player->py;
+		xo = ratio;
+		yo = -xo * nTan;
 	}
-	else if (ra == 0 || ra == M_PI)
+	else if (raycast->ra == 0 || raycast->ra == M_PI)
 	{
 		rx = player->px;
 		ry = player->py;
@@ -58,9 +64,14 @@ void	ft_cast_rays_horizontal(mlx_image_t *img, t_player *player)
 	{
 		mx = (int)rx / ratio;
 		my = (int)ry / ratio;
-		mp = my * HEIGHT + mx;
-		if (mp < WIDTH * HEIGHT && player->map_data[(int)ry][(int)rx].state == 1)
+		//mp = my * HEIGHT + mx;
+		if (my < WIDTH && mx < HEIGHT && my >= 0 && mx >= 0 && player->map_data[my][mx].state == 1)
+		{
+			raycast->dx = rx;
+			raycast->dy = ry;
+			ft_dist_calc(player, raycast);
 			dof = WIDTH;
+		}
 		else
 		{
 			rx += xo;
@@ -68,44 +79,43 @@ void	ft_cast_rays_horizontal(mlx_image_t *img, t_player *player)
 			dof += 1;
 		}
 	}
-	ft_print_lines_v2(img, player, rx, ry);
 }
 
-void	ft_cast_rays(mlx_image_t *img, t_player *player)
+void	ft_cast_rays_horizontal(t_player *player, t_raycast *raycast)
 {
 	//int	r;
 	int	mx;
 	int	my;
-	int	mp;
+	//int	mp;
 	int	dof;
 	float	rx;
 	float	ry;
-	float	ra;
 	float	xo;
 	float	yo;
 	float	aTan;
 	int		ratio;
 	
-	ra = player->pa;
+	raycast->dx = player->px;
+	raycast->dy = player->py;
 	player->color = 0xFFFF0F0F;
-	aTan = -1 / tan(ra);
+	aTan = -1 / tan(raycast->ra);
 	dof = 0;
 	ratio = 1;
-	if (ra > M_PI)
+	if (raycast->ra > M_PI)
 	{
 		ry = (((int)player->py / ratio) * ratio) - 0.0001;
 		rx = (player->py - ry) * aTan + player->px;
 		yo = -ratio;
 		xo = -yo * aTan;
 	}
-	else if (ra < M_PI)
+	else if (raycast->ra < M_PI)
 	{
 		ry = (((int)player->py / ratio) * ratio) + ratio;
 		rx = (player->py - ry) * aTan + player->px;
 		yo = ratio;
 		xo = -yo * aTan;
 	}
-	else if (ra == 0 || ra == M_PI)
+	else if (raycast->ra == 0 || raycast->ra == M_PI)
 	{
 		rx = player->px;
 		ry = player->py;
@@ -115,9 +125,14 @@ void	ft_cast_rays(mlx_image_t *img, t_player *player)
 	{
 		mx = (int)rx / ratio;
 		my = (int)ry / ratio;
-		mp = my * WIDTH + mx;
-		if (mp < WIDTH * HEIGHT && player->map_data[my][mx].state == 1)
+		//mp = my * WIDTH + mx;
+		if (my < WIDTH && mx < HEIGHT && my >= 0 && mx >= 0 && player->map_data[my][mx].state == 1)
+		{
+			raycast->dx = rx;
+			raycast->dy = ry;
+			ft_dist_calc(player, raycast);
 			dof = WIDTH;
+		}
 		else
 		{
 			rx += xo;
@@ -125,14 +140,76 @@ void	ft_cast_rays(mlx_image_t *img, t_player *player)
 			dof += 1;
 		}
 	}
-	ft_print_lines_v2(img, player, rx, ry);
+}
+
+void	ft_redraw_previous_ray(mlx_image_t *img, t_player *player)
+{
+	t_raycast	*horizontal;
+	t_raycast	*vertical;
+
+	horizontal = player->horizontal;
+	vertical = player->vertical;
+	if (vertical->dist == 1000000 && horizontal->dist == 1000000)
+		return ;
+	player->color = 0xFF0000FF;
+	if (vertical->dist < horizontal->dist)
+		ft_print_lines_v2(img, player, vertical->dx, vertical->dy);
+	else if (horizontal->dist < vertical->dist)
+		ft_print_lines_v2(img, player, horizontal->dx, horizontal->dy);
+	player->color = 0x00F0FFFF;
+}
+
+void	ft_trace_correct_rays(mlx_image_t *img, t_player *player)
+{
+	t_raycast	*horizontal;
+	t_raycast	*vertical;
+	int			i;
+	float		dist;
+
+	i = 0;
+	horizontal = player->horizontal;
+	vertical = player->vertical;
+	ft_redraw_previous_ray(img, player);
+	horizontal->ra = player->pa - RAD * 30;
+	if (horizontal->ra < 0)
+		horizontal->ra += 2 * M_PI;
+	if (horizontal->ra > 2 * M_PI)
+		horizontal->ra -= 2 * M_PI;
+	vertical->ra = horizontal->ra;
+	while (i < 1)
+	{
+		ft_cast_rays_horizontal(player, horizontal);
+		ft_cast_rays_vertical(player, vertical);
+		if (vertical->dist < horizontal->dist)
+		{
+			ft_print_lines_v2(img, player, vertical->dx, vertical->dy);
+			dist = vertical->dist;
+		}
+		else if (horizontal->dist < vertical->dist)
+		{
+			ft_print_lines_v2(img, player, horizontal->dx, horizontal->dy);
+			dist = horizontal->dist;
+		}
+		horizontal->ra += RAD;
+		if (horizontal->ra < 0)
+			horizontal->ra += 2 * M_PI;
+		if (horizontal->ra > 2 * M_PI)
+			horizontal->ra -= 2 * M_PI;
+		vertical->ra = horizontal->ra;
+		i++;
+	}
 }
 
 void	ft_trace_ray(mlx_image_t *img, t_data *trash)
 {
 	t_player *player;
+	t_raycast	*horizontal;
+	t_raycast	*vertical;
 
 	player = malloc(sizeof(t_player) * 1);
+
+	horizontal = malloc(sizeof(t_raycast) * 1);
+	vertical = malloc(sizeof(t_raycast) * 1);
 	trash->player = player;
 	player->pa = M_PI * 1.25;
 	player->color = 0x00F0FFFF;
@@ -141,8 +218,12 @@ void	ft_trace_ray(mlx_image_t *img, t_data *trash)
 	player->pdx = player->px + cos(player->pa) * 10;
 	player->pdy = player->py + sin(player->pa) * 10;
 	player->map_data = trash->pixel_map;
+	vertical->dist = 1000000;
+	horizontal->dist = 1000000;
+	player->horizontal = horizontal;
+	player->vertical = vertical;
 	ft_print_lines(img, player);
-	ft_cast_rays(img, player);
+	ft_trace_correct_rays(img, player);
 }
 
 void	ft_map_start(mlx_image_t *img, t_pixel ***pixel_map)
