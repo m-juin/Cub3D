@@ -13,9 +13,9 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "libft.h"
-# include "get_next_line.h"
-# include "MLX42.h"
+# include "../libft/include/libft.h"
+# include "../libft/include/get_next_line.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -24,6 +24,8 @@
 # include <fcntl.h>
 # include <string.h> 
 # include <errno.h>
+
+/* Window defines */
 
 # define WIDTH 1920
 # define HEIGHT 1080

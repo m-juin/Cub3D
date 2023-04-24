@@ -59,6 +59,9 @@ int	main(int ac, char **av)
 	mlx_image_to_window(mlx, img3, (WIDTH) - 256, (HEIGHT / 2) - 128);
 	mlx_image_to_window(mlx, img4, 0, (HEIGHT / 2) - 128);
 	mlx_key_hook(mlx, &handle_key_hook, data);
+	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Maze of DDD³", false);
+	/*if (!mlx)
+		ft_error();*/
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }
