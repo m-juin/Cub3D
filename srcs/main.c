@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 09:51:17 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/24 10:50:49 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int ac, char **av)
 	mlx_image_to_window(mlx, img2, (WIDTH / 2) - 128, (HEIGHT) - 256);
 	mlx_image_to_window(mlx, img3, (WIDTH) - 256, (HEIGHT / 2) - 128);
 	mlx_image_to_window(mlx, img4, 0, (HEIGHT / 2) - 128);
-	mlx_key_hook(mlx, &handle_key_hook, NULL);
+	mlx_key_hook(mlx, &handle_key_hook, data);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }

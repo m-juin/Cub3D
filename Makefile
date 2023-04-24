@@ -6,13 +6,13 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/24 09:53:27 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/24 11:02:39 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC =	clang
 
-CFLAGS =	-g -Werror -Wextra -Wall -I./includes -I./MLX42/include/MLX42 -I./libft/include
+CFLAGS =	-g -Werror -Wextra -Wall -I./includes -Ofast -I./MLX42/include/MLX42 -I./libft/include
 
 LIBMLX	:= ./MLX42
 
