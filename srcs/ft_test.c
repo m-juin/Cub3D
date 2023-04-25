@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 09:48:54 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/24 18:24:26 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/25 12:38:20 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_cast_rays_vertical(t_player *player, t_raycast *raycast)
 		mx = (int)rx / ratio;
 		my = (int)ry / ratio;
 		//mp = my * HEIGHT + mx;
-		if (my < WIDTH && mx < HEIGHT && my >= 0 && mx >= 0 && player->map_data[my][mx].state == 1)
+		if (my < HEIGHT && mx < WIDTH && my >= 0 && mx >= 0 && player->map_data[my][mx].state == 1)
 		{
 			raycast->dx = rx;
 			raycast->dy = ry;
@@ -126,7 +126,7 @@ void	ft_cast_rays_horizontal(t_player *player, t_raycast *raycast)
 		mx = (int)rx / ratio;
 		my = (int)ry / ratio;
 		//mp = my * WIDTH + mx;
-		if (my < WIDTH && mx < HEIGHT && my >= 0 && mx >= 0 && player->map_data[my][mx].state == 1)
+		if (my < HEIGHT && mx < WIDTH && my >= 0 && mx >= 0 && player->map_data[my][mx].state == 1)
 		{
 			raycast->dx = rx;
 			raycast->dy = ry;
@@ -159,35 +159,68 @@ void	ft_redraw_previous_ray(mlx_image_t *img, t_player *player)
 	player->color = 0x00F0FFFF;
 }
 
+void	ft_draw_3D(mlx_image_t *img, int i, float lineH, float lineOff)
+{
+	int	j;
+
+	j = 0;
+	while (j < 8)
+	{
+		ft_print_lines_v3(img, i + j + 85, i + j + 85, lineOff, lineOff + lineH);
+		j++;
+	}
+}
+
+void	ft_fill_blank(mlx_image_t *img)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < WIDTH)
+	{
+		x = 0;
+		while (x < HEIGHT)
+		{
+			mlx_put_pixel(img, y, x, 0);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	ft_trace_correct_rays(mlx_image_t *img, t_player *player)
 {
 	t_raycast	*horizontal;
 	t_raycast	*vertical;
 	int			i;
 	float		dist;
+	float		lineH;
+	float		lineO;
 
 	i = 0;
 	horizontal = player->horizontal;
 	vertical = player->vertical;
-	ft_redraw_previous_ray(img, player);
+	ft_fill_blank(img);
+	//ft_redraw_previous_ray(img, player);
 	horizontal->ra = player->pa - RAD * 30;
 	if (horizontal->ra < 0)
 		horizontal->ra += 2 * M_PI;
 	if (horizontal->ra > 2 * M_PI)
 		horizontal->ra -= 2 * M_PI;
 	vertical->ra = horizontal->ra;
-	while (i < 1)
+	while (i < 60)
 	{
 		ft_cast_rays_horizontal(player, horizontal);
 		ft_cast_rays_vertical(player, vertical);
 		if (vertical->dist < horizontal->dist)
 		{
-			ft_print_lines_v2(img, player, vertical->dx, vertical->dy);
+			//ft_print_lines_v2(img, player, vertical->dx, vertical->dy);
 			dist = vertical->dist;
 		}
 		else if (horizontal->dist < vertical->dist)
 		{
-			ft_print_lines_v2(img, player, horizontal->dx, horizontal->dy);
+			//ft_print_lines_v2(img, player, horizontal->dx, horizontal->dy);
 			dist = horizontal->dist;
 		}
 		horizontal->ra += RAD;
@@ -196,6 +229,11 @@ void	ft_trace_correct_rays(mlx_image_t *img, t_player *player)
 		if (horizontal->ra > 2 * M_PI)
 			horizontal->ra -= 2 * M_PI;
 		vertical->ra = horizontal->ra;
+		lineH = (((WIDTH / 64) * (HEIGHT / 64)) * 320) / dist;
+		if (lineH > 320)
+			lineH = 320;
+		lineO = 160 - ((int)lineH >> 1);
+		ft_draw_3D(img, i * 8, lineH, lineO);
 		i++;
 	}
 }
@@ -207,7 +245,6 @@ void	ft_trace_ray(mlx_image_t *img, t_data *trash)
 	t_raycast	*vertical;
 
 	player = malloc(sizeof(t_player) * 1);
-
 	horizontal = malloc(sizeof(t_raycast) * 1);
 	vertical = malloc(sizeof(t_raycast) * 1);
 	trash->player = player;
@@ -222,7 +259,7 @@ void	ft_trace_ray(mlx_image_t *img, t_data *trash)
 	horizontal->dist = 1000000;
 	player->horizontal = horizontal;
 	player->vertical = vertical;
-	ft_print_lines(img, player);
+	//ft_print_lines(img, player);
 	ft_trace_correct_rays(img, player);
 }
 
@@ -232,14 +269,14 @@ void	ft_map_start(mlx_image_t *img, t_pixel ***pixel_map)
 	int	y;
 
 	y = 0;
-	*pixel_map = malloc(sizeof(t_pixel *) * WIDTH);
-	while (y < WIDTH)
+	*pixel_map = malloc(sizeof(t_pixel *) * HEIGHT);
+	while (y < HEIGHT)
 	{
 		x = 0;
-		(*pixel_map)[y] = malloc(sizeof(t_pixel) * HEIGHT);
-		while (x < HEIGHT)
+		(*pixel_map)[y] = malloc(sizeof(t_pixel) * WIDTH);
+		while (x < WIDTH)
 		{
-			if (x < HEIGHT/32 || y < WIDTH/32 || x > HEIGHT - HEIGHT/32 || y > WIDTH - WIDTH/32)
+			if (x < HEIGHT / 32 || y < WIDTH / 32 || x > WIDTH - WIDTH / 32 || y > HEIGHT - HEIGHT / 32)
 			{
 				(*pixel_map)[y][x].color = 0x000000FF;
 				(*pixel_map)[y][x].state = 1;
@@ -255,7 +292,7 @@ void	ft_map_start(mlx_image_t *img, t_pixel ***pixel_map)
 		y++;
 	}
 	y = 0;
-	while (y < 8)
+	/*while (y < 8)
 	{
 		x = 0;
 		while (x < 8)
@@ -269,7 +306,7 @@ void	ft_map_start(mlx_image_t *img, t_pixel ***pixel_map)
 			x++;
 		}
 		y++;
-	}
+	}*/
 }
 
 void	ft_put_player(mlx_image_t *img, t_data *trash)

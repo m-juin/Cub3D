@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 18:23:00 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/25 10:51:12 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 /* Window defines */
 
-# define WIDTH 520
-# define HEIGHT 520
+# define WIDTH 500
+# define HEIGHT 500
 
 typedef	struct	s_raycast	t_raycast;
 
@@ -160,5 +160,6 @@ void	ft_print_lines_v2(mlx_image_t *img, t_player *player, int rx, int ry);
 void	ft_cast_rays_horizontal(t_player *player, t_raycast *raycast);
 void	ft_cast_rays_vertical(t_player *player, t_raycast *raycast);
 void	ft_trace_correct_rays(mlx_image_t *img, t_player *player);
+void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry);
 
 #endif
