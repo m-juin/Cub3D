@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/26 17:36:01 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/27 00:20:55 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 # define WIDTH	1025
 # define HEIGHT	521
 # define CSIZE	64
+# define PI 3.1415926535
+# define P2 PI/2
+# define P3 3*PI/2
+# define DR 0.0174533
 
 enum	e_dir
 {
@@ -157,11 +161,11 @@ t_player	*ft_parse_player(char	**map);
 void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
 /* ft_test.c */
-void		ft_map_start(mlx_image_t *img, t_pixel ***data);
-void		ft_put_player(mlx_image_t *img, t_data *trash);
-void		ft_print_lines(mlx_image_t *img, t_player *player);
-void		ft_trace_ray(mlx_image_t *img, t_data *trash);
-void		ft_print_lines_v2(mlx_image_t *img, t_player *player, int rx, int ry);
-void		ft_cast_rays(mlx_image_t *img, t_player *player);
+//void		ft_map_start(mlx_image_t *img, t_pixel ***data);
+//void		ft_put_player(mlx_image_t *img, t_data *trash);
+//void		ft_print_lines(mlx_image_t *img, t_player *player);
+//void		ft_trace_ray(mlx_image_t *img, t_data *trash);
+void		ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry);
+//void		ft_cast_rays(mlx_image_t *img, t_player *player);
 
 #endif
