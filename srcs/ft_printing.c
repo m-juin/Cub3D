@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/24 16:41:54 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/26 23:57:03 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, int color)
 	}
 }
 
-void	ft_print_lines(mlx_image_t *img, t_player *player)
+/*void	ft_print_lines(mlx_image_t *img, t_player *player)
 {
 	t_bresenham *bre;
 
@@ -79,9 +79,37 @@ void	ft_print_lines(mlx_image_t *img, t_player *player)
 	else
 		ft_print_y_lines(img, bre, player->color);
 	free(bre);
+}*/
+
+void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry)
+{
+	t_bresenham *bre;
+
+	bre = malloc(sizeof(t_bresenham) * 1);
+	bre->y1 = py;
+	bre->y2 = ry;
+	bre->x1 = px;
+	bre->x2 = rx;
+	bre->ey = abs(bre->y2 - bre->y1);
+	bre->ex = abs(bre->x2 - bre->x1);
+	bre->dx = bre->ex * 2;
+	bre->dy = bre->ey * 2;
+	bre->dx = bre->ex;
+	bre->dy = bre->ey;
+	bre->xincr = 1;
+	bre->yincr = 1;
+	if (bre->x1 > bre->x2)
+		bre->xincr = -1;
+	if (bre->y1 > bre->y2)
+		bre->yincr = -1;
+	if (bre->dx > bre->dy)
+		ft_print_x_lines(img, bre, 0xFF00FFFF);
+	else
+		ft_print_y_lines(img, bre, 0xFF00FFFF);
+	free(bre);
 }
 
-void	ft_print_lines_v2(mlx_image_t *img, t_player *player, int rx, int ry)
+/*void	ft_print_lines_v2(mlx_image_t *img, t_player *player, int rx, int ry)
 {
 	t_bresenham *bre;
 
@@ -107,4 +135,4 @@ void	ft_print_lines_v2(mlx_image_t *img, t_player *player, int rx, int ry)
 	else
 		ft_print_y_lines(img, bre, player->color);
 	free(bre);
-}
+}*/

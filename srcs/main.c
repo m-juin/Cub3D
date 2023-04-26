@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/26 17:37:45 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/27 00:20:09 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,41 @@ static mlx_image_t *fill_image(int color, size_t x, size_t y, mlx_t *mlx)
 	return (img);
 }
 
-void draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color)
+void draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color, int size)
 {
-	double deltaX = endX - beginX;
-	double deltaY = endY - beginY;
-	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	double deltaX;
+	double deltaY;
+	int pixels;
+	double pixelX;
+	double pixelY;
+
+	deltaX = endX - beginX;
+	deltaY = endY - beginY ;
+	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
 	deltaX /= pixels;
 	deltaY /= pixels;
-
-	double pixelX = beginX;
-	double pixelY = beginY;
+	pixelX = beginX;
+	pixelY = beginY;
 	while (pixels)
 	{
 		mlx_put_pixel(img, pixelX, pixelY, color);
 		pixelX += deltaX;
 		pixelY += deltaY;
+		if (pixelX < 0 || pixelY < 0 || pixelX > img->width || pixelY > img->height)
+			return ;
 		--pixels;
+	}
+}
+
+void	ft_draw_3D(mlx_image_t *img, float ax, float ay, float bx, float by)
+{
+	int	j;
+
+	j = 0;
+	while (j < 8)
+	{
+		ft_print_lines_v3(img, ax + j, ay + j, bx, by);
+		j++;
 	}
 }
 
@@ -88,6 +107,17 @@ static void ft_draw_case(mlx_image_t *img, t_ivector pos, int color)
 	}
 }
 
+float degToRad(int a) 
+{
+	return a*PI/180.0;
+}
+
+
+static float dist(t_fvector a, t_fvector b, float angle)
+{
+	return (cos(degToRad(angle))*(b.x-a.x)-sin(degToRad(angle))*(b.y-a.y));
+}
+
 static mlx_image_t *ft_draw_map(t_data *data)
 {
 	t_ivector			pos;
@@ -111,64 +141,144 @@ static mlx_image_t *ft_draw_map(t_data *data)
 	return (map);
 }
 
-static void	ft_draw_ray3d(t_player *player, mlx_image_t *map, mlx_image_t *ray_img)
+static void	ft_draw_ray3d(t_data *data)
 {
-	t_ivector	map_pos;
-	//int			r;
-	int			doffset;
-	int			map_p;
+	int	r = 0;
+	int	doffset;
+	t_ivector map;
+	float	ray_angle;
+	float	aTan;
+	float	nTan;
 	t_fvector	ray_pos;
-	float		ray_angle;
 	t_fvector	ray_offset;
-	int			ray_count;
-	float		atan;
+	t_fvector H;
+	float distH;
+	float distV;
+	float distT;
+	t_fvector V;
+	float LineH;
+	float LineO;
 
-	ray_angle = player->angle;
-	ray_count = 0;
-	while (ray_count < 1)
+	ft_clean_img(data->img_ray);
+	ray_angle = data->player->angle - DR*30;
+	if (ray_angle < 0)
+		ray_angle += 2*PI;
+	if (ray_angle > 2*PI)
+		ray_angle -= 2*PI;
+	distH = 10000;
+	H.x = data->player->pos.x;
+	H.y = data->player->pos.y;
+	while (r < 60)
 	{
 		doffset = 0;
-		ray_count++;
-	}
-	atan = -1 / tan(ray_angle);
-	if (ray_angle > M_PI)
-	{
-		ray_pos.y = (((int)(player->pos.y + 4) >> 6) << 6) - 0.0001f;
-		ray_pos.x = (player->pos.y + 4 - ray_pos.y) * atan + (player->pos.x + 4);
-		ray_offset.y = (CSIZE * -1);
-		ray_offset.x = (ray_offset.y * -1) * atan;
-	}
-	else if (ray_angle < M_PI)
-	{
-		ray_pos.y = (((int)(player->pos.y + 4) >> 6) << 6) + CSIZE;
-		ray_pos.x = (player->pos.y + 4 - ray_pos.y) * atan + (player->pos.x + 4);
-		ray_offset.y = CSIZE;
-		ray_offset.x = ray_offset.y * atan;
-	}
-	else if (ray_angle == 0 || ray_angle == M_PI)
-	{
-		ray_pos.y = player->pos.y + 4;
-		ray_pos.x = player->pos.x + 4;
-		doffset = 8;
-	}
-	while (doffset < 8)
-	{
-		map_pos.x = (int)(ray_pos.x) >> 6;
-		map_pos.y = (int)(ray_pos.y) >> 6;
-		map_p = map_pos.y * 8 + map_pos.x;
-		if (map_p < 8 * 8 && map->pixels[map_p] == (get_rgba(255, 0, 0, 255)))
+		aTan = -1 / tan(ray_angle);
+		if (ray_angle > PI )
 		{
+			ray_pos.y = (((int)data->player->pos.y >> 6) << 6)-0.0001f;
+			ray_pos.x = (data->player->pos.y - ray_pos.y) * aTan + data->player->pos.x;
+			ray_offset.y = -64;
+			ray_offset.x = -ray_offset.y * aTan;
+		}
+		if (ray_angle < PI)
+		{
+			ray_pos.y = (((int)data->player->pos.y >> 6) << 6) + 64;
+			ray_pos.x = (data->player->pos.y - ray_pos.y) * aTan + data->player->pos.x;
+			ray_offset.y = 64;
+			ray_offset.x = -ray_offset.y * aTan;
+		}
+		if (ray_angle == 0 || ray_angle == PI)
+		{
+			ray_pos.x = data->player->pos.x;
+			ray_pos.y = data->player->pos.y;
 			doffset = 8;
 		}
-		else
+		while (doffset < 8)
 		{
-			ray_pos.x += ray_offset.x;
-			ray_pos.y += ray_offset.y;
-			doffset+=1;
+			map.x = (int)(ray_pos.y) >> 6;
+			map.y = (int)(ray_pos.x) >> 6;
+			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.x][map.y] == '1')
+			{
+				H.x = ray_pos.x;
+				H.y = ray_pos.y;
+				distH = dist(data->player->pos, H , ray_angle);
+				doffset = 8;
+			}
+			else
+			{
+				ray_pos.x += ray_offset.x;
+				ray_pos.y += ray_offset.y;
+				doffset += 1;
+			}
 		}
+		distV = 10000;
+		V.x = data->player->pos.x;
+		V.y = data->player->pos.y;
+		doffset = 0;
+		nTan = -tan(ray_angle);
+		if (ray_angle > P2 && ray_angle < P3)
+		{
+			ray_pos.x = (((int)data->player->pos.x >> 6) << 6)-0.0001f;
+			ray_pos.y = (data->player->pos.x - ray_pos.x) * nTan + data->player->pos.y;
+			ray_offset.x = -64;
+			ray_offset.y = -ray_offset.x * nTan;
+		}
+		if (ray_angle < P2 || ray_angle > P3)
+		{
+			ray_pos.x = (((int)data->player->pos.x >> 6) << 6) + 64;
+			ray_pos.y = (data->player->pos.x - ray_pos.x) * nTan + data->player->pos.y;
+			ray_offset.x = 64;
+			ray_offset.y = -ray_offset.x * nTan;
+		}
+		if (ray_angle == 0 || ray_angle == PI)
+		{
+			ray_pos.x = data->player->pos.x;
+			ray_pos.y = data->player->pos.y;
+			doffset = 8;
+		}
+		while (doffset < 8)
+		{
+			map.x = (int)(ray_pos.y) >> 6;
+			map.y = (int)(ray_pos.x) >> 6;
+			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.x][map.y] == '1')
+			{
+				V.x = ray_pos.x;
+				V.y = ray_pos.y;
+				distV = dist(data->player->pos, V, ray_angle);
+				doffset = 8;
+			}
+			else
+			{
+				ray_pos.x += ray_offset.x;
+				ray_pos.y += ray_offset.y;
+				doffset += 1;
+			}
+		}
+		if (distV < distH)
+		{
+			ray_pos.x = V.x;
+			ray_pos.y = V.y;
+			distT = distV;
+		}
+		else if (distV > distH)
+		{
+			ray_pos.x = H.x;
+			ray_pos.y = H.y;
+			distT = distH;
+		}
+		ft_print_lines_v3(data->img_ray, data->player->pos.x + 4, data->player->pos.y + 4, ray_pos.x, ray_pos.y);
+
+		LineH = (64 * 320) / distT;
+		if(LineH > 320)
+			LineH = 320;
+		LineO = (160) - (LineH / 2);
+		ft_draw_3D(data->img_ray, r * 8, LineO, r*8, LineH + LineO);
+		r++;
+		ray_angle += DR;
+		if (ray_angle < 0)
+			ray_angle += 2*PI;
+		if (ray_angle > 2*PI)
+			ray_angle -= 2*PI;
 	}
-	ft_clean_img(ray_img);
-	draw_line(ray_img, (int)player->pos.x + 4, (int)player->pos.y + 4, (int)ray_pos.x, ray_pos.y, get_rgba(255, 255, 255, 255));
 }
 
 static void ft_update(void *param)
@@ -182,7 +292,7 @@ static void ft_update(void *param)
 		return ;
 	}
 	frame = 0;*/
-	ft_draw_ray3d(data->player, data->img_map, data->img_ray);
+	ft_draw_ray3d(data);
 	mlx_image_to_window(data->mlx, data->img_ray, 0, 0);
 	return ;
 }
@@ -198,7 +308,7 @@ int	main(int ac, char **av)
 	data->player->img = fill_image(get_rgba(0, 255, 255, 255), 8, 8, data->mlx);
 	data->img_map = ft_draw_map(data);
 	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), 8 * CSIZE + 9, 8 * CSIZE + 9, data->mlx);
-	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
+	//mlx_image_to_window(data->mlx, data->img_map, 0, 0);
 	mlx_image_to_window(data->mlx, data->player->img, data->player->pos.x, data->player->pos.x);
 	mlx_key_hook(data->mlx, handle_key_hook, data);
 	mlx_loop_hook(data->mlx, ft_update, (void *)data);

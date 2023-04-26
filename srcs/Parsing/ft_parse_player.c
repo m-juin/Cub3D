@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/26 17:05:37 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/26 22:11:01 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_player	*ft_parse_player(char **map)
 	ft_get_start(player, map);
 	player->pos.x = player->map_pos.x * CSIZE + CSIZE / 2;
 	player->pos.y = player->map_pos.y * CSIZE + CSIZE / 2;
-	player->angle = -0.1f;
+	player->angle = 0.1f;
 	player->delta.x = cos(player->angle) * 5;
 	player->delta.y = sin(player->angle) * 5;
 	return (player);
