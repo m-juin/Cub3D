@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 16:44:04 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/26 17:36:01 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@
 
 /* Window defines */
 
-# define WIDTH 520
-# define HEIGHT 520
+# define WIDTH	1025
+# define HEIGHT	521
+# define CSIZE	64
 
 enum	e_dir
 {
@@ -45,6 +46,12 @@ typedef struct s_ivector
 	int	y;
 }	t_ivector;
 
+typedef struct s_fvector
+{
+	float	x;
+	float	y;
+}	t_fvector;
+
 typedef struct s_pixel
 {
 	int	color;
@@ -53,22 +60,27 @@ typedef struct s_pixel
 
 typedef struct s_player
 {
-	t_ivector		map_pos;
-	enum e_dir		facing_dir;
-	int		py;
+	t_ivector	map_pos;
+	enum e_dir	facing_dir;
+	t_fvector	pos;
+	t_fvector	delta;
+	float		angle;
+	mlx_image_t	*img;
+	/*int		py;
 	int		px;
 	float	pdx;
 	float	pdy;
 	float	pa;
 	int		color;
-	t_pixel **map_data;
+	t_pixel **map_data;*/
 }	t_player;
 
 typedef struct s_data
 {
-	t_pixel			**pixel_map;
+	/*t_pixel			**pixel_map;*/
 	mlx_t			*mlx;
-	mlx_image_t		*img;
+	mlx_image_t		*img_ray;
+	mlx_image_t		*img_map;
 	t_player		*player;
 	mlx_texture_t	*north;
 	mlx_texture_t	*south;
@@ -77,6 +89,7 @@ typedef struct s_data
 	int				ground;
 	int				top;
 	char			**map;
+	t_ivector		msize;
 }	t_data;
 
 typedef struct s_bresenham 
@@ -96,56 +109,59 @@ typedef struct s_bresenham
 }			t_bresenham;
 
 /*	Utils/exit.c	*/
-void	ft_exit(char *message, int exit_code);
-void	ft_print_error(char *message);
+void		ft_exit(char *message, int exit_code);
+void		ft_print_error(char *message);
 
 /*	Utils/free.c	*/
-void	*ft_double_free(char **array);
-void	ft_free_map_data(t_data *data);
+void		*ft_double_free(char **array);
+void		ft_free_map_data(t_data *data);
 
 /*	Utils/colors.c	*/
-int		get_rgba(int r, int g, int b, int a);
-int		get_r(int rgba);
-int		get_g(int rgba);
-int		get_b(int rgba);
-int		get_a(int rgba);
+int			get_rgba(int r, int g, int b, int a);
+int			get_r(int rgba);
+int			get_g(int rgba);
+int			get_b(int rgba);
+int			get_a(int rgba);
 
 /*	Utils/empty_line.c	*/
-int		ft_check_identifier_empty_line(char **id);
-int		ft_line_is_empty(char *line);
+int			ft_check_identifier_empty_line(char **id);
+int			ft_line_is_empty(char *line);
 
 /*	Parsing/ft_checkarg.c	*/
-void	ft_checkarg(int ac, char **av);
-int		ft_try_open(const char *path);
+void		ft_checkarg(int ac, char **av);
+int			ft_try_open(const char *path);
 
 /*	Parsing/ft_checkmap.c	*/
-void	ft_check_map(t_data *data);
+void		ft_check_map(t_data *data);
 
 /*	Parsing/ft_get_cub.c	*/
-char	**ft_get_cub(const char *path);
+char		**ft_get_cub(const char *path);
 
 /*	Parsing/ft_parse_data.c	*/
-t_data	*ft_parse_data(char **identifiers, char **map);
-char	*search_texture_path(char *identifier, char **data);
+t_data		*ft_parse_data(char **identifiers, char **map);
+char		*search_texture_path(char *identifier, char **data);
 
 /*	Parsing/ft_get_rgb_from_id.c	*/
-int		ft_get_rgb_from_id(char *id, char **data);
+int			ft_get_rgb_from_id(char *id, char **data);
 
 /*	Parsing/ft_parsing_main.c	*/
-t_data	*ft_parsing_main(char *path);
+t_data		*ft_parsing_main(char *path);
 
 /*	Parsing/ft_map_parsing.c	*/
-char	**ft_parse_map(char **src);
+char		**ft_parse_map(char **src);
+
+/*	Parsing/ft_parse_player.c	*/
+t_player	*ft_parse_player(char	**map);
 
 /*	Mlx/key_hook.c	*/
-void	handle_key_hook(mlx_key_data_t keydata, void *param);
+void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
 /* ft_test.c */
-void	ft_map_start(mlx_image_t *img, t_pixel ***data);
-void	ft_put_player(mlx_image_t *img, t_data *trash);
-void	ft_print_lines(mlx_image_t *img, t_player *player);
-void	ft_trace_ray(mlx_image_t *img, t_data *trash);
-void	ft_print_lines_v2(mlx_image_t *img, t_player *player, int rx, int ry);
-void	ft_cast_rays(mlx_image_t *img, t_player *player);
+void		ft_map_start(mlx_image_t *img, t_pixel ***data);
+void		ft_put_player(mlx_image_t *img, t_data *trash);
+void		ft_print_lines(mlx_image_t *img, t_player *player);
+void		ft_trace_ray(mlx_image_t *img, t_data *trash);
+void		ft_print_lines_v2(mlx_image_t *img, t_player *player, int rx, int ry);
+void		ft_cast_rays(mlx_image_t *img, t_player *player);
 
 #endif

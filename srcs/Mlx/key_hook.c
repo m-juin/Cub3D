@@ -6,46 +6,50 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 16:40:13 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/26 16:37:10 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	movement_hook(mlx_key_data_t keydata)
+static void	movement_hook(mlx_key_data_t keydata, t_player	*player)
 {
 	if (keydata.key == MLX_KEY_W
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-		printf("Going front\n");
+		player->pos.y -= 5;
 	else if (keydata.key == MLX_KEY_S
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-		printf("Going Back\n");
+		player->pos.y += 5;
 	else if (keydata.key == MLX_KEY_D
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-		printf("Going Right\n");
+		player->pos.x += 5;
 	else if (keydata.key == MLX_KEY_A
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-		printf("Going Left\n");
+		player->pos.x -= 5;
+	player->img->instances[0].x = player->pos.x;
+	player->img->instances[0].y = player->pos.y;
 }
 
-static void	rotation_hook(mlx_key_data_t keydata, t_data *trash)
+static void	rotation_hook(mlx_key_data_t keydata, t_player *player)
 {
 	if (keydata.key == MLX_KEY_LEFT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-		{
-			trash->player->pa -= 0.05;
-			if (trash->player->pa < 0)
-				trash->player->pa += (M_PI * 2);
-			ft_cast_rays(trash->img, trash->player);
-		}
+	{
+		player->angle -= 0.1f;
+		if (player->angle < 0)
+			player->angle += 2*M_PI;
+		player->delta.x = cos(player->angle) * 5;
+		player->delta.y = sin(player->angle) * 5;
+	}
 	else if (keydata.key == MLX_KEY_RIGHT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-		{
-			trash->player->pa += 0.05;
-			if (trash->player->pa > M_PI * 2)
-				trash->player->pa -= (M_PI * 2);
-			ft_cast_rays(trash->img, trash->player);
-		}
+	{
+		player->angle += 0.1f;
+		if (player->angle > 2*M_PI)
+			player->angle -= 2*M_PI;
+		player->delta.x = cos(player->angle) * 5;
+		player->delta.y = sin(player->angle) * 5;
+	}
 }
 
 static void	close_hook(mlx_key_data_t keydata)
@@ -57,7 +61,7 @@ static void	close_hook(mlx_key_data_t keydata)
 
 void	handle_key_hook(mlx_key_data_t keydata, void *param)
 {
-	movement_hook(keydata);
-	rotation_hook(keydata, (t_data *)param);
+	movement_hook(keydata, ((t_data *)param)->player);
+	rotation_hook(keydata, ((t_data *)param)->player);
 	close_hook(keydata);
 }
