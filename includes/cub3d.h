@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/27 11:39:14 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/27 12:07:48 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@
 # define WIDTH	1016
 # define HEIGHT	512
 # define CSIZE	64
-# define PI 3.1415926535
-# define P2 PI/2
-# define P3 3*PI/2
-# define DR 0.0174533
+# define P3 3* M_PI_2
+# define DR M_PI / 180
 
 enum	e_dir
 {

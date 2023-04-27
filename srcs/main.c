@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/27 11:38:04 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/27 15:25:27 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,13 @@ static void ft_draw_case(mlx_image_t *img, t_ivector pos, int color)
 
 float degToRad(int a) 
 {
-	return a*PI/180.0;
+	return a * DR;
 }
 
 
 static float dist(t_fvector a, t_fvector b, float angle)
 {
-	return (sqrt((b.x - a.x) * (b.x - a.x)) + ((b.y - a.y) * (b.y - a.y)));
+	return (cos(degToRad(angle))*(b.x - a.x)-sin(degToRad(angle))*(b.y-a.y));
 }
 
 static mlx_image_t *ft_draw_map(t_data *data)
@@ -141,6 +141,15 @@ static mlx_image_t *ft_draw_map(t_data *data)
 	return (map);
 }
 
+int	FixAng(int a)
+{
+	if (a > 359)
+		a -= 360;
+	if (a < 0)
+		a += 360;
+	return (a);
+}
+
 void	ft_draw_ray3d(t_data *data)
 {
 	int	r = 0;
@@ -162,77 +171,31 @@ void	ft_draw_ray3d(t_data *data)
 
 	ft_clean_img(data->img_ray);
 	ft_clean_img(data->img_3d);
-	ray_angle = data->player->angle - DR*30;
-	if (ray_angle < 0)
-		ray_angle += 2*PI;
-	if (ray_angle > 2*PI)
-		ray_angle -= 2*PI;
+	ray_angle = FixAng(data->player->angle - 30);
+	H.x = data->player->pos.x;
+	H.y = data->player->pos.y;
+	V.x = data->player->pos.x;
+	V.y = data->player->pos.y;
 	while (r < 60)
 	{
-		distH = 10000000;
-		H.x = data->player->pos.x;
-		H.y = data->player->pos.y;
-		doffset = 0;
-		aTan = -1 / tan(ray_angle);
-		if (ray_angle > PI )
-		{
-			ray_pos.y = (((int)data->player->pos.y >> 6) << 6)-0.0001f;
-			ray_pos.x = (data->player->pos.y - ray_pos.y) * aTan + data->player->pos.x;
-			ray_offset.y = -64;
-			ray_offset.x = -ray_offset.y * aTan;
-		}
-		if (ray_angle < PI)
-		{
-			ray_pos.y = (((int)data->player->pos.y >> 6) << 6) + 64;
-			ray_pos.x = (data->player->pos.y - ray_pos.y) * aTan + data->player->pos.x;
-			ray_offset.y = 64;
-			ray_offset.x = -ray_offset.y * aTan;
-		}
-		if (ray_angle == 0 || ray_angle == PI)
-		{
-			ray_pos.x = data->player->pos.x;
-			ray_pos.y = data->player->pos.y;
-			doffset = 8;
-		}
-		while (doffset < 8)
-		{
-			map.x = (int)(ray_pos.x) >> 6;
-			map.y = (int)(ray_pos.y) >> 6;
-			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.y][map.x] == '1')
-			{
-				H.x = ray_pos.x;
-				H.y = ray_pos.y;
-				distH = dist(data->player->pos, H , ray_angle);
-				//printf("DistH = %f	X = %i	Y = %i\n", distH, map.x, map.y);
-				doffset = 8;
-			}
-			else
-			{
-				ray_pos.x += ray_offset.x;
-				ray_pos.y += ray_offset.y;
-				doffset += 1;
-			}
-		}
 		distV = 10000000;
-		V.x = data->player->pos.x;
-		V.y = data->player->pos.y;
 		doffset = 0;
-		nTan = -tan(ray_angle);
-		if (ray_angle > P2 && ray_angle < P3)
-		{
-			ray_pos.x = (((int)data->player->pos.x >> 6) << 6)-0.0001f;
-			ray_pos.y = (data->player->pos.x - ray_pos.x) * nTan + data->player->pos.y;
-			ray_offset.x = -64;
-			ray_offset.y = -ray_offset.x * nTan;
-		}
-		if (ray_angle < P2 || ray_angle > P3)
+		nTan = tan(degToRad(ray_angle));
+		if (cos(degToRad(ray_angle)) > 0.001)
 		{
 			ray_pos.x = (((int)data->player->pos.x >> 6) << 6) + 64;
 			ray_pos.y = (data->player->pos.x - ray_pos.x) * nTan + data->player->pos.y;
 			ray_offset.x = 64;
 			ray_offset.y = -ray_offset.x * nTan;
 		}
-		if (ray_angle == 0 || ray_angle == PI)
+		else if (cos(degToRad(ray_angle)) < -0.001)
+		{
+			ray_pos.x = (((int)data->player->pos.x >> 6) << 6) - 0.0001;
+			ray_pos.y = (data->player->pos.x - ray_pos.x) * nTan + data->player->pos.y;
+			ray_offset.x = -64;
+			ray_offset.y = -ray_offset.x * nTan;
+		}
+		else
 		{
 			ray_pos.x = data->player->pos.x;
 			ray_pos.y = data->player->pos.y;
@@ -246,8 +209,48 @@ void	ft_draw_ray3d(t_data *data)
 			{
 				V.x = ray_pos.x;
 				V.y = ray_pos.y;
-				distV = dist(data->player->pos, V, ray_angle);
-				//printf("DistV = %f	X = %i	Y = %i\n", distV, map.x, map.y);
+				distV = cos(degToRad(ray_angle)) * (ray_pos.x - data->player->pos.x) - sin(degToRad(ray_angle)) * (ray_pos.y - data->player->pos.y);
+				doffset = 8;
+			}
+			else
+			{
+				ray_pos.x += ray_offset.x;
+				ray_pos.y += ray_offset.y;
+				doffset += 1;
+			}
+		}
+		distH = 10000000;
+		doffset = 0;
+		aTan = 1.0f / nTan;
+		if (sin(degToRad(ray_angle)) > 0.001)
+		{
+			ray_pos.y = (((int)data->player->pos.y >> 6) << 6) - 0.0001;
+			ray_pos.x = (data->player->pos.y - ray_pos.y) * aTan + data->player->pos.x;
+			ray_offset.y = -64;
+			ray_offset.x = -ray_offset.y * aTan;
+		}
+		else if (sin(degToRad(ray_angle)) < -0.001)
+		{
+			ray_pos.y = (((int)data->player->pos.y >> 6) << 6) + 64;
+			ray_pos.x = (data->player->pos.y - ray_pos.y) * aTan + data->player->pos.x;
+			ray_offset.y = 64;
+			ray_offset.x = -ray_offset.y * aTan;
+		}
+		else 
+		{
+			ray_pos.x = data->player->pos.x;
+			ray_pos.y = data->player->pos.y;
+			doffset = 8;
+		}
+		while (doffset < 8)
+		{
+			map.x = (int)(ray_pos.x) >> 6;
+			map.y = (int)(ray_pos.y) >> 6;
+			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.y][map.x] == '1')
+			{
+				H.x = ray_pos.x;
+				H.y = ray_pos.y;
+				distH = cos(degToRad(ray_angle)) * (ray_pos.x - data->player->pos.x) - sin(degToRad(ray_angle)) * (ray_pos.y - data->player->pos.y);
 				doffset = 8;
 			}
 			else
@@ -270,23 +273,15 @@ void	ft_draw_ray3d(t_data *data)
 			distT = distH;
 		}
 		ft_print_lines_v3(data->img_ray, data->player->pos.x + 4, data->player->pos.y + 4, ray_pos.x, ray_pos.y, get_rgba(255, 255, 255, 255));
-		Camera_angle = data->player->angle - ray_angle;
-		if (Camera_angle < 0)
-			Camera_angle += 2*PI;
-		if (Camera_angle > 2*PI)
-			Camera_angle -= 2*PI;
-		distT = distT * cos(Camera_angle);
+		Camera_angle = FixAng(data->player->angle - ray_angle);
+		distT = distT * cos(degToRad(Camera_angle));
 		LineH = (64 * HEIGHT) / distT;
 		if(LineH > HEIGHT)
 			LineH = HEIGHT;
 		LineO = (HEIGHT / 2) - (LineH / 2);
-		ft_draw_3D(data->img_3d, r * 8, LineO, r*8, LineH + LineO, get_rgba(255, 255, 0, 255));
+		ft_draw_3D(data->img_3d, r * 8, LineO, r * 8, LineH + LineO, get_rgba(255, 255, 0, 255));
 		r++;
-		ray_angle += DR;
-		if (ray_angle < 0)
-			ray_angle += 2*PI;
-		if (ray_angle > 2*PI)
-			ray_angle -= 2*PI;
+		ray_angle = FixAng(ray_angle + 1);
 	}
 }
 

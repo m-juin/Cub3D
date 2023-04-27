@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/27 09:51:01 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/27 12:21:37 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, int color)
 	i = 0;
 	while (i <= bre->dx)
 	{
-		if (bre->x1 > 0 && bre->x1 < 1000 && bre->y1 > 0 && bre->y1 < 1000)
+		if (bre->x1 > -1 && bre->x1 < WIDTH && bre->y1 > -1 && bre->y1 < WIDTH)
 			mlx_put_pixel(img, bre->x1, bre->y1, color);
 		i++;
 		bre->ex = bre->ex - bre->dy;
@@ -40,7 +40,7 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, int color)
 	i = 0;
 	while (i <= bre->dy)
 	{
-		if (bre->x1 > 0 && bre->x1 < 1000 && bre->y1 > 0 && bre->y1 < 1000)
+		if (bre->x1 > -1 && bre->x1 < HEIGHT && bre->y1 > -1 && bre->y1 < HEIGHT)
 			mlx_put_pixel(img, bre->x1, bre->y1, color);
 		i++;
 		bre->ey = bre->ey - bre->dx;
