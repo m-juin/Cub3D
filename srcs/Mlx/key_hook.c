@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/27 15:26:21 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:43:53 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ static void	movement_hook(mlx_key_data_t keydata, t_player	*player, t_data *data
 static void	movement_hook(mlx_key_data_t keydata, t_player	*player, t_data *data)
 {
 	t_ivector offset;
-	if (player->angle >= 0 && player->angle < 3)
-		offset.y = 20;
-	else
+	if (player->angle >= 0 && player->angle < 180)
 		offset.y = -20;
-	if ((player->angle > 4.5f && player->angle < 12) || (player->angle >= 0 && player->angle < 1.5f))
+	else
+		offset.y = 20;
+	if ((player->angle >= 270 && player->angle < 360) || (player->angle >= 0 && player->angle < 90))
 		offset.x = 20;
 	else
 		offset.x = -20;
@@ -62,19 +62,25 @@ static void	movement_hook(mlx_key_data_t keydata, t_player	*player, t_data *data
 	{	
 		if (data->map[ipy][ipx_add_xo] != '1')
 		{
-			player->pos.x += player->delta.x;
+			player->pos.x += player->delta.x * 2;
 		}
 		if (data->map[ipy_add_yo][ipx] != '1')
 		{
-			player->pos.y += player->delta.y;
+			player->pos.y += player->delta.y * 2;
 		}
 		ft_draw_ray3d(data);
 	}	
 	else if (keydata.key == MLX_KEY_S
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		player->pos.x -= player->delta.x;
-		player->pos.y -= player->delta.y;
+		if (data->map[ipy][ipx_sub_xo] != '1')
+		{
+			player->pos.x -= player->delta.x * 2;
+		}
+		if (data->map[ipy_sub_yo][ipx] != '1')
+		{
+			player->pos.y -= player->delta.y * 2;
+		}
 		ft_draw_ray3d(data);
 	}	
 	else if (keydata.key == MLX_KEY_D
@@ -97,17 +103,19 @@ static void	rotation_hook(mlx_key_data_t keydata, t_player *player, t_data *data
 	if (keydata.key == MLX_KEY_LEFT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		player->angle = FixAng(player->angle - 5);
+		player->angle = FixAng(player->angle + 5);
 		player->delta.x = cos(degToRad(player->angle));
 		player->delta.y = -sin(degToRad(player->angle));
+		printf("Angle = %f\n", player->angle);
 		ft_draw_ray3d(data);
 	}
 	else if (keydata.key == MLX_KEY_RIGHT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		player->angle = FixAng(player->angle + 5);
+		player->angle = FixAng(player->angle - 5);
 		player->delta.x = cos(degToRad(player->angle));
 		player->delta.y = -sin(degToRad(player->angle));
+		printf("Angle = %f\n", player->angle);
 		ft_draw_ray3d(data);
 	}
 }
