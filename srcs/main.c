@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/27 00:20:09 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/27 11:38:04 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static mlx_image_t *fill_image(int color, size_t x, size_t y, mlx_t *mlx)
 	return (img);
 }
 
-void draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color, int size)
+void draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color)
 {
 	double deltaX;
 	double deltaY;
@@ -61,14 +61,14 @@ void draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int
 	}
 }
 
-void	ft_draw_3D(mlx_image_t *img, float ax, float ay, float bx, float by)
+void	ft_draw_3D(mlx_image_t *img, float ax, float ay, float bx, float by, int color)
 {
 	int	j;
 
 	j = 0;
 	while (j < 8)
 	{
-		ft_print_lines_v3(img, ax + j, ay + j, bx, by);
+		ft_print_lines_v3(img, ax + j, ay, bx + j, by, color);
 		j++;
 	}
 }
@@ -100,7 +100,7 @@ static void ft_draw_case(mlx_image_t *img, t_ivector pos, int color)
 		pos2.x = 0;
 		while (pos2.x < CSIZE)
 		{
-			mlx_put_pixel(img, ((pos.x * CSIZE) + pos2.x) + pos.x + 1, ((pos.y * CSIZE) + pos2.y) + pos.y + 1, color);
+			mlx_put_pixel(img, ((pos.x * CSIZE) + pos2.x), ((pos.y * CSIZE) + pos2.y), color);
 			pos2.x++;
 		}
 		pos2.y++;
@@ -115,7 +115,7 @@ float degToRad(int a)
 
 static float dist(t_fvector a, t_fvector b, float angle)
 {
-	return (cos(degToRad(angle))*(b.x-a.x)-sin(degToRad(angle))*(b.y-a.y));
+	return (sqrt((b.x - a.x) * (b.x - a.x)) + ((b.y - a.y) * (b.y - a.y)));
 }
 
 static mlx_image_t *ft_draw_map(t_data *data)
@@ -123,7 +123,7 @@ static mlx_image_t *ft_draw_map(t_data *data)
 	t_ivector			pos;
 	mlx_image_t			*map;
 
-	map = fill_image(get_rgba(255, 255, 255, 255), 8 * CSIZE + 9, 8 * CSIZE + 9, data->mlx);
+	map = fill_image(get_rgba(255, 255, 255, 255), 8 * CSIZE, 8 * CSIZE, data->mlx);
 	pos.y = 0;
 	while (data->map[pos.y] != NULL)
 	{
@@ -141,7 +141,7 @@ static mlx_image_t *ft_draw_map(t_data *data)
 	return (map);
 }
 
-static void	ft_draw_ray3d(t_data *data)
+void	ft_draw_ray3d(t_data *data)
 {
 	int	r = 0;
 	int	doffset;
@@ -158,18 +158,20 @@ static void	ft_draw_ray3d(t_data *data)
 	t_fvector V;
 	float LineH;
 	float LineO;
+	float Camera_angle;
 
 	ft_clean_img(data->img_ray);
+	ft_clean_img(data->img_3d);
 	ray_angle = data->player->angle - DR*30;
 	if (ray_angle < 0)
 		ray_angle += 2*PI;
 	if (ray_angle > 2*PI)
 		ray_angle -= 2*PI;
-	distH = 10000;
-	H.x = data->player->pos.x;
-	H.y = data->player->pos.y;
 	while (r < 60)
 	{
+		distH = 10000000;
+		H.x = data->player->pos.x;
+		H.y = data->player->pos.y;
 		doffset = 0;
 		aTan = -1 / tan(ray_angle);
 		if (ray_angle > PI )
@@ -194,13 +196,14 @@ static void	ft_draw_ray3d(t_data *data)
 		}
 		while (doffset < 8)
 		{
-			map.x = (int)(ray_pos.y) >> 6;
-			map.y = (int)(ray_pos.x) >> 6;
-			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.x][map.y] == '1')
+			map.x = (int)(ray_pos.x) >> 6;
+			map.y = (int)(ray_pos.y) >> 6;
+			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.y][map.x] == '1')
 			{
 				H.x = ray_pos.x;
 				H.y = ray_pos.y;
 				distH = dist(data->player->pos, H , ray_angle);
+				//printf("DistH = %f	X = %i	Y = %i\n", distH, map.x, map.y);
 				doffset = 8;
 			}
 			else
@@ -210,7 +213,7 @@ static void	ft_draw_ray3d(t_data *data)
 				doffset += 1;
 			}
 		}
-		distV = 10000;
+		distV = 10000000;
 		V.x = data->player->pos.x;
 		V.y = data->player->pos.y;
 		doffset = 0;
@@ -237,13 +240,14 @@ static void	ft_draw_ray3d(t_data *data)
 		}
 		while (doffset < 8)
 		{
-			map.x = (int)(ray_pos.y) >> 6;
-			map.y = (int)(ray_pos.x) >> 6;
-			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.x][map.y] == '1')
+			map.x = (int)(ray_pos.x) >> 6;
+			map.y = (int)(ray_pos.y) >> 6;
+			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.y][map.x] == '1')
 			{
 				V.x = ray_pos.x;
 				V.y = ray_pos.y;
 				distV = dist(data->player->pos, V, ray_angle);
+				//printf("DistV = %f	X = %i	Y = %i\n", distV, map.x, map.y);
 				doffset = 8;
 			}
 			else
@@ -259,19 +263,24 @@ static void	ft_draw_ray3d(t_data *data)
 			ray_pos.y = V.y;
 			distT = distV;
 		}
-		else if (distV > distH)
+		else
 		{
 			ray_pos.x = H.x;
 			ray_pos.y = H.y;
 			distT = distH;
 		}
-		ft_print_lines_v3(data->img_ray, data->player->pos.x + 4, data->player->pos.y + 4, ray_pos.x, ray_pos.y);
-
-		LineH = (64 * 320) / distT;
-		if(LineH > 320)
-			LineH = 320;
-		LineO = (160) - (LineH / 2);
-		ft_draw_3D(data->img_ray, r * 8, LineO, r*8, LineH + LineO);
+		ft_print_lines_v3(data->img_ray, data->player->pos.x + 4, data->player->pos.y + 4, ray_pos.x, ray_pos.y, get_rgba(255, 255, 255, 255));
+		Camera_angle = data->player->angle - ray_angle;
+		if (Camera_angle < 0)
+			Camera_angle += 2*PI;
+		if (Camera_angle > 2*PI)
+			Camera_angle -= 2*PI;
+		distT = distT * cos(Camera_angle);
+		LineH = (64 * HEIGHT) / distT;
+		if(LineH > HEIGHT)
+			LineH = HEIGHT;
+		LineO = (HEIGHT / 2) - (LineH / 2);
+		ft_draw_3D(data->img_3d, r * 8, LineO, r*8, LineH + LineO, get_rgba(255, 255, 0, 255));
 		r++;
 		ray_angle += DR;
 		if (ray_angle < 0)
@@ -292,8 +301,6 @@ static void ft_update(void *param)
 		return ;
 	}
 	frame = 0;*/
-	ft_draw_ray3d(data);
-	mlx_image_to_window(data->mlx, data->img_ray, 0, 0);
 	return ;
 }
 
@@ -307,8 +314,11 @@ int	main(int ac, char **av)
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Raycast", true);
 	data->player->img = fill_image(get_rgba(0, 255, 255, 255), 8, 8, data->mlx);
 	data->img_map = ft_draw_map(data);
-	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), 8 * CSIZE + 9, 8 * CSIZE + 9, data->mlx);
-	//mlx_image_to_window(data->mlx, data->img_map, 0, 0);
+	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), 8 * CSIZE, 8 * CSIZE, data->mlx);
+	data->img_3d = fill_image(get_rgba(0, 0, 0, 0), 8 * CSIZE, 8 * CSIZE, data->mlx);
+	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
+	mlx_image_to_window(data->mlx, data->img_ray, 0, 0);
+	mlx_image_to_window(data->mlx, data->img_3d, 521, 0);
 	mlx_image_to_window(data->mlx, data->player->img, data->player->pos.x, data->player->pos.x);
 	mlx_key_hook(data->mlx, handle_key_hook, data);
 	mlx_loop_hook(data->mlx, ft_update, (void *)data);

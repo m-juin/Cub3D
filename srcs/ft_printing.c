@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/26 23:57:03 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/27 09:51:01 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, int color)
 	free(bre);
 }*/
 
-void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry)
+void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color)
 {
 	t_bresenham *bre;
 
@@ -103,9 +103,9 @@ void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry)
 	if (bre->y1 > bre->y2)
 		bre->yincr = -1;
 	if (bre->dx > bre->dy)
-		ft_print_x_lines(img, bre, 0xFF00FFFF);
+		ft_print_x_lines(img, bre, color);
 	else
-		ft_print_y_lines(img, bre, 0xFF00FFFF);
+		ft_print_y_lines(img, bre, color);
 	free(bre);
 }
 

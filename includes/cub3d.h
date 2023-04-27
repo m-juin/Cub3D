@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/27 00:20:55 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/27 11:39:14 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 /* Window defines */
 
-# define WIDTH	1025
-# define HEIGHT	521
+# define WIDTH	1016
+# define HEIGHT	512
 # define CSIZE	64
 # define PI 3.1415926535
 # define P2 PI/2
@@ -84,6 +84,7 @@ typedef struct s_data
 	/*t_pixel			**pixel_map;*/
 	mlx_t			*mlx;
 	mlx_image_t		*img_ray;
+	mlx_image_t		*img_3d;
 	mlx_image_t		*img_map;
 	t_player		*player;
 	mlx_texture_t	*north;
@@ -165,7 +166,7 @@ void		handle_key_hook(mlx_key_data_t keydata, void *param);
 //void		ft_put_player(mlx_image_t *img, t_data *trash);
 //void		ft_print_lines(mlx_image_t *img, t_player *player);
 //void		ft_trace_ray(mlx_image_t *img, t_data *trash);
-void		ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry);
-//void		ft_cast_rays(mlx_image_t *img, t_player *player);
+void		ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color);
+void		ft_draw_ray3d(t_data *data);
 
 #endif
