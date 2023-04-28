@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/28 09:24:41 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:41:09 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static uint8_t get_pixel(const unsigned int y, const unsigned int x, mlx_texture_t *text)
+{
+	return (text->pixels[y  * text->width + x]);
+}
 
 void	ft_draw_ray3d(t_data *data)
 {
@@ -33,7 +38,7 @@ void	ft_draw_ray3d(t_data *data)
 
 	ft_clean_img(data->img_ray);
 	ft_clean_img(data->img_3d);
-	ray_angle = fix_ang(data->player->angle - 30);
+	ray_angle = fix_ang(data->player->angle + 30);
 	H.x = data->player->pos.x;
 	H.y = data->player->pos.y;
 	V.x = data->player->pos.x;
@@ -143,7 +148,7 @@ void	ft_draw_ray3d(t_data *data)
 		LineO = (HEIGHT / 2) - (LineH / 2);
 		ft_draw_3D(data->img_3d, r * 8, LineO, r * 8, LineH + LineO, get_rgba(255, 255, 0, 255));
 		r++;
-		ray_angle = fix_ang(ray_angle + 1);
+		ray_angle = fix_ang(ray_angle - 1);
 	}
 }
 
