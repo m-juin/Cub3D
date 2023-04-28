@@ -6,20 +6,20 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/27 15:25:27 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/28 09:23:12 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static mlx_image_t *fill_image(int color, size_t x, size_t y, mlx_t *mlx)
+mlx_image_t	*fill_image(int color, size_t x, size_t y, mlx_t *mlx)
 {
 	mlx_image_t	*img;
-	size_t			posx;
-	size_t			posy;
+	size_t		posx;
+	size_t		posy;
 
 	img = mlx_new_image(mlx, x, y);
-	if(img  == NULL)
+	if (img == NULL)
 		return (NULL);
 	posy = 0;
 	while (posy < y)
@@ -35,47 +35,9 @@ static mlx_image_t *fill_image(int color, size_t x, size_t y, mlx_t *mlx)
 	return (img);
 }
 
-void draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color)
+void	ft_clean_img(mlx_image_t *img_ray)
 {
-	double deltaX;
-	double deltaY;
-	int pixels;
-	double pixelX;
-	double pixelY;
-
-	deltaX = endX - beginX;
-	deltaY = endY - beginY ;
-	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	deltaX /= pixels;
-	deltaY /= pixels;
-	pixelX = beginX;
-	pixelY = beginY;
-	while (pixels)
-	{
-		mlx_put_pixel(img, pixelX, pixelY, color);
-		pixelX += deltaX;
-		pixelY += deltaY;
-		if (pixelX < 0 || pixelY < 0 || pixelX > img->width || pixelY > img->height)
-			return ;
-		--pixels;
-	}
-}
-
-void	ft_draw_3D(mlx_image_t *img, float ax, float ay, float bx, float by, int color)
-{
-	int	j;
-
-	j = 0;
-	while (j < 8)
-	{
-		ft_print_lines_v3(img, ax + j, ay, bx + j, by, color);
-		j++;
-	}
-}
-
-static void	ft_clean_img(mlx_image_t *img_ray)
-{
-	t_ivector pos;
+	t_ivector	pos;
 
 	pos.y = 0;
 	while (pos.y < (int)img_ray->height)
@@ -90,206 +52,12 @@ static void	ft_clean_img(mlx_image_t *img_ray)
 	}
 }
 
-static void ft_draw_case(mlx_image_t *img, t_ivector pos, int color)
-{
-	t_ivector	pos2;
-
-	pos2.y = 0;
-	while (pos2.y < CSIZE)
-	{
-		pos2.x = 0;
-		while (pos2.x < CSIZE)
-		{
-			mlx_put_pixel(img, ((pos.x * CSIZE) + pos2.x), ((pos.y * CSIZE) + pos2.y), color);
-			pos2.x++;
-		}
-		pos2.y++;
-	}
-}
-
-float degToRad(int a) 
-{
-	return a * DR;
-}
-
-
-static float dist(t_fvector a, t_fvector b, float angle)
-{
-	return (cos(degToRad(angle))*(b.x - a.x)-sin(degToRad(angle))*(b.y-a.y));
-}
-
-static mlx_image_t *ft_draw_map(t_data *data)
-{
-	t_ivector			pos;
-	mlx_image_t			*map;
-
-	map = fill_image(get_rgba(255, 255, 255, 255), 8 * CSIZE, 8 * CSIZE, data->mlx);
-	pos.y = 0;
-	while (data->map[pos.y] != NULL)
-	{
-		pos.x = 0;
-		while (data->map[pos.y][pos.x] != '\0')
-		{
-			if (data->map[pos.y][pos.x] == '1')
-				ft_draw_case(map, pos, get_rgba(255, 0, 0, 255));
-			else
-				ft_draw_case(map, pos, get_rgba(1, 1, 1, 255));
-			pos.x++;
-		}
-		pos.y++;
-	}
-	return (map);
-}
-
-int	FixAng(int a)
-{
-	if (a > 359)
-		a -= 360;
-	if (a < 0)
-		a += 360;
-	return (a);
-}
-
-void	ft_draw_ray3d(t_data *data)
-{
-	int	r = 0;
-	int	doffset;
-	t_ivector map;
-	float	ray_angle;
-	float	aTan;
-	float	nTan;
-	t_fvector	ray_pos;
-	t_fvector	ray_offset;
-	t_fvector H;
-	float distH;
-	float distV;
-	float distT;
-	t_fvector V;
-	float LineH;
-	float LineO;
-	float Camera_angle;
-
-	ft_clean_img(data->img_ray);
-	ft_clean_img(data->img_3d);
-	ray_angle = FixAng(data->player->angle - 30);
-	H.x = data->player->pos.x;
-	H.y = data->player->pos.y;
-	V.x = data->player->pos.x;
-	V.y = data->player->pos.y;
-	while (r < 60)
-	{
-		distV = 10000000;
-		doffset = 0;
-		nTan = tan(degToRad(ray_angle));
-		if (cos(degToRad(ray_angle)) > 0.001)
-		{
-			ray_pos.x = (((int)data->player->pos.x >> 6) << 6) + 64;
-			ray_pos.y = (data->player->pos.x - ray_pos.x) * nTan + data->player->pos.y;
-			ray_offset.x = 64;
-			ray_offset.y = -ray_offset.x * nTan;
-		}
-		else if (cos(degToRad(ray_angle)) < -0.001)
-		{
-			ray_pos.x = (((int)data->player->pos.x >> 6) << 6) - 0.0001;
-			ray_pos.y = (data->player->pos.x - ray_pos.x) * nTan + data->player->pos.y;
-			ray_offset.x = -64;
-			ray_offset.y = -ray_offset.x * nTan;
-		}
-		else
-		{
-			ray_pos.x = data->player->pos.x;
-			ray_pos.y = data->player->pos.y;
-			doffset = 8;
-		}
-		while (doffset < 8)
-		{
-			map.x = (int)(ray_pos.x) >> 6;
-			map.y = (int)(ray_pos.y) >> 6;
-			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.y][map.x] == '1')
-			{
-				V.x = ray_pos.x;
-				V.y = ray_pos.y;
-				distV = cos(degToRad(ray_angle)) * (ray_pos.x - data->player->pos.x) - sin(degToRad(ray_angle)) * (ray_pos.y - data->player->pos.y);
-				doffset = 8;
-			}
-			else
-			{
-				ray_pos.x += ray_offset.x;
-				ray_pos.y += ray_offset.y;
-				doffset += 1;
-			}
-		}
-		distH = 10000000;
-		doffset = 0;
-		aTan = 1.0f / nTan;
-		if (sin(degToRad(ray_angle)) > 0.001)
-		{
-			ray_pos.y = (((int)data->player->pos.y >> 6) << 6) - 0.0001;
-			ray_pos.x = (data->player->pos.y - ray_pos.y) * aTan + data->player->pos.x;
-			ray_offset.y = -64;
-			ray_offset.x = -ray_offset.y * aTan;
-		}
-		else if (sin(degToRad(ray_angle)) < -0.001)
-		{
-			ray_pos.y = (((int)data->player->pos.y >> 6) << 6) + 64;
-			ray_pos.x = (data->player->pos.y - ray_pos.y) * aTan + data->player->pos.x;
-			ray_offset.y = 64;
-			ray_offset.x = -ray_offset.y * aTan;
-		}
-		else 
-		{
-			ray_pos.x = data->player->pos.x;
-			ray_pos.y = data->player->pos.y;
-			doffset = 8;
-		}
-		while (doffset < 8)
-		{
-			map.x = (int)(ray_pos.x) >> 6;
-			map.y = (int)(ray_pos.y) >> 6;
-			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.y][map.x] == '1')
-			{
-				H.x = ray_pos.x;
-				H.y = ray_pos.y;
-				distH = cos(degToRad(ray_angle)) * (ray_pos.x - data->player->pos.x) - sin(degToRad(ray_angle)) * (ray_pos.y - data->player->pos.y);
-				doffset = 8;
-			}
-			else
-			{
-				ray_pos.x += ray_offset.x;
-				ray_pos.y += ray_offset.y;
-				doffset += 1;
-			}
-		}
-		if (distV < distH)
-		{
-			ray_pos.x = V.x;
-			ray_pos.y = V.y;
-			distT = distV;
-		}
-		else
-		{
-			ray_pos.x = H.x;
-			ray_pos.y = H.y;
-			distT = distH;
-		}
-		ft_print_lines_v3(data->img_ray, data->player->pos.x + 4, data->player->pos.y + 4, ray_pos.x, ray_pos.y, get_rgba(255, 255, 255, 255));
-		Camera_angle = FixAng(data->player->angle - ray_angle);
-		distT = distT * cos(degToRad(Camera_angle));
-		LineH = (64 * HEIGHT) / distT;
-		if(LineH > HEIGHT)
-			LineH = HEIGHT;
-		LineO = (HEIGHT / 2) - (LineH / 2);
-		ft_draw_3D(data->img_3d, r * 8, LineO, r * 8, LineH + LineO, get_rgba(255, 255, 0, 255));
-		r++;
-		ray_angle = FixAng(ray_angle + 1);
-	}
-}
-
-static void ft_update(void *param)
+static void	ft_update(void *param)
 {
 	//static int	frame;
 	t_data		*data = (t_data *)param;
 
+	(void)data;
 	/*if (frame != 60)
 	{
 		frame++;

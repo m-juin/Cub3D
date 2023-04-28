@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/27 12:07:48 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/28 09:22:22 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,12 +159,26 @@ t_player	*ft_parse_player(char	**map);
 /*	Mlx/key_hook.c	*/
 void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
-/* ft_test.c */
-//void		ft_map_start(mlx_image_t *img, t_pixel ***data);
-//void		ft_put_player(mlx_image_t *img, t_data *trash);
-//void		ft_print_lines(mlx_image_t *img, t_player *player);
-//void		ft_trace_ray(mlx_image_t *img, t_data *trash);
+/* ft_printing.c */
 void		ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color);
+
+/* ft_raycast_utils.c */
+float		deg_to_rad(int angle);
+float		dist(t_fvector a, t_fvector b, float angle);
+int			fix_ang(int angle);
+
+/* ft_raycast.c */
 void		ft_draw_ray3d(t_data *data);
+
+/* ft_draw.c */
+mlx_image_t	*ft_draw_map(t_data *data);
+void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);
+void		ft_draw_3D(mlx_image_t *img, float ax, float ay, float bx, float by, int color);
+void		draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color);
+
+/* main.c */
+
+void		ft_clean_img(mlx_image_t *img_ray);
+mlx_image_t	*fill_image(int color, size_t x, size_t y, mlx_t *mlx);
 
 #endif

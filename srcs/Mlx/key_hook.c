@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/27 15:43:53 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/28 09:13:56 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ static void	movement_hook(mlx_key_data_t keydata, t_player	*player, t_data *data
 {
 	t_ivector offset;
 	if (player->angle >= 0 && player->angle < 180)
-		offset.y = -20;
+		offset.y = -5;
 	else
-		offset.y = 20;
+		offset.y = 5;
 	if ((player->angle >= 270 && player->angle < 360) || (player->angle >= 0 && player->angle < 90))
-		offset.x = 20;
+		offset.x = 5;
 	else
-		offset.x = -20;
+		offset.x = -5;
 	int	ipx = player->pos.x / 64.0;
 	int	ipx_add_xo = (player->pos.x + offset.x) / 64.0;
 	int	ipx_sub_xo = (player->pos.x - offset.x) / 64.0;
@@ -95,26 +95,23 @@ static void	movement_hook(mlx_key_data_t keydata, t_player	*player, t_data *data
 	player->img->instances[0].y = player->pos.y;
 }
 
-static float degToRad(int a) {return a * DR;}
-static int FixAng(int a){ if(a>359){ a-=360;} if(a<0){ a+=360;} return a;}
-
 static void	rotation_hook(mlx_key_data_t keydata, t_player *player, t_data *data)
 {
 	if (keydata.key == MLX_KEY_LEFT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		player->angle = FixAng(player->angle + 5);
-		player->delta.x = cos(degToRad(player->angle));
-		player->delta.y = -sin(degToRad(player->angle));
+		player->angle = fix_ang(player->angle + 5);
+		player->delta.x = cos(deg_to_rad(player->angle));
+		player->delta.y = -sin(deg_to_rad(player->angle));
 		printf("Angle = %f\n", player->angle);
 		ft_draw_ray3d(data);
 	}
 	else if (keydata.key == MLX_KEY_RIGHT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		player->angle = FixAng(player->angle - 5);
-		player->delta.x = cos(degToRad(player->angle));
-		player->delta.y = -sin(degToRad(player->angle));
+		player->angle = fix_ang(player->angle - 5);
+		player->delta.x = cos(deg_to_rad(player->angle));
+		player->delta.y = -sin(deg_to_rad(player->angle));
 		printf("Angle = %f\n", player->angle);
 		ft_draw_ray3d(data);
 	}

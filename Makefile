@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/26 23:56:28 by mjuin            ###   ########.fr        #
+#    Updated: 2023/04/28 09:20:51 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,9 @@ SRC =	srcs/main.c							\
 		srcs/Parsing/ft_map_parsing.c		\
 		srcs/Parsing/ft_parse_player.c		\
 		srcs/ft_printing.c					\
+		srcs/ft_raycast_utils.c				\
+		srcs/ft_raycast.c					\
+		srcs/ft_draw.c						\
 		srcs/Mlx/key_hook.c					\
 
 OBJ =	${SRC:.c=.o}
