@@ -6,14 +6,14 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/27 12:21:37 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:14:00 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 
-void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, int color)
+void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, int color, mlx_texture_t *text)
 {
 	int	i;
 
@@ -21,7 +21,7 @@ void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, int color)
 	while (i <= bre->dx)
 	{
 		if (bre->x1 > -1 && bre->x1 < WIDTH && bre->y1 > -1 && bre->y1 < WIDTH)
-			mlx_put_pixel(img, bre->x1, bre->y1, color);
+			mlx_put_pixel(img, bre->x1, bre->y1, get_rgba(255, 0, 0, 255));
 		i++;
 		bre->ex = bre->ex - bre->dy;
 		if (bre->ex < 0)
@@ -33,15 +33,22 @@ void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, int color)
 	}
 }
 
-void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, int color)
+void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, int color, mlx_texture_t *text)
 {
+	t_fvector	pos;
 	int	i;
+	float	step;
 
 	i = 0;
+	pos.x = ((bre->x1 / 8) % 256) * 4;
+	pos.y = 0;
+	step = 256 / bre->dy;
 	while (i <= bre->dy)
 	{
 		if (bre->x1 > -1 && bre->x1 < HEIGHT && bre->y1 > -1 && bre->y1 < HEIGHT)
-			mlx_put_pixel(img, bre->x1, bre->y1, color);
+		{
+			mlx_put_pixel(img, bre->x1, bre->y1, get_rgba(text->pixels[(int)pos.y * text->width + (int)pos.x],text->pixels[(int)pos.y * text->width + (int)pos.x + 1],text->pixels[(int)pos.y * text->width + (int)pos.x + 2],text->pixels[(int)pos.y * text->width + (int)pos.x + 3]));
+		}
 		i++;
 		bre->ey = bre->ey - bre->dx;
 		if (bre->ey < 0)
@@ -50,6 +57,7 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, int color)
 			bre->ey = bre->ey + bre->dy;
 		}
 		bre->y1 = bre->y1 + bre->yincr;
+	 	pos.y += step;
 	}
 }
 
@@ -81,7 +89,7 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, int color)
 	free(bre);
 }*/
 
-void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color)
+void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color, mlx_texture_t *text)
 {
 	t_bresenham *bre;
 
@@ -103,9 +111,9 @@ void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int col
 	if (bre->y1 > bre->y2)
 		bre->yincr = -1;
 	if (bre->dx > bre->dy)
-		ft_print_x_lines(img, bre, color);
+		ft_print_x_lines(img, bre, color, text);
 	else
-		ft_print_y_lines(img, bre, color);
+		ft_print_y_lines(img, bre, color, text);
 	free(bre);
 }
 

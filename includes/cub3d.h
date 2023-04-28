@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/28 09:22:22 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:12:31 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ t_player	*ft_parse_player(char	**map);
 void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
 /* ft_printing.c */
-void		ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color);
+void		ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color, mlx_texture_t *text);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);
@@ -174,6 +174,7 @@ void		ft_draw_ray3d(t_data *data);
 mlx_image_t	*ft_draw_map(t_data *data);
 void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);
 void		ft_draw_3D(mlx_image_t *img, float ax, float ay, float bx, float by, int color);
+void		ft_draw_3D_2(mlx_image_t *img, float ax, float ay, float bx, float by, mlx_texture_t *text);
 void		draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color);
 
 /* main.c */

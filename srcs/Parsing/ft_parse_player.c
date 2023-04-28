@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/26 22:11:01 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/28 12:19:43 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ t_player	*ft_parse_player(char **map)
 	player->angle = 0.1f;
 	player->delta.x = cos(player->angle) * 5;
 	player->delta.y = sin(player->angle) * 5;
+	
 	return (player);
 }

@@ -6,13 +6,13 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/28 09:20:51 by lobozier         ###   ########.fr        #
+#    Updated: 2023/04/28 12:11:52 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC =	clang
 
-CFLAGS =	-g  -Wextra -Wall -I./includes -Ofast -I./MLX42/include/MLX42 -I./libft/include
+CFLAGS =	-g -Wextra -Wall -I./includes -Ofast -I./MLX42/include/MLX42 -I./libft/include
 
 LIBMLX	:= ./MLX42
 
@@ -50,7 +50,7 @@ OBJ =	${SRC:.c=.o}
 all:	${LIBMLX_NAME} ${LIBFT} ${NAME}
 
 $(LIBMLX_NAME):
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4 ;
+	@cmake -DDEBUG=1 -DGLFW_FETCH=0 $(LIBMLX)  -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4 ;
 
 .c.o:
 	@printf "Compiling .c to .o \r"

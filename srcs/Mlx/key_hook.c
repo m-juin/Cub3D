@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/28 10:23:27 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/04/28 11:12:10 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static void	rotation_hook(mlx_key_data_t keydata, t_player *player, t_data *data
 		player->angle = fix_ang(player->angle + 5);
 		player->delta.x = cos(deg_to_rad(player->angle));
 		player->delta.y = -sin(deg_to_rad(player->angle));
-		printf("Angle = %f\n", player->angle);
 		ft_draw_ray3d(data);
 	}
 	else if (keydata.key == MLX_KEY_RIGHT
@@ -84,7 +83,6 @@ static void	rotation_hook(mlx_key_data_t keydata, t_player *player, t_data *data
 		player->angle = fix_ang(player->angle - 5);
 		player->delta.x = cos(deg_to_rad(player->angle));
 		player->delta.y = -sin(deg_to_rad(player->angle));
-		printf("Angle = %f\n", player->angle);
 		ft_draw_ray3d(data);
 	}
 }
