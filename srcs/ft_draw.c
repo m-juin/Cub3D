@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:18:30 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/28 13:12:13 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/02 13:09:16 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,18 @@ void	draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int
 	}
 }
 
-void	ft_draw_3D_2(mlx_image_t *img, float ax, float ay, float bx, float by, mlx_texture_t *text)
+void	ft_draw_3D_2(t_data *data, t_fvector start, t_fvector end, mlx_texture_t *text, int text_pos)
 {
 	int	j;
 
 	j = 0;
-	
+
+
 	while (j < 8)
 	{
-		ft_print_lines_v3(img, ax + j, ay, bx + j, by, get_rgba(255, 255, 255, 255), text);
+		end.x += 1;
+		start.x += 1;
+		ft_print_lines_v3(data, start, end, text, text_pos);
 		j++;
 	}
 }

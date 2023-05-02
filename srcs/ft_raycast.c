@@ -6,23 +6,12 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/28 13:11:00 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/02 13:44:14 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-mlx_texture_t *ft_get_texture(t_data *data, float angle)
-{
-	if ((angle >= 360 - 45 && angle <= 0) || (angle >= 0 && angle < 45 ))
-		return (data->west);
-	else if (angle >= 45 && angle < 135)
-		return (data->north);
-	else if (angle >= 135 && angle < 225)
-		return (data->east);
-	else
-		return (data->south);
-}
 
 void	ft_draw_ray3d(t_data *data)
 {
@@ -146,14 +135,23 @@ void	ft_draw_ray3d(t_data *data)
 			ray_pos.y = H.y;
 			distT = distH;
 		}
-		//ft_print_lines_v3(data->img_ray, data->player->pos.x + 4, data->player->pos.y + 4, ray_pos.x, ray_pos.y, get_rgba(255, 255, 255, 255));
+		draw_line(data->img_ray, data->player->pos.x, data->player->pos.y, ray_pos.x, ray_pos.y, get_rgba(255, 255, 255, 255));
 		Camera_angle = fix_ang(data->player->angle - ray_angle);
 		distT = distT * cos(deg_to_rad(Camera_angle));
 		LineH = (64 * HEIGHT) / distT;
 		if(LineH > HEIGHT)
 			LineH = HEIGHT;
 		LineO = (HEIGHT / 2) - (LineH / 2);
-		ft_draw_3D_2(data->img_3d, r * 8, LineO, r * 8, LineH + LineO, ft_get_texture(data, ray_angle));
+		t_fvector start;
+		t_fvector end;
+		mlx_texture_t *text;
+		start.x = r * 8;
+		start.y = LineO;
+		end.x = r * 8;
+		end.y = LineO + LineH;
+		int	text_x;
+		text = ft_get_texture(data, ray_pos, &text_x);
+		ft_draw_3D_2(data, start, end, text, text_x);
 		r++;
 		ray_angle = fix_ang(ray_angle - 1);
 	}

@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/28 13:12:31 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/02 12:51:46 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,8 @@ typedef struct s_data
 
 typedef struct s_bresenham 
 {
-	int		x1;
-	int		x2;
-	int		y1;
-	int		y2;
+	t_ivector pos1;
+	t_ivector pos2;
 	int		xincr;
 	int		yincr;
 	float	ey;
@@ -150,7 +148,7 @@ int			ft_get_rgb_from_id(char *id, char **data);
 /*	Parsing/ft_parsing_main.c	*/
 t_data		*ft_parsing_main(char *path);
 
-/*	Parsing/ft_map_parsing.c	*/
+/*	Parsing/ft_map_parsing.	*/
 char		**ft_parse_map(char **src);
 
 /*	Parsing/ft_parse_player.c	*/
@@ -160,7 +158,7 @@ t_player	*ft_parse_player(char	**map);
 void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
 /* ft_printing.c */
-void		ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color, mlx_texture_t *text);
+void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);
@@ -171,10 +169,11 @@ int			fix_ang(int angle);
 void		ft_draw_ray3d(t_data *data);
 
 /* ft_draw.c */
+mlx_texture_t *ft_get_texture(t_data *data, const t_fvector ray_pos, int *text_x);
 mlx_image_t	*ft_draw_map(t_data *data);
 void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);
 void		ft_draw_3D(mlx_image_t *img, float ax, float ay, float bx, float by, int color);
-void		ft_draw_3D_2(mlx_image_t *img, float ax, float ay, float bx, float by, mlx_texture_t *text);
+void	ft_draw_3D_2(t_data *data, t_fvector start, t_fvector end, mlx_texture_t *text, int text_pos);
 void		draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color);
 
 /* main.c */
