@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/04/28 12:11:52 by mjuin            ###   ########.fr        #
+#    Updated: 2023/05/02 16:30:45 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ $(LIBMLX_NAME):
 	
 $(NAME): ${OBJ}
 	@${CC} ${CFLAGS} ${OBJ} ${LIBFT} $(LIBS) $(HEADERS) -o ${NAME} 
-	@printf '\e[1;37m%-6s\e[m' "Compilation complete"
+	@printf '\e[1;37m'"Compilation complete"'\e[m''\n'
 
 $(LIBFT):
 	@make -C ${LIBFT_PATH}

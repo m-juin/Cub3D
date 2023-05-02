@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/02 13:50:23 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:47:42 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, mlx_texture_t *text, i
 	{
 		if (bre->pos1.x > -1 && bre->pos1.x < HEIGHT && bre->pos1.y > -1 && bre->pos1.y < HEIGHT)
 		{
-			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, get_rgba(text->pixels[(int)pos.y * text->width + texture_x],text->pixels[(int)pos.y * text->width + texture_x + 1],text->pixels[(int)pos.y * text->width + texture_x + 2],text->pixels[(int)pos.y * text->width + texture_x + 3]));
+			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, get_rgba(text->pixels[(int)pos.y * text->width + (texture_x * 4)]
+			,text->pixels[(int)pos.y * text->width + (texture_x * 4) + 1]
+			,text->pixels[(int)pos.y * text->width + (texture_x * 4) + 2]
+			,text->pixels[(int)pos.y * text->width + (texture_x * 4) + 3]));
 		}
 		i++;
 		bre->ey = bre->ey - bre->dx;
@@ -94,7 +97,6 @@ mlx_texture_t	*ft_get_texture(t_data *data, t_fvector ray_pos, int *text_x)
 		ray_pos.x += 1;
 	if (ray_pos.y < data->player->pos.y)
 		ray_pos.y += 1;
-	printf("X = %i	Y = %i\n", (int)ray_pos.x, (int)ray_pos.y);
 	if ((int)ray_pos.x % 64 == 0)
 	{
 		*text_x = ((int)ray_pos.y % 64 * 4);
@@ -107,8 +109,10 @@ mlx_texture_t	*ft_get_texture(t_data *data, t_fvector ray_pos, int *text_x)
 	}
 	*text_x = ((int)ray_pos.x % 64 * 4);
 	if (ray_pos.y >= data->player->pos.y)
+	{
+		*text_x	= 256 - *text_x;
 		return (data->north);
-	*text_x	= 256 - *text_x;
+	}
 	return (data->south);
 }
 
