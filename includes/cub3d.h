@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/03 14:16:40 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:58:11 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,8 @@ t_player	*ft_parse_player(char	**map);
 void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
 /* ft_printing.c */
-void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos);
+// void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos);
+void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);

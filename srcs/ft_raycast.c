@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/03 15:47:55 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:58:29 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_fvector ft_get_sided(t_fvector raydir, t_ivector map, t_fvector player,
 	if (raydir.x < 0)
 		side.x = (player.x - map.x) * delta.x;	
 	else
-		side.x = (map.x + 1 - player.x) * delta.x;	
+		side.x = (map.x + 1.0 - player.x) * delta.x;	
 	if (raydir.y < 0)
 		side.y = (player.y - map.y) * delta.y;
 	else
@@ -69,6 +69,8 @@ void	ft_draw_ray3d(t_data *data)
 	int			hit;
 	int			side;
 	int			lineh;
+	int			drawStart;
+	int			drawEnd;
 
 	x = 0;
 	hit = 0;
@@ -104,16 +106,23 @@ void	ft_draw_ray3d(t_data *data)
 				map.y += step.y;
 				side = 1;
 			}
-			if (data->map[map.y][map.x] == '1')
+			if (data->map[map.x][map.y] == '1')
 				hit = 1;
 		}
 		if (side == 0)
 			walldist = (side_dist.x - deltadist.x);
 		else
 			walldist = (side_dist.y - deltadist.y);
-		printf("begin = %u,	end = %f\n", data->img_3d->height, walldist);
 		lineh = (int)(data->img_3d->height / walldist);
-		ft_dda(lineh, data, x);
+		drawStart = -lineh / 2 + data->img_3d->height / 2;
+		if (drawStart < 0)
+			drawStart = 0;
+		drawEnd = lineh / 2 + data->img_3d->height / 2;
+		if (drawEnd >= (float)data->img_3d->height)
+			drawEnd = data->img_3d->height - 1;
+		//ft_dda(drawStart, data, x);
+		ft_print_lines_v3(data, x, drawStart, drawEnd, 0);
+		x++;
 	}
 }
 

@@ -6,14 +6,14 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/02 16:47:42 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/03 17:01:54 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 
-void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, mlx_texture_t *text)
+void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, int color)
 {
 	int	i;
 
@@ -33,24 +33,15 @@ void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, mlx_texture_t *text)
 	}
 }
 
-void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, mlx_texture_t *text, int texture_x)
+void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, int color)
 {
-	t_fvector	pos;
 	int	i;
-	float	step;
 
 	i = 0;
-	step = 256 / (bre->pos2.y - bre->pos1.y) * 4;
-	pos.y = 0;
 	while (i <= bre->dy)
 	{
 		if (bre->pos1.x > -1 && bre->pos1.x < HEIGHT && bre->pos1.y > -1 && bre->pos1.y < HEIGHT)
-		{
-			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, get_rgba(text->pixels[(int)pos.y * text->width + (texture_x * 4)]
-			,text->pixels[(int)pos.y * text->width + (texture_x * 4) + 1]
-			,text->pixels[(int)pos.y * text->width + (texture_x * 4) + 2]
-			,text->pixels[(int)pos.y * text->width + (texture_x * 4) + 3]));
-		}
+			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, get_rgba(255, 0, 0, 255));
 		i++;
 		bre->ey = bre->ey - bre->dx;
 		if (bre->ey < 0)
@@ -59,7 +50,6 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, mlx_texture_t *text, i
 			bre->ey = bre->ey + bre->dy;
 		}
 		bre->pos1.y = bre->pos1.y + bre->yincr;
-	 	pos.y += step;
 	}
 }
 
@@ -116,15 +106,15 @@ mlx_texture_t	*ft_get_texture(t_data *data, t_fvector ray_pos, int *text_x)
 	return (data->south);
 }
 
-void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos)
+void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color)
 {
 	t_bresenham		*bre;
 
 	bre = malloc(sizeof(t_bresenham) * 1);
-	bre->pos1.x = start.x;
-	bre->pos1.y = start.y;
-	bre->pos2.x = end.x;
-	bre->pos2.y = end.y;
+	bre->pos1.x = x;
+	bre->pos1.y = drawStart;
+	bre->pos2.x = x;
+	bre->pos2.y = drawEnd;
 	bre->ey = abs(bre->pos2.y - bre->pos1.y);
 	bre->ex = abs(bre->pos2.x - bre->pos1.x);
 	bre->dx = bre->ex * 2;
@@ -138,9 +128,9 @@ void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_
 	if (bre->pos1.y > bre->pos2.y)
 		bre->yincr = -1;
 	if (bre->dx > bre->dy)
-		ft_print_x_lines(data->img_3d, bre, text);
+		ft_print_x_lines(data->img_3d, bre, color);
 	else
-		ft_print_y_lines(data->img_3d, bre, text, text_pos);
+		ft_print_y_lines(data->img_3d, bre, color);
 	free(bre);
 }
 
