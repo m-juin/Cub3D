@@ -6,154 +6,114 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/02 16:14:18 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/03 15:47:55 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static t_fvector ft_get_sided(t_fvector raydir, t_ivector map, t_fvector player,
+	t_fvector delta)
+{
+	t_fvector side;
+
+	if (raydir.x < 0)
+		side.x = (player.x - map.x) * delta.x;	
+	else
+		side.x = (map.x + 1 - player.x) * delta.x;	
+	if (raydir.y < 0)
+		side.y = (player.y - map.y) * delta.y;
+	else
+		side.y = (map.y + 1.0 - player.y) * delta.y;
+	return (side);
+}
+
+static t_ivector ft_get_step(t_fvector raydir)
+{
+	t_ivector step;
+
+	if (raydir.x < 0)
+		step.x = -1;
+	else
+		step.x = 1;
+	if (raydir.y < 0)
+		step.y = -1;
+	else
+		step.y = 1;
+	return (step);
+}
+
+static void ft_dda(int lineh, t_data *data, int x)
+{
+	t_ivector linepos;
+
+	linepos.x = (-lineh / 2 + data->img_3d->height / 2);
+	if (linepos.x < 0)
+		linepos.x = 0;
+	linepos.y = (-lineh / 2 + data->img_3d->height / 2);
+	if ((uint32_t)linepos.y >= data->img_3d->height)
+		linepos.y = data->img_3d->height - 1;
+	draw_line(data->img_3d, x, linepos.x, x, linepos.y, get_rgba(255, 255, 255, 255));
+}
 
 void	ft_draw_ray3d(t_data *data)
 {
-	int	r = 0;
-	int	doffset;
-	t_ivector map;
-	float	ray_angle;
-	float	aTan;
-	float	nTan;
-	t_fvector	ray_pos;
-	t_fvector	ray_offset;
-	t_fvector H;
-	float distH;
-	float distV;
-	float distT;
-	t_fvector V;
-	float LineH;
-	float LineO;
-	float Camera_angle;
+	uint32_t	x;
+	float		camera_x;
+	t_fvector	raydir;
+	t_ivector	map;
+	t_fvector	side_dist;
+	t_fvector	deltadist;
+	float		walldist;
+	t_ivector	step;
+	int			hit;
+	int			side;
+	int			lineh;
 
-	ft_clean_img(data->img_ray);
+	x = 0;
+	hit = 0;
 	ft_clean_img(data->img_3d);
-	ray_angle = fix_ang(data->player->angle + 30);
-	H.x = data->player->pos.x;
-	H.y = data->player->pos.y;
-	V.x = data->player->pos.x;
-	V.y = data->player->pos.y;
-	while (r < 60)
+	while (x < data->img_3d->width)
 	{
-		distV = 10000000;
-		doffset = 0;
-		nTan = tan(deg_to_rad(ray_angle));
-		if (cos(deg_to_rad(ray_angle)) > 0.001)
-		{
-			ray_pos.x = (((int)data->player->pos.x >> 6) << 6) + 64;
-			ray_pos.y = (data->player->pos.x - ray_pos.x) * nTan + data->player->pos.y;
-			ray_offset.x = 64;
-			ray_offset.y = -ray_offset.x * nTan;
-		}
-		else if (cos(deg_to_rad(ray_angle)) < -0.001)
-		{
-			ray_pos.x = (((int)data->player->pos.x >> 6) << 6) - 0.0001;
-			ray_pos.y = (data->player->pos.x - ray_pos.x) * nTan + data->player->pos.y;
-			ray_offset.x = -64;
-			ray_offset.y = -ray_offset.x * nTan;
-		}
+		camera_x = 2 * x / (float)data->img_3d->width - 1;
+		raydir.x = data->player->dir.x + data->player->plane.x * camera_x;
+		raydir.y = data->player->dir.y + data->player->plane.y * camera_x;
+		map.x = (int)data->player->map_pos.x;
+		map.y = (int)data->player->map_pos.y;
+		if (raydir.x == 0)
+			deltadist.x = INFINITY;
 		else
+			deltadist.x = fabsf(1 / raydir.x);
+		if (raydir.y == 0)
+			deltadist.y = INFINITY;
+		else
+			deltadist.y = fabsf(1 / raydir.y);
+		side_dist = ft_get_sided(raydir, map, data->player->map_pos, deltadist);
+		step = ft_get_step(raydir);
+		while (hit == 0)
 		{
-			ray_pos.x = data->player->pos.x;
-			ray_pos.y = data->player->pos.y;
-			doffset = 8;
-		}
-		while (doffset < 8)
-		{
-			map.x = (int)(ray_pos.x) >> 6;
-			map.y = (int)(ray_pos.y) >> 6;
-			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.y][map.x] == '1')
+			if (side_dist.x < side_dist.y)
 			{
-				V.x = ray_pos.x;
-				V.y = ray_pos.y;
-				distV = dist(data->player->pos, ray_pos, ray_angle);
-				doffset = 8;
+				side_dist.x += deltadist.x;
+				map.x += step.x;
+				side = 0;
 			}
 			else
 			{
-				ray_pos.x += ray_offset.x;
-				ray_pos.y += ray_offset.y;
-				doffset += 1;
+				side_dist.y += deltadist.y;
+				map.y += step.y;
+				side = 1;
 			}
+			if (data->map[map.y][map.x] == '1')
+				hit = 1;
 		}
-		distH = 10000000;
-		doffset = 0;
-		aTan = 1.0f / nTan;
-		if (sin(deg_to_rad(ray_angle)) > 0.001)
-		{
-			ray_pos.y = (((int)data->player->pos.y >> 6) << 6) - 0.0001;
-			ray_pos.x = (data->player->pos.y - ray_pos.y) * aTan + data->player->pos.x;
-			ray_offset.y = -64;
-			ray_offset.x = -ray_offset.y * aTan;
-		}
-		else if (sin(deg_to_rad(ray_angle)) < -0.001)
-		{
-			ray_pos.y = (((int)data->player->pos.y >> 6) << 6) + 64;
-			ray_pos.x = (data->player->pos.y - ray_pos.y) * aTan + data->player->pos.x;
-			ray_offset.y = 64;
-			ray_offset.x = -ray_offset.y * aTan;
-		}
-		else 
-		{
-			ray_pos.x = data->player->pos.x;
-			ray_pos.y = data->player->pos.y;
-			doffset = 8;
-		}
-		while (doffset < 8)
-		{
-			map.x = (int)(ray_pos.x) >> 6;
-			map.y = (int)(ray_pos.y) >> 6;
-			if (map.x > -1 && map.x < 8 && map.y > -1 && map.y < 8 && data->map[map.y][map.x] == '1')
-			{
-				H.x = ray_pos.x;
-				H.y = ray_pos.y;
-				distH = dist(data->player->pos, ray_pos, ray_angle);
-				doffset = 8;
-			}
-			else
-			{
-				ray_pos.x += ray_offset.x;
-				ray_pos.y += ray_offset.y;
-				doffset += 1;
-			}
-		}
-		if (distV < distH)
-		{
-			ray_pos.x = V.x;
-			ray_pos.y = V.y;
-			distT = distV;
-		}
+		if (side == 0)
+			walldist = (side_dist.x - deltadist.x);
 		else
-		{
-			ray_pos.x = H.x;
-			ray_pos.y = H.y;
-			distT = distH;
-		}
-		draw_line(data->img_ray, data->player->pos.x, data->player->pos.y, ray_pos.x, ray_pos.y, get_rgba(255, 255, 255, 255));
-		Camera_angle = fix_ang(data->player->angle - ray_angle);
-		distT = distT * cos(deg_to_rad(Camera_angle));
-		LineH = (64 * HEIGHT) / distT;
-		if(LineH > HEIGHT)
-			LineH = HEIGHT;
-		LineO = (HEIGHT / 2) - (LineH / 2);
-		t_fvector start;
-		t_fvector end;
-		mlx_texture_t *text;
-		start.x = r * 8;
-		start.y = LineO;
-		end.x = r * 8;
-		end.y = LineO + LineH;
-		int	text_x;
-		text = ft_get_texture(data, ray_pos, &text_x);
-		ft_draw_3D_2(data, start, end, text, text_x);
-		r++;
-		ray_angle = fix_ang(ray_angle - 1);
+			walldist = (side_dist.y - deltadist.y);
+		printf("begin = %u,	end = %f\n", data->img_3d->height, walldist);
+		lineh = (int)(data->img_3d->height / walldist);
+		ft_dda(lineh, data, x);
 	}
 }
 

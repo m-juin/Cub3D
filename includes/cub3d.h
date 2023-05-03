@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/02 14:41:34 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/03 14:16:40 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,12 @@ typedef struct s_pixel
 
 typedef struct s_player
 {
-	t_ivector	map_pos;
+	t_fvector	map_pos;
 	enum e_dir	facing_dir;
 	t_fvector	pos;
-	t_fvector	delta;
-	float		angle;
+	t_fvector	dir;
+	t_fvector	plane;
 	mlx_image_t	*img;
-	/*int		py;
-	int		px;
-	float	pdx;
-	float	pdy;
-	float	pa;
-	int		color;
-	t_pixel **map_data;*/
 }	t_player;
 
 typedef struct s_data
