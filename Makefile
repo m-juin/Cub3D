@@ -55,7 +55,7 @@ $(LIBMLX_NAME):
 	@printf "Compiling .c to .o \r"
 	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} $(HEADERS)
 	
-$(NAME): ${OBJ}
+$(NAME): ${OBJ} includes/cub3d.h
 	@${CC} ${CFLAGS} ${OBJ} ${LIBFT} $(LIBS) $(HEADERS) -o ${NAME} 
 	@printf '\e[1;37m'"Compilation complete"'\e[m''\n'
 

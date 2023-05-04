@@ -33,7 +33,8 @@
 # define CSIZE	64
 # define P3 3* M_PI_2
 # define DR M_PI / 180
-# define ROT 1.5f
+# define ROT 0.02f
+
 enum	e_dir
 {
 	north,

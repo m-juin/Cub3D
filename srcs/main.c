@@ -59,6 +59,7 @@ int	main(int ac, char **av)
 	ft_checkarg(ac, av);
 	data = ft_parsing_main(av[1]);
 	data->player = ft_parse_player(data->map);
+	//printf("PlayerX %f	PlayerY %f\n", player->map_pos.x, player->map_pos.y, player->pos.x, player->pos.y);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Raycast", true);
 	data->player->img = fill_image(get_rgba(0, 255, 255, 255), 8, 8, data->mlx);
 	data->img_map = ft_draw_map(data);

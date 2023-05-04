@@ -16,11 +16,11 @@ static void	ft_get_start(t_player *player, char **map)
 {
 	t_dvector	pos;
 
-	pos.y = -1;
-	while (map[(int)++pos.y] != NULL)
+	pos.y = 0;
+	while (map[(int)pos.y] != NULL)
 	{
-		pos.x = -1;
-		while (map[(int)pos.y][(int)++pos.x] != '\0')
+		pos.x = 0;
+		while (map[(int)pos.y][(int)pos.x] != '\0')
 		{
 			if (map[(int)pos.y][(int)pos.x] == 'N' || map[(int)pos.y][(int)pos.x] == 'S'
 				|| map[(int)pos.y][(int)pos.x] == 'E' || map[(int)pos.y][(int)pos.x] == 'W')
@@ -35,9 +35,11 @@ static void	ft_get_start(t_player *player, char **map)
 				else
 					player->facing_dir = west;
 				map[(int)pos.y][(int)pos.x] = '0';
-				return ;
+				//return ;
 			}
+			pos.x++;
 		}
+		pos.y++;
 	}
 }
 
@@ -85,6 +87,6 @@ t_player	*ft_parse_player(char **map)
 	ft_get_rotation(player->facing_dir, player);
 	player->pos.x = player->map_pos.x * CSIZE + CSIZE / 2;
 	player->pos.y = player->map_pos.y * CSIZE + CSIZE / 2;
-	printf("PlayerX %f	PlayerY %f\n mapX %f	MapY %f\n", player->map_pos.x, player->map_pos.y, player->pos.x, player->pos.y);
+	//printf("PlayerX %f	PlayerY %f\n mapX %f	MapY %f\n", player->map_pos.x, player->map_pos.y, player->pos.x, player->pos.y);
 	return (player);
 }
