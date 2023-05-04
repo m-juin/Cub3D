@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/03 16:58:11 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/04 10:27:15 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define CSIZE	64
 # define P3 3* M_PI_2
 # define DR M_PI / 180
-
+# define ROT 1.5f
 enum	e_dir
 {
 	north,
@@ -47,6 +47,12 @@ typedef struct s_ivector
 	int	x;
 	int	y;
 }	t_ivector;
+
+typedef struct s_dvector
+{
+	double	x;
+	double	y;
+}	t_dvector;
 
 typedef struct s_fvector
 {
@@ -62,11 +68,11 @@ typedef struct s_pixel
 
 typedef struct s_player
 {
-	t_fvector	map_pos;
+	t_dvector	map_pos;
 	enum e_dir	facing_dir;
 	t_fvector	pos;
-	t_fvector	dir;
-	t_fvector	plane;
+	t_dvector	dir;
+	t_dvector	plane;
 	mlx_image_t	*img;
 }	t_player;
 
@@ -152,7 +158,8 @@ void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
 /* ft_printing.c */
 // void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos);
-void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color);
+// void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color);
+void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);

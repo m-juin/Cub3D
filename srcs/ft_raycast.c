@@ -6,16 +6,16 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/03 16:58:29 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/04 10:46:28 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_fvector ft_get_sided(t_fvector raydir, t_ivector map, t_fvector player,
-	t_fvector delta)
+static t_dvector ft_get_sided(t_dvector raydir, t_ivector map, t_dvector player,
+	t_dvector delta)
 {
-	t_fvector side;
+	t_dvector side;
 
 	if (raydir.x < 0)
 		side.x = (player.x - map.x) * delta.x;	
@@ -28,7 +28,7 @@ static t_fvector ft_get_sided(t_fvector raydir, t_ivector map, t_fvector player,
 	return (side);
 }
 
-static t_ivector ft_get_step(t_fvector raydir)
+static t_ivector ft_get_step(t_dvector raydir)
 {
 	t_ivector step;
 
@@ -43,28 +43,15 @@ static t_ivector ft_get_step(t_fvector raydir)
 	return (step);
 }
 
-static void ft_dda(int lineh, t_data *data, int x)
-{
-	t_ivector linepos;
-
-	linepos.x = (-lineh / 2 + data->img_3d->height / 2);
-	if (linepos.x < 0)
-		linepos.x = 0;
-	linepos.y = (-lineh / 2 + data->img_3d->height / 2);
-	if ((uint32_t)linepos.y >= data->img_3d->height)
-		linepos.y = data->img_3d->height - 1;
-	draw_line(data->img_3d, x, linepos.x, x, linepos.y, get_rgba(255, 255, 255, 255));
-}
-
 void	ft_draw_ray3d(t_data *data)
 {
 	uint32_t	x;
-	float		camera_x;
-	t_fvector	raydir;
+	double		camera_x;
+	t_dvector	raydir;
 	t_ivector	map;
-	t_fvector	side_dist;
-	t_fvector	deltadist;
-	float		walldist;
+	t_dvector	side_dist;
+	t_dvector	deltadist;
+	double		walldist;
 	t_ivector	step;
 	int			hit;
 	int			side;
@@ -73,11 +60,12 @@ void	ft_draw_ray3d(t_data *data)
 	int			drawEnd;
 
 	x = 0;
-	hit = 0;
 	ft_clean_img(data->img_3d);
+	ft_clean_img(data->img_ray);
 	while (x < data->img_3d->width)
 	{
-		camera_x = 2 * x / (float)data->img_3d->width - 1;
+		hit = 0;
+		camera_x = 2 * x / (double)data->img_3d->width - 1;
 		raydir.x = data->player->dir.x + data->player->plane.x * camera_x;
 		raydir.y = data->player->dir.y + data->player->plane.y * camera_x;
 		map.x = (int)data->player->map_pos.x;
@@ -85,11 +73,11 @@ void	ft_draw_ray3d(t_data *data)
 		if (raydir.x == 0)
 			deltadist.x = INFINITY;
 		else
-			deltadist.x = fabsf(1 / raydir.x);
+			deltadist.x = fabs(1 / raydir.x);
 		if (raydir.y == 0)
 			deltadist.y = INFINITY;
 		else
-			deltadist.y = fabsf(1 / raydir.y);
+			deltadist.y = fabs(1 / raydir.y);
 		side_dist = ft_get_sided(raydir, map, data->player->map_pos, deltadist);
 		step = ft_get_step(raydir);
 		while (hit == 0)
@@ -106,9 +94,10 @@ void	ft_draw_ray3d(t_data *data)
 				map.y += step.y;
 				side = 1;
 			}
-			if (data->map[map.x][map.y] == '1')
+			if (data->map[map.y][map.x] == '1')
 				hit = 1;
 		}
+		//printf("%d, %d\n", side_dist.x, side_dist.y);
 		if (side == 0)
 			walldist = (side_dist.x - deltadist.x);
 		else
@@ -118,11 +107,39 @@ void	ft_draw_ray3d(t_data *data)
 		if (drawStart < 0)
 			drawStart = 0;
 		drawEnd = lineh / 2 + data->img_3d->height / 2;
-		if (drawEnd >= (float)data->img_3d->height)
+		if (drawEnd >= (int)data->img_3d->height)
 			drawEnd = data->img_3d->height - 1;
-		//ft_dda(drawStart, data, x);
-		ft_print_lines_v3(data, x, drawStart, drawEnd, 0);
-		x++;
+		draw_line(data->img_ray, data->player->pos.x, data->player->pos.y, map.x * 64, map.y * 64, get_rgba(255, 0, 255, 60));
+		//ft_print_lines_v3(data->img_ray, x, drawStart, drawEnd, 0);
+		//printf("%d --- %d\n", drawStart, drawEnd);
+		//ft_dda(lineh, data, x);
+		double wallX; // where exactly the wall was hit
+		if (side == 0)
+			wallX = data->player->map_pos.x + walldist * raydir.y;
+		else
+			wallX = data->player->map_pos.y + walldist * raydir.x;
+		wallX -= floor((wallX));
+      int texX = (int)(wallX * (double)(data->north->width));
+	  if (side == 0 && raydir.x > 0)
+			texX = data->north->width - texX - 1;
+	  if (side == 1 && raydir.y < 0)
+			texX = data->north->width - texX - 1;
+	  double step = 1.0 * data->north->height / lineh;
+	  // Starting texture coordinate
+	  double texPos = (drawStart - data->img_3d->height / 2 + lineh / 2) * step;
+	  for (int y = drawStart; y < drawEnd; y++)
+	  {
+			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+			int texY =  (64 - (int)texPos & (data->north->height - 1));
+			texPos += step;
+			uint32_t color = get_rgba(data->north->pixels[data->north->width * (texY* 4) + (texX * 4)], 
+			data->north->pixels[data->north->width * (texY* 4) + (texX * 4) + 1], 
+			data->north->pixels[data->north->width * (texY* 4) + (texX * 4) + 2], 
+			data->north->pixels[data->north->width * (texY* 4) + (texX * 4) + 3]);
+			mlx_put_pixel(data->img_3d, x, y, color);
+	  }
+	  //ft_print_lines_v3(data->img_3d, x, drawStart, drawEnd, 0);
+	  x++;
 	}
 }
 

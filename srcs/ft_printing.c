@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/03 17:01:54 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/04 10:10:46 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ mlx_texture_t	*ft_get_texture(t_data *data, t_fvector ray_pos, int *text_x)
 	return (data->south);
 }
 
-void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color)
+void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color)
 {
 	t_bresenham		*bre;
 
@@ -128,9 +128,9 @@ void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int colo
 	if (bre->pos1.y > bre->pos2.y)
 		bre->yincr = -1;
 	if (bre->dx > bre->dy)
-		ft_print_x_lines(data->img_3d, bre, color);
+		ft_print_x_lines(img, bre, color);
 	else
-		ft_print_y_lines(data->img_3d, bre, color);
+		ft_print_y_lines(img, bre, color);
 	free(bre);
 }
 

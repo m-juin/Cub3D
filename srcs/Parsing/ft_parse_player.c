@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/03 14:16:59 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/04 10:41:16 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_get_start(t_player *player, char **map)
 {
-	t_fvector	pos;
+	t_dvector	pos;
 
 	pos.y = -1;
 	while (map[(int)++pos.y] != NULL)
@@ -50,22 +50,22 @@ static void	ft_get_rotation(enum e_dir start_dir, t_player *player)
 	if (start_dir == north)
 	{
 		player->dir.y = -1;
-		player->plane.x = 0.66f;
+		player->plane.x = 0.66;
 	}
 	else if (start_dir == south)
 	{
 		player->dir.y = 1;
-		player->plane.x = -0.66f;
+		player->plane.x = -0.66;
 	}
 	else if (start_dir == east)
 	{
 		player->dir.x = 1;
-		player->plane.y = -0.66f;
+		player->plane.y = -0.66;
 	}
 	else
 	{
 		player->dir.x = -1;
-		player->plane.y = 0.66f;
+		player->plane.y = 0.66;
 	}
 }
 
@@ -85,5 +85,6 @@ t_player	*ft_parse_player(char **map)
 	ft_get_rotation(player->facing_dir, player);
 	player->pos.x = player->map_pos.x * CSIZE + CSIZE / 2;
 	player->pos.y = player->map_pos.y * CSIZE + CSIZE / 2;
+	printf("PlayerX %f	PlayerY %f\n mapX %f	MapY %f\n", player->map_pos.x, player->map_pos.y, player->pos.x, player->pos.y);
 	return (player);
 }
