@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/28 09:22:22 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/04 10:27:15 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define CSIZE	64
 # define P3 3* M_PI_2
 # define DR M_PI / 180
+# define ROT 0.02f
 
 enum	e_dir
 {
@@ -48,6 +49,12 @@ typedef struct s_ivector
 	int	y;
 }	t_ivector;
 
+typedef struct s_dvector
+{
+	double	x;
+	double	y;
+}	t_dvector;
+
 typedef struct s_fvector
 {
 	float	x;
@@ -62,19 +69,12 @@ typedef struct s_pixel
 
 typedef struct s_player
 {
-	t_ivector	map_pos;
+	t_dvector	map_pos;
 	enum e_dir	facing_dir;
 	t_fvector	pos;
-	t_fvector	delta;
-	float		angle;
+	t_dvector	dir;
+	t_dvector	plane;
 	mlx_image_t	*img;
-	/*int		py;
-	int		px;
-	float	pdx;
-	float	pdy;
-	float	pa;
-	int		color;
-	t_pixel **map_data;*/
 }	t_player;
 
 typedef struct s_data
@@ -97,10 +97,8 @@ typedef struct s_data
 
 typedef struct s_bresenham 
 {
-	int		x1;
-	int		x2;
-	int		y1;
-	int		y2;
+	t_ivector pos1;
+	t_ivector pos2;
 	int		xincr;
 	int		yincr;
 	float	ey;
@@ -150,7 +148,7 @@ int			ft_get_rgb_from_id(char *id, char **data);
 /*	Parsing/ft_parsing_main.c	*/
 t_data		*ft_parsing_main(char *path);
 
-/*	Parsing/ft_map_parsing.c	*/
+/*	Parsing/ft_map_parsing.	*/
 char		**ft_parse_map(char **src);
 
 /*	Parsing/ft_parse_player.c	*/
@@ -160,7 +158,9 @@ t_player	*ft_parse_player(char	**map);
 void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
 /* ft_printing.c */
-void		ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color);
+// void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos);
+// void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color);
+void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);
@@ -171,9 +171,11 @@ int			fix_ang(int angle);
 void		ft_draw_ray3d(t_data *data);
 
 /* ft_draw.c */
+mlx_texture_t *ft_get_texture(t_data *data, const t_fvector ray_pos, int *text_x);
 mlx_image_t	*ft_draw_map(t_data *data);
 void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);
 void		ft_draw_3D(mlx_image_t *img, float ax, float ay, float bx, float by, int color);
+void	ft_draw_3D_2(t_data *data, t_fvector start, t_fvector end, mlx_texture_t *text, int text_pos);
 void		draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color);
 
 /* main.c */

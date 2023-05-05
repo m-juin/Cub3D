@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/28 09:23:12 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/04 10:43:36 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,6 @@ void	ft_clean_img(mlx_image_t *img_ray)
 	}
 }
 
-static void	ft_update(void *param)
-{
-	//static int	frame;
-	t_data		*data = (t_data *)param;
-
-	(void)data;
-	/*if (frame != 60)
-	{
-		frame++;
-		return ;
-	}
-	frame = 0;*/
-	return ;
-}
-
 int	main(int ac, char **av)
 {
 	t_data		*data;
@@ -74,17 +59,17 @@ int	main(int ac, char **av)
 	ft_checkarg(ac, av);
 	data = ft_parsing_main(av[1]);
 	data->player = ft_parse_player(data->map);
+	//printf("PlayerX %f	PlayerY %f\n", player->map_pos.x, player->map_pos.y, player->pos.x, player->pos.y);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Raycast", true);
 	data->player->img = fill_image(get_rgba(0, 255, 255, 255), 8, 8, data->mlx);
 	data->img_map = ft_draw_map(data);
-	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), 8 * CSIZE, 8 * CSIZE, data->mlx);
-	data->img_3d = fill_image(get_rgba(0, 0, 0, 0), 8 * CSIZE, 8 * CSIZE, data->mlx);
+	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), data->msize.x * CSIZE, data->msize.y * CSIZE, data->mlx);
+	data->img_3d = fill_image(get_rgba(0, 0, 0, 0), WIDTH, HEIGHT, data->mlx);
 	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
 	mlx_image_to_window(data->mlx, data->img_ray, 0, 0);
 	mlx_image_to_window(data->mlx, data->img_3d, 521, 0);
-	mlx_image_to_window(data->mlx, data->player->img, data->player->pos.x, data->player->pos.x);
+	mlx_image_to_window(data->mlx, data->player->img, data->player->pos.x, data->player->pos.y);
 	mlx_key_hook(data->mlx, handle_key_hook, data);
-	mlx_loop_hook(data->mlx, ft_update, (void *)data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:45:20 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 16:40:13 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/03 13:35:18 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,26 @@ static char	**ft_get_id_part(char **src)
 	return (id);
 }
 
+static t_ivector ft_get_size(char **map)
+{
+	t_ivector pos;
+	t_ivector size;
+
+	pos.y = 0;
+	size.x = 0;
+	while (map[pos.y] != NULL)
+	{
+		pos.x = 0;
+		while (map[pos.y][pos.x] != '\0')
+			pos.x++;
+		if (pos.x > size.x)
+			size.x = pos.x;
+		pos.y++;
+	}
+	size.y = pos.y;
+	return (size);
+}
+
 t_data	*ft_parsing_main(char *path)
 {
 	char		**identifiers;
@@ -92,8 +112,9 @@ t_data	*ft_parsing_main(char *path)
 	data = ft_parse_data(identifiers, mapped);
 	ft_double_free(identifiers);
 	ft_double_free(mapped);
-	if (mapped == NULL || identifiers == NULL || data == NULL)
+	if (data == NULL)
 		ft_exit("Error on malloc", 1);
 	ft_check_map(data);
+	data->msize = ft_get_size(data->map);
 	return (data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:18:30 by lobozier          #+#    #+#             */
-/*   Updated: 2023/04/28 09:24:04 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:22:11 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,6 @@ void	draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int
 		if (pixelX < 0 || pixelY < 0 || pixelX > img->width || pixelY > img->height)
 			return ;
 		--pixels;
-	}
-}
-
-void	ft_draw_3D(mlx_image_t *img, float ax, float ay, float bx, float by, int color)
-{
-	int	j;
-
-	j = 0;
-	while (j < 8)
-	{
-		ft_print_lines_v3(img, ax + j, ay, bx + j, by, color);
-		j++;
 	}
 }
 
