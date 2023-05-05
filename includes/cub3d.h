@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/05 13:07:24 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/05 15:19:42 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@
 # define CSIZE	64
 # define P3 3* M_PI_2
 # define DR M_PI / 180
-# define ROT 0.02f
+# define ROT 0.05f
 
 enum	e_dir
 {
-	north,
-	south,
-	east,
-	west,
+	north = 0,
+	south = 2,
+	east = 1,
+	west = 3,
 };
 
 typedef struct s_ivector
@@ -70,6 +70,8 @@ typedef struct s_pixel
 typedef struct s_player
 {
 	t_dvector	map_pos;
+	t_dvector	target_pos;
+	enum e_dir	target_dir;
 	enum e_dir	facing_dir;
 	t_fvector	pos;
 	t_dvector	dir;
@@ -154,6 +156,7 @@ char		**ft_parse_map(char **src);
 
 /*	Parsing/ft_parse_player.c	*/
 t_player	*ft_parse_player(char	**map);
+void		ft_get_rotation(enum e_dir start_dir, t_player *player);
 
 /*	Mlx/key_hook.c	*/
 void		handle_key_hook(mlx_key_data_t keydata, void *param);

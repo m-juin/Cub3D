@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/05 13:04:21 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/05 15:26:58 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,9 @@ void ft_draw_ray3d(t_data *data)
 			draw_line(data->img_ray, data->player->pos.x + data->player->img->width / 2, data->player->pos.y + data->player->img->height / 2, (map.x * CSIZE), (map.y * CSIZE), get_rgba(255, 0, 255, 60));*/
 		double wallX;
 		if (side == 0)
-			wallX = data->player->map_pos.x + walldist * raydir.y;
+			wallX = data->player->map_pos.y + walldist * raydir.y;
 		else
-			wallX = data->player->map_pos.y + walldist * raydir.x;
+			wallX = data->player->map_pos.x + walldist * raydir.x;
 		wallX -= floor((wallX));
 		int texX = used->width - 1 - ((int)(wallX * (double)(used->width)));
 		if (side == 0 && raydir.x > 0)

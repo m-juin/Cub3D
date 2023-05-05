@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/05 13:09:33 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/05 15:47:54 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,52 +16,56 @@ static void	movement_hook(mlx_key_data_t keydata, t_player	*player, t_data *data
 {
 	t_dvector offset;
 
-	offset.x = 0.5;
-	offset.y = 0.5;
+	offset.x = 1;
+	offset.y = 1;
 	if (player->dir.x < 0)
-		offset.x = offset.x * -1;
+		offset.x = -1;
 	if (player->dir.y < 0)
-		offset.y = offset.y * -1;
+		offset.y = -1;
 	if (keydata.key == MLX_KEY_W
-		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		&& keydata.action == MLX_RELEASE)
 	{
-		//printf("Map_posX = %d\tMap_posY = %d\tValue Map = %c\n", (int)player->map_pos.x, (int)player->map_pos.y, data->map[(int)(player->map_pos.x)][(int)player->map_pos.y]);
-		if (data->map[(int)player->map_pos.y][(int)(player->map_pos.x + offset.x + player->dir.x * ROT)] != '1')
+		if (data->map[(int)player->map_pos.y][(int)(player->map_pos.x + offset.x)] != '1')
 		{
-			//player->pos.x += player->dir.x * ROT * CSIZE;
-			player->map_pos.x += player->dir.x * ROT;
+			player->target_pos.x += player->dir.x;
 		}
-		if (data->map[(int)(player->map_pos.y + offset.y + player->dir.y * ROT)][(int)(player->map_pos.x)] != '1')
+		if (data->map[(int)(player->map_pos.y + offset.y)][(int)(player->map_pos.x)] != '1')
 		{
-			//player->pos.y += player->dir.y * ROT * CSIZE;
-			player->map_pos.y += player->dir.y * ROT;
+			player->target_pos.y += player->dir.y;
 		}
-		//player->img->instances[0].x = player->pos.x;
-		//player->img->instances[0].y = player->pos.y;
-		ft_draw_ray3d(data);
+		player->canmove = false;
 	}	
 	else if (keydata.key == MLX_KEY_S
-		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		&& keydata.action == MLX_RELEASE)
 	{
-		//printf("Map_posX = %d\tMap_posY = %d\tPosX = %f\tPosY = %f\n", (int)player->map_pos.x, (int)player->map_pos.y, player->pos.x, player->pos.y);
-		//printf("Map_posX = %d\tMap_posY = %d\tValue Map = %c\n", (int)player->map_pos.x, (int)player->map_pos.y, data->map[(int)(player->map_pos.x)][(int)player->map_pos.y]);
-		if (data->map[(int)player->map_pos.y][(int)(player->map_pos.x + offset.x  - player->dir.x * ROT)] != '1')
+		if (data->map[(int)player->map_pos.y][(int)(player->map_pos.x - offset.x)] != '1')
 		{
-			//player->pos.x -= player->dir.x * ROT * CSIZE;
-			player->map_pos.x -= player->dir.x * ROT;
+			player->target_pos.x -= player->dir.x;
 		}
-		if (data->map[(int)(player->map_pos.y + offset.y - player->dir.y * ROT)][(int)(player->map_pos.x)] != '1')
+		if (data->map[(int)(player->map_pos.y - offset.y)][(int)(player->map_pos.x)] != '1')
 		{
-			//player->pos.y -= player->dir.y * ROT * CSIZE;
-			player->map_pos.y -= player->dir.y * ROT;
+			player->target_pos.y -= player->dir.y;
 		}
-		//player->img->instances[0].x = player->pos.x;
-		//player->img->instances[0].y = player->pos.y;
-		ft_draw_ray3d(data);
-	}	
+		player->canmove = false;
+	}
 	else if (keydata.key == MLX_KEY_D
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
+		if (data->map[(int)player->map_pos.y][(int)(player->map_pos.x + offset.x)] != '1')
+		{
+			if (player->plane.x < 0)
+				player->target_pos.x += -1;
+			else if (player->plane.x > 0)
+				player->target_pos.x += 1;
+		}
+		if (data->map[(int)(player->map_pos.y + offset.y)][(int)(player->map_pos.x)] != '1')
+		{
+			if (player->plane.y < 0)
+				player->target_pos.y += -1;
+			else if (player->plane.y > 0)
+				player->target_pos.y += 1;
+		}
+		player->canmove = false;
 	}	
 	else if (keydata.key == MLX_KEY_A
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
@@ -75,22 +79,22 @@ static void	rotation_hook(mlx_key_data_t keydata, t_player *player, t_data *data
 	double oldPlaneX = player->plane.x;
 
 	if (keydata.key == MLX_KEY_LEFT
-		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		&& keydata.action == MLX_RELEASE)
 	{
-		player->dir.x = player->dir.x * cos(-ROT) - player->dir.y * sin(-ROT);
-		player->dir.y = oldDirX * sin(-ROT) + player->dir.y * cos(-ROT);
-		player->plane.x = player->plane.x * cos(-ROT) - player->plane.y * sin(-ROT);
-		player->plane.y = oldPlaneX * sin(-ROT) + player->plane.y * cos(-ROT);
-		ft_draw_ray3d(data);
+		if (player->facing_dir > 0)
+			player->target_dir -= 1;
+		else
+			player->target_dir = 3;
+		player->canmove = false;
 	}
 	else if (keydata.key == MLX_KEY_RIGHT
-		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		&& keydata.action == MLX_RELEASE)
 	{
-		player->dir.x = player->dir.x * cos(ROT) - player->dir.y * sin(ROT);
-		player->dir.y = oldDirX * sin(ROT) + player->dir.y * cos(ROT);
-		player->plane.x = player->plane.x * cos(ROT) - player->plane.y * sin(ROT);
-		player->plane.y = oldPlaneX * sin(ROT) + player->plane.y * cos(ROT);
-		ft_draw_ray3d(data);
+		if (player->facing_dir < 3)
+			player->target_dir += 1;
+		else
+			player->target_dir = 0;
+		player->canmove = false;
 	}
 }
 

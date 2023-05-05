@@ -1,16 +1,16 @@
-NO ./Assets/Textures/NO2.png
-SO ./Assets/Textures/SO2.png
-WE ./Assets/Textures/WE2.png
-EA ./Assets/Textures/EA2.png
+NO ./Assets/Textures/NO.png
+SO ./Assets/Textures/SO.png
+WE ./Assets/Textures/WE.png
+EA ./Assets/Textures/EA.png
 F 220,100,0
 C 225,30,0
 
 
 1111111111
 1010000001
-1N10000101
+1010000101
 1000100101
 1000000101
-1100010101
+110N010101
 1000000101
 1111111111

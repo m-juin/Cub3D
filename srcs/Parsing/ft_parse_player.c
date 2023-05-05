@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/05 13:07:46 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/05 15:04:46 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	ft_get_start(t_player *player, char **map)
 				else
 					player->facing_dir = west;
 				map[(int)pos.y][(int)pos.x] = '0';
-				//return ;
 			}
 			pos.x++;
 		}
@@ -43,7 +42,7 @@ static void	ft_get_start(t_player *player, char **map)
 	}
 }
 
-static void	ft_get_rotation(enum e_dir start_dir, t_player *player)
+void	ft_get_rotation(enum e_dir start_dir, t_player *player)
 {
 	player->dir.x = 0;
 	player->dir.y = 0;
@@ -62,12 +61,12 @@ static void	ft_get_rotation(enum e_dir start_dir, t_player *player)
 	else if (start_dir == east)
 	{
 		player->dir.x = 1;
-		player->plane.y = -0.66;
+		player->plane.y = 0.66;
 	}
 	else
 	{
 		player->dir.x = -1;
-		player->plane.y = 0.66;
+		player->plane.y = -0.66;
 	}
 }
 
@@ -89,6 +88,8 @@ t_player	*ft_parse_player(char **map)
 	player->map_pos.y -= 0.5;
 	player->pos.x = player->map_pos.x * CSIZE;
 	player->pos.y = player->map_pos.y * CSIZE;
+	player->target_pos = player->map_pos;
+	player->target_dir = player->facing_dir;
 	player->canmove = true;
 	//printf("PlayerX %f	PlayerY %f\n mapX %f	MapY %f\n", player->map_pos.x, player->map_pos.y, player->pos.x, player->pos.y);
 	return (player);
