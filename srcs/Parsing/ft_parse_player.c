@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/04 10:41:16 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/05 13:07:46 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,11 @@ t_player	*ft_parse_player(char **map)
 	}
 	ft_get_start(player, map);
 	ft_get_rotation(player->facing_dir, player);
-	player->pos.x = player->map_pos.x * CSIZE + CSIZE / 2;
-	player->pos.y = player->map_pos.y * CSIZE + CSIZE / 2;
+	player->map_pos.x += 0.5;
+	player->map_pos.y -= 0.5;
+	player->pos.x = player->map_pos.x * CSIZE;
+	player->pos.y = player->map_pos.y * CSIZE;
+	player->canmove = true;
 	//printf("PlayerX %f	PlayerY %f\n mapX %f	MapY %f\n", player->map_pos.x, player->map_pos.y, player->pos.x, player->pos.y);
 	return (player);
 }

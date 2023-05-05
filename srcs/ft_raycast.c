@@ -6,21 +6,21 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/04 10:46:28 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/05 13:04:21 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static t_dvector ft_get_sided(t_dvector raydir, t_ivector map, t_dvector player,
-	t_dvector delta)
+							  t_dvector delta)
 {
 	t_dvector side;
 
 	if (raydir.x < 0)
-		side.x = (player.x - map.x) * delta.x;	
+		side.x = (player.x - map.x) * delta.x;
 	else
-		side.x = (map.x + 1.0 - player.x) * delta.x;	
+		side.x = (map.x + 1.0 - player.x) * delta.x;
 	if (raydir.y < 0)
 		side.y = (player.y - map.y) * delta.y;
 	else
@@ -43,25 +43,28 @@ static t_ivector ft_get_step(t_dvector raydir)
 	return (step);
 }
 
-void	ft_draw_ray3d(t_data *data)
+void ft_draw_ray3d(t_data *data)
 {
-	uint32_t	x;
-	double		camera_x;
-	t_dvector	raydir;
-	t_ivector	map;
-	t_dvector	side_dist;
-	t_dvector	deltadist;
-	double		walldist;
-	t_ivector	step;
-	int			hit;
-	int			side;
-	int			lineh;
-	int			drawStart;
-	int			drawEnd;
+	uint32_t x;
+	double camera_x;
+	t_dvector raydir;
+	t_ivector map;
+	t_dvector side_dist;
+	t_dvector deltadist;
+	double walldist;
+	t_ivector step;
+	int hit;
+	int side;
+	int lineh;
+	int drawStart;
+	int drawEnd;
+	mlx_texture_t *used;
 
 	x = 0;
-	ft_clean_img(data->img_3d);
-	ft_clean_img(data->img_ray);
+	//ft_clean_img(data->img_3d);
+	//ft_clean_img(data->img_ray);
+	int w;
+	w = 0;
 	while (x < data->img_3d->width)
 	{
 		hit = 0;
@@ -97,11 +100,22 @@ void	ft_draw_ray3d(t_data *data)
 			if (data->map[map.y][map.x] == '1')
 				hit = 1;
 		}
-		//printf("%d, %d\n", side_dist.x, side_dist.y);
 		if (side == 0)
+		{
 			walldist = (side_dist.x - deltadist.x);
+			if (map.x < data->player->map_pos.x)
+				used = data->east;
+			else
+				used = data->west;
+		}
 		else
+		{
 			walldist = (side_dist.y - deltadist.y);
+			if (map.y < data->player->map_pos.y)
+				used = data->south;
+			else
+				used = data->north;
+		}
 		lineh = (int)(data->img_3d->height / walldist);
 		drawStart = -lineh / 2 + data->img_3d->height / 2;
 		if (drawStart < 0)
@@ -109,37 +123,70 @@ void	ft_draw_ray3d(t_data *data)
 		drawEnd = lineh / 2 + data->img_3d->height / 2;
 		if (drawEnd >= (int)data->img_3d->height)
 			drawEnd = data->img_3d->height - 1;
-		draw_line(data->img_ray, data->player->pos.x, data->player->pos.y, map.x * 64, map.y * 64, get_rgba(255, 0, 255, 60));
-		//ft_print_lines_v3(data->img_ray, x, drawStart, drawEnd, 0);
-		//printf("%d --- %d\n", drawStart, drawEnd);
-		//ft_dda(lineh, data, x);
-		double wallX; // where exactly the wall was hit
+		/*if (data->player->dir.y < 0 && data->player->dir.x < 0 )
+			draw_line(data->img_ray, data->player->pos.x + data->player->img->width / 2, data->player->pos.y + data->player->img->height / 2, ((map.x - 1) * CSIZE), ((map.y - 1) * CSIZE), get_rgba(255, 0, 255, 60));
+		else
+			draw_line(data->img_ray, data->player->pos.x + data->player->img->width / 2, data->player->pos.y + data->player->img->height / 2, (map.x * CSIZE), (map.y * CSIZE), get_rgba(255, 0, 255, 60));*/
+		double wallX;
 		if (side == 0)
 			wallX = data->player->map_pos.x + walldist * raydir.y;
 		else
 			wallX = data->player->map_pos.y + walldist * raydir.x;
 		wallX -= floor((wallX));
-      int texX = (int)(wallX * (double)(data->north->width));
-	  if (side == 0 && raydir.x > 0)
-			texX = data->north->width - texX - 1;
-	  if (side == 1 && raydir.y < 0)
-			texX = data->north->width - texX - 1;
-	  double step = 1.0 * data->north->height / lineh;
-	  // Starting texture coordinate
-	  double texPos = (drawStart - data->img_3d->height / 2 + lineh / 2) * step;
-	  for (int y = drawStart; y < drawEnd; y++)
-	  {
+		int texX = used->width - 1 - ((int)(wallX * (double)(used->width)));
+		if (side == 0 && raydir.x > 0)
+			texX = used->width - texX - 1;
+		if (side == 1 && raydir.y < 0)
+			texX = used->width - texX - 1;
+		double step = 1.0 * used->height / lineh;
+		// Starting texture coordinate
+		double texPos = ((drawStart - data->img_3d->height / 2 + lineh / 2) * step);
+		int y = 0;
+		while (y < drawStart)
+		{
+			if (data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4)] != get_r(data->top) 
+				|| data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4) + 1] != get_g(data->top)
+				|| data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4) + 2] != get_b(data->top)
+				|| data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4) + 3] != get_a(data->top))
+			{
+				w++;
+				mlx_put_pixel(data->img_3d, x, y, data->top);
+			}
+			y++;
+		}
+		while (y < drawEnd)
+		{
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-			int texY =  (64 - (int)texPos & (data->north->height - 1));
+			int texY = ((int)texPos & (used->height - 1));
 			texPos += step;
-			uint32_t color = get_rgba(data->north->pixels[data->north->width * (texY* 4) + (texX * 4)], 
-			data->north->pixels[data->north->width * (texY* 4) + (texX * 4) + 1], 
-			data->north->pixels[data->north->width * (texY* 4) + (texX * 4) + 2], 
-			data->north->pixels[data->north->width * (texY* 4) + (texX * 4) + 3]);
-			mlx_put_pixel(data->img_3d, x, y, color);
-	  }
-	  //ft_print_lines_v3(data->img_3d, x, drawStart, drawEnd, 0);
-	  x++;
+			uint32_t color = get_rgba(used->pixels[used->width * (texY * 4) + (texX * 4)],
+									  used->pixels[used->width * (texY * 4) + (texX * 4) + 1],
+									  used->pixels[used->width * (texY * 4) + (texX * 4) + 2],
+									  used->pixels[used->width * (texY * 4) + (texX * 4) + 3]);
+			if (data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4)] != get_r(color) 
+				|| data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4) + 1] != get_g(color)
+				|| data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4) + 2] != get_b(color)
+				|| data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4) + 3] != get_a(color))
+			{
+				w++;
+				mlx_put_pixel(data->img_3d, x, y, color);
+			}
+			y++;
+		}
+		while ((uint32_t)y < data->img_3d->height)
+		{
+			if (data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4)] != get_r(data->ground) 
+				|| data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4) + 1] != get_g(data->ground)
+				|| data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4) + 2] != get_b(data->ground)
+				|| data->img_3d->pixels[(y * 4) * data->img_3d->width + (x * 4) + 3] != get_a(data->ground))
+			{
+				w++;
+				mlx_put_pixel(data->img_3d, x, y, data->ground);
+			}
+			y++;
+		}
+		// ft_print_lines_v3(data->img_3d, x, drawStart, drawEnd, 0);
+		x++;
 	}
+	//printf ("Pixel draw = %i\n", w);
 }
-

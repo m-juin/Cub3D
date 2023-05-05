@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/04 10:43:36 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:59:57 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int	main(int ac, char **av)
 	data->player = ft_parse_player(data->map);
 	//printf("PlayerX %f	PlayerY %f\n", player->map_pos.x, player->map_pos.y, player->pos.x, player->pos.y);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Raycast", true);
-	data->player->img = fill_image(get_rgba(0, 255, 255, 255), 8, 8, data->mlx);
-	data->img_map = ft_draw_map(data);
-	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), data->msize.x * CSIZE, data->msize.y * CSIZE, data->mlx);
+	//data->player->img = fill_image(get_rgba(0, 255, 255, 255), 8, 8, data->mlx);
+	//data->img_map = ft_draw_map(data);
+	//data->img_ray = fill_image(get_rgba(0, 0, 0, 0), data->msize.x * CSIZE, data->msize.y * CSIZE, data->mlx);
 	data->img_3d = fill_image(get_rgba(0, 0, 0, 0), WIDTH, HEIGHT, data->mlx);
-	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
-	mlx_image_to_window(data->mlx, data->img_ray, 0, 0);
-	mlx_image_to_window(data->mlx, data->img_3d, 521, 0);
-	mlx_image_to_window(data->mlx, data->player->img, data->player->pos.x, data->player->pos.y);
+	//mlx_image_to_window(data->mlx, data->img_map, 0, 0);
+	//mlx_image_to_window(data->mlx, data->img_ray, 0, 0);
+	mlx_image_to_window(data->mlx, data->img_3d, 0, 0);
+	//mlx_image_to_window(data->mlx, data->player->img, data->player->pos.x, data->player->pos.y);
 	mlx_key_hook(data->mlx, handle_key_hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

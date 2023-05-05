@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/04 10:27:15 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/05 13:07:24 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 /* Window defines */
 
-# define WIDTH	1016
-# define HEIGHT	512
+# define WIDTH	1920
+# define HEIGHT	1080
 # define CSIZE	64
 # define P3 3* M_PI_2
 # define DR M_PI / 180
@@ -75,6 +75,7 @@ typedef struct s_player
 	t_dvector	dir;
 	t_dvector	plane;
 	mlx_image_t	*img;
+	bool		canmove;
 }	t_player;
 
 typedef struct s_data
