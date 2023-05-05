@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/04 10:46:28 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/05 10:28:42 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	ft_draw_ray3d(t_data *data)
 			if (data->map[map.y][map.x] == '1')
 				hit = 1;
 		}
-		//printf("%d, %d\n", side_dist.x, side_dist.y);
 		if (side == 0)
 			walldist = (side_dist.x - deltadist.x);
 		else
@@ -110,10 +109,7 @@ void	ft_draw_ray3d(t_data *data)
 		if (drawEnd >= (int)data->img_3d->height)
 			drawEnd = data->img_3d->height - 1;
 		draw_line(data->img_ray, data->player->pos.x, data->player->pos.y, map.x * 64, map.y * 64, get_rgba(255, 0, 255, 60));
-		//ft_print_lines_v3(data->img_ray, x, drawStart, drawEnd, 0);
-		//printf("%d --- %d\n", drawStart, drawEnd);
-		//ft_dda(lineh, data, x);
-		double wallX; // where exactly the wall was hit
+		double wallX;
 		if (side == 0)
 			wallX = data->player->map_pos.x + walldist * raydir.y;
 		else
@@ -127,7 +123,13 @@ void	ft_draw_ray3d(t_data *data)
 	  double step = 1.0 * data->north->height / lineh;
 	  // Starting texture coordinate
 	  double texPos = (drawStart - data->img_3d->height / 2 + lineh / 2) * step;
-	  for (int y = drawStart; y < drawEnd; y++)
+	  int y = 0;
+	  while (y < drawStart)
+	  {
+			mlx_put_pixel(data->img_3d, x, y, data->top);
+			y++;
+	  }
+	  while (y < drawEnd)
 	  {
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 			int texY =  (64 - (int)texPos & (data->north->height - 1));
@@ -137,6 +139,12 @@ void	ft_draw_ray3d(t_data *data)
 			data->north->pixels[data->north->width * (texY* 4) + (texX * 4) + 2], 
 			data->north->pixels[data->north->width * (texY* 4) + (texX * 4) + 3]);
 			mlx_put_pixel(data->img_3d, x, y, color);
+			y++;
+	  }
+	  	  while ((uint32_t)y < data->img_3d->height)
+	  {
+			mlx_put_pixel(data->img_3d, x, y, data->ground);
+			y++;
 	  }
 	  //ft_print_lines_v3(data->img_3d, x, drawStart, drawEnd, 0);
 	  x++;
