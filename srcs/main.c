@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/08 10:19:32 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/08 12:46:58 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,20 +102,22 @@ static bool ft_rotate(t_data *data)
 
 static bool ft_move(t_data *data)
 {
-	if (data->player->canmove == false)
+	if (data->player->canmove == false && (((float)data->player->map_pos.x != (float)data->player->target_pos.x) || ((float)data->player->map_pos.y != (float)data->player->target_pos.y)))
 	{
 		if (data->player->map_pos.x < data->player->target_pos.x)
 			data->player->map_pos.x += 0.05;
-		if (data->player->map_pos.x > data->player->target_pos.x)
+		else if (data->player->map_pos.x > data->player->target_pos.x)
 			data->player->map_pos.x -= 0.05;
 		if (data->player->map_pos.y > data->player->target_pos.y)
 			data->player->map_pos.y -= 0.05;
-		if (data->player->map_pos.y < data->player->target_pos.y)
-			data->player->map_pos.y += 0.05;
+		else if (data->player->map_pos.y < data->player->target_pos.y)
+			data->player->map_pos.y += 0.05;	
 		ft_draw_ray3d(data);
 		if ((float)data->player->map_pos.x == (float)data->player->target_pos.x
 			&& (float)data->player->map_pos.y == (float)data->player->target_pos.y)
+		{
 			return (true);
+		}
 		else
 			return (false);
 	}
@@ -142,7 +144,6 @@ int main(int ac, char **av)
 	ft_checkarg(ac, av);
 	data = ft_parsing_main(av[1]);
 	data->player = ft_parse_player(data->map);
-	// printf("PlayerX %f	PlayerY %f\n", player->map_pos.x, player->map_pos.y, player->pos.x, player->pos.y);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Raycast", true);
 	// data->player->img = fill_image(get_rgba(0, 255, 255, 255), 8, 8, data->mlx);
 	// data->img_map = ft_draw_map(data);

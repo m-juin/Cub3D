@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
+#    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/03 14:17:22 by mjuin            ###   ########.fr        #
+#    Updated: 2023/05/08 12:30:12 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC =	srcs/main.c							\
 		srcs/ft_raycast.c					\
 		srcs/ft_draw.c						\
 		srcs/Mlx/key_hook.c					\
+		srcs/Mlx/manage_collision.c			\
 
 OBJ =	${SRC:.c=.o}
 

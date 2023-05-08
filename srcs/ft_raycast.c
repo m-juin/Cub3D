@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/05 15:26:58 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/08 12:43:26 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,8 +185,6 @@ void ft_draw_ray3d(t_data *data)
 			}
 			y++;
 		}
-		// ft_print_lines_v3(data->img_3d, x, drawStart, drawEnd, 0);
 		x++;
 	}
-	//printf ("Pixel draw = %i\n", w);
 }

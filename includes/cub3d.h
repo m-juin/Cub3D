@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/05 15:19:42 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/08 12:31:17 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define CSIZE	64
 # define P3 3* M_PI_2
 # define DR M_PI / 180
-# define ROT 0.05f
+# define ROT DR * 5
 
 enum	e_dir
 {
@@ -161,6 +161,9 @@ void		ft_get_rotation(enum e_dir start_dir, t_player *player);
 /*	Mlx/key_hook.c	*/
 void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
+/* Mlx/manage_collision.c */
+t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
+
 /* ft_printing.c */
 // void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos);
 // void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color);
@@ -183,7 +186,6 @@ void	ft_draw_3D_2(t_data *data, t_fvector start, t_fvector end, mlx_texture_t *t
 void		draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color);
 
 /* main.c */
-
 void		ft_clean_img(mlx_image_t *img_ray);
 mlx_image_t	*fill_image(int color, size_t x, size_t y, mlx_t *mlx);
 
