@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/05 15:04:46 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/08 11:09:51 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_player	*ft_parse_player(char **map)
 	ft_get_start(player, map);
 	ft_get_rotation(player->facing_dir, player);
 	player->map_pos.x += 0.5;
-	player->map_pos.y -= 0.5;
+	player->map_pos.y += 0.5;
 	player->pos.x = player->map_pos.x * CSIZE;
 	player->pos.y = player->map_pos.y * CSIZE;
 	player->target_pos = player->map_pos;

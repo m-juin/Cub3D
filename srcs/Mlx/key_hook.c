@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/08 10:51:20 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/08 11:26:31 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,6 @@ static void	movement_hook(mlx_key_data_t keydata, t_player	*player, t_data *data
 
 static void	rotation_hook(mlx_key_data_t keydata, t_player *player, t_data *data)
 {
-	double oldDirX = player->dir.x;
-	double oldPlaneX = player->plane.x;
 
 	if (keydata.key == MLX_KEY_LEFT
 		&& keydata.action == MLX_RELEASE)
