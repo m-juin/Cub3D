@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
+#    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/08 12:30:12 by lobozier         ###   ########.fr        #
+#    Updated: 2023/05/08 15:41:54 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC =	clang
 
-CFLAGS =	-g -Wextra -Wall -I./includes -Ofast -I./MLX42/include/MLX42 -I./libft/include
+CFLAGS =	-g -Wextra -Wall -I./includes -I./MLX42/include/MLX42 -I./libft/include
 
 LIBMLX	:= ./MLX42
 
