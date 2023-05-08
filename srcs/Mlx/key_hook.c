@@ -6,70 +6,144 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/05 15:47:54 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/08 10:51:20 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static t_dvector	collide_front(t_player *pl, t_data *data)
+{
+	t_dvector pos;
+
+	pos = pl->map_pos;
+	if (pl->facing_dir == north
+		&& data->map[(int)pl->map_pos.y - 1][(int)pl->map_pos.x] != '1')
+		pos.y -= 1;
+	else if (pl->facing_dir == south
+		&& data->map[(int)pl->map_pos.y + 1][(int)pl->map_pos.x] != '1')
+		pos.y += 1;
+	else if (pl->facing_dir == east
+		&& data->map[(int)pl->map_pos.y][(int)pl->map_pos.x + 1] != '1')
+		pos.x += 1;
+	else if (pl->facing_dir == west
+		&& data->map[(int)pl->map_pos.y][(int)pl->map_pos.x - 1] != '1')
+		pos.x -= 1;
+	return (pos);
+}
+static t_dvector	collide_back(t_player *pl, t_data *data)
+{
+	t_dvector pos;
+
+	pos = pl->map_pos;
+	if (pl->facing_dir == north
+		&& data->map[(int)pl->map_pos.y + 1][(int)pl->map_pos.x] != '1')
+		pos.y += 1;
+	else if (pl->facing_dir == south
+		&& data->map[(int)pl->map_pos.y - 1][(int)pl->map_pos.x] != '1')
+		pos.y -= 1;
+	else if (pl->facing_dir == east
+		&& data->map[(int)pl->map_pos.y][(int)pl->map_pos.x - 1] != '1')
+		pos.x -= 1;
+	else if (pl->facing_dir == west
+		&& data->map[(int)pl->map_pos.y][(int)pl->map_pos.x + 1] != '1')
+		pos.x += 1;
+	return (pos);
+}
+static t_dvector	collide_right(t_player *pl, t_data *data)
+{
+	t_dvector pos;
+
+	pos = pl->map_pos;
+	if (pl->facing_dir == north
+		&& data->map[(int)pl->map_pos.y][(int)pl->map_pos.x + 1] != '1')
+		pos.x += 1;
+	else if (pl->facing_dir == south
+		&& data->map[(int)pl->map_pos.y][(int)pl->map_pos.x - 1] != '1')
+		pos.x -= 1;
+	else if (pl->facing_dir == east
+		&& data->map[(int)pl->map_pos.y - 1][(int)pl->map_pos.x] != '1')
+		pos.y -= 1;
+	else if (pl->facing_dir == west
+		&& data->map[(int)pl->map_pos.y + 1][(int)pl->map_pos.x] != '1')
+		pos.y += 1;
+	return (pos);
+}
+static t_dvector	collide_left(t_player *pl, t_data *data)
+{
+	t_dvector pos;
+
+	pos = pl->map_pos;
+	if (pl->facing_dir == north
+		&& data->map[(int)pl->map_pos.y][(int)pl->map_pos.x - 1] != '1')
+		pos.x -= 1;
+	else if (pl->facing_dir == south
+		&& data->map[(int)pl->map_pos.y][(int)pl->map_pos.x + 1] != '1')
+		pos.x += 1;
+	else if (pl->facing_dir == east
+		&& data->map[(int)pl->map_pos.y + 1][(int)pl->map_pos.x] != '1')
+		pos.y += 1;
+	else if (pl->facing_dir == west
+		&& data->map[(int)pl->map_pos.y - 1][(int)pl->map_pos.x] != '1')
+		pos.y -= 1;
+	return (pos);
+}
+
+static t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata)
+{
+	t_dvector move;
+
+	move = player->map_pos;
+	if (keydata.key == MLX_KEY_W)
+		move = collide_front(player, data);
+	else if (keydata.key == MLX_KEY_S)
+		move = collide_back(player, data);
+	else if (keydata.key == MLX_KEY_D)
+		move = collide_right(player, data);
+	else if (keydata.key == MLX_KEY_A)
+		move = collide_left(player, data);
+	return (move);
+}
+
 static void	movement_hook(mlx_key_data_t keydata, t_player	*player, t_data *data)
 {
-	t_dvector offset;
+	t_dvector target;
 
-	offset.x = 1;
-	offset.y = 1;
-	if (player->dir.x < 0)
-		offset.x = -1;
-	if (player->dir.y < 0)
-		offset.y = -1;
 	if (keydata.key == MLX_KEY_W
 		&& keydata.action == MLX_RELEASE)
 	{
-		if (data->map[(int)player->map_pos.y][(int)(player->map_pos.x + offset.x)] != '1')
-		{
-			player->target_pos.x += player->dir.x;
-		}
-		if (data->map[(int)(player->map_pos.y + offset.y)][(int)(player->map_pos.x)] != '1')
-		{
-			player->target_pos.y += player->dir.y;
-		}
+		target = collide(player, data, keydata);
+		if (target.x == player->map_pos.x && target.y == player->map_pos.y)
+			return ;
+		player->target_pos = target;
 		player->canmove = false;
 	}	
 	else if (keydata.key == MLX_KEY_S
 		&& keydata.action == MLX_RELEASE)
 	{
-		if (data->map[(int)player->map_pos.y][(int)(player->map_pos.x - offset.x)] != '1')
-		{
-			player->target_pos.x -= player->dir.x;
-		}
-		if (data->map[(int)(player->map_pos.y - offset.y)][(int)(player->map_pos.x)] != '1')
-		{
-			player->target_pos.y -= player->dir.y;
-		}
+		target = collide(player, data, keydata);
+		if (target.x == player->map_pos.x && target.y == player->map_pos.y)
+			return ;
+		player->target_pos = target;
 		player->canmove = false;
 	}
 	else if (keydata.key == MLX_KEY_D
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		if (data->map[(int)player->map_pos.y][(int)(player->map_pos.x + offset.x)] != '1')
-		{
-			if (player->plane.x < 0)
-				player->target_pos.x += -1;
-			else if (player->plane.x > 0)
-				player->target_pos.x += 1;
-		}
-		if (data->map[(int)(player->map_pos.y + offset.y)][(int)(player->map_pos.x)] != '1')
-		{
-			if (player->plane.y < 0)
-				player->target_pos.y += -1;
-			else if (player->plane.y > 0)
-				player->target_pos.y += 1;
-		}
+		target = collide(player, data, keydata);
+		if (target.x == player->map_pos.x && target.y == player->map_pos.y)
+			return ;
+		player->target_pos = target;
 		player->canmove = false;
 	}	
 	else if (keydata.key == MLX_KEY_A
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
+		target = collide(player, data, keydata);
+		if (target.x == player->map_pos.x && target.y == player->map_pos.y)
+			return ;
+		player->target_pos = target;
+		player->canmove = false;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/05 15:30:37 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/08 10:19:32 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,15 @@ static bool ft_rotate(t_data *data)
 			data->player->plane.x = data->player->plane.x * cos(ROT) - data->player->plane.y * sin(ROT);
 			data->player->plane.y = oldPlaneX * sin(ROT) + data->player->plane.y * cos(ROT);
 		}
-		if (data->player->target_dir == north && data->player->dir.y < -0.999 && data->player->dir.y > -1.001)
+		else
+			return (good);
+		if (data->player->target_dir == north && data->player->dir.y < -0.998 && data->player->dir.y > -1.002)
 			good = true;
-		else if (data->player->target_dir == south && data->player->dir.y < 1.001 && data->player->dir.y > 0.999)
+		else if (data->player->target_dir == south && data->player->dir.y < 1.002 && data->player->dir.y > 0.998)
 			good = true;
-		else if (data->player->target_dir == west && data->player->dir.x < -0.999 && data->player->dir.x > -1.001)
+		else if (data->player->target_dir == west && data->player->dir.x < -0.998 && data->player->dir.x > -1.002)
 			good = true;
-		else if (data->player->target_dir == east && data->player->dir.x < 1.001 && data->player->dir.x > 0.999)
+		else if (data->player->target_dir == east && data->player->dir.x < 1.002 && data->player->dir.x > 0.998)
 			good = true;
 		if (good == true)
 		{
