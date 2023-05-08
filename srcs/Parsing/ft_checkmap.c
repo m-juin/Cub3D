@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:44:17 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 16:40:13 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/08 15:19:53 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	ft_check_case(char **map, t_ivector pos)
 	if (pos.y != 0 && map[pos.y - 1][pos.x] != '1'
 		&& map[pos.y - 1][pos.x] != '0')
 		return (-1);
-	if (map[pos.y + 1][pos.x] != '1' && map[pos.y + 1][pos.x] != '0')
+	if (map[pos.y + 1] == NULL || (map[pos.y + 1][pos.x] != '1' && map[pos.y + 1][pos.x] != '0'))
 		return (-1);
 	if (map[pos.y][pos.x + 1] != '1' && map[pos.y][pos.x + 1] != '0')
 		return (-1);
