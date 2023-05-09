@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/08 12:31:17 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:53:22 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,25 @@ typedef struct s_bresenham
 	int		gdy;
 }			t_bresenham;
 
+typedef struct	s_calc_data
+{
+	double		walldist;
+	t_ivector	map;
+	t_dvector	side_dist;
+	t_dvector	delta_dist;
+}	t_calc_data;
+
+
+typedef	struct s_draw_data
+{
+	t_ivector		pos;
+	mlx_texture_t	*text;
+	int				lineh;
+	int				width_pos;
+	int				side;
+}	t_draw_data;
+
+
 /*	Utils/exit.c	*/
 void		ft_exit(char *message, int exit_code);
 void		ft_print_error(char *message);
@@ -165,8 +184,6 @@ void		handle_key_hook(mlx_key_data_t keydata, void *param);
 t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
 
 /* ft_printing.c */
-// void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos);
-// void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color);
 void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
 
 /* ft_raycast_utils.c */
@@ -177,13 +194,25 @@ int			fix_ang(int angle);
 /* ft_raycast.c */
 void		ft_draw_ray3d(t_data *data);
 
+/* ft_raycast_get.c */
+t_dvector	ft_get_delta(t_dvector raydir);
+void		ft_get_texture(t_data *data, t_draw_data *draw, t_calc_data *calc);
+int			ft_get_textx(t_data *data, t_dvector raydir,
+				t_draw_data draw, double wall);
+t_ivector	ft_get_step(t_dvector raydir);
+t_dvector	ft_get_sided(t_dvector raydir, t_ivector map, t_dvector pl,
+							t_dvector delta);
+/*	Draw/ft_draw_column.c	*/
+void		ft_draw_column(t_data *data, t_draw_data draw, int textx);
+
+/*	Utils/ft_draw_column_utils.c	*/
+bool		toredraw(int x, int y, int color, t_data *data);
+int			get_color(int x, int y, mlx_texture_t *text);
+t_ivector	get_draw_data(int lineh, mlx_image_t *img);
+
 /* ft_draw.c */
-mlx_texture_t *ft_get_texture(t_data *data, const t_fvector ray_pos, int *text_x);
 mlx_image_t	*ft_draw_map(t_data *data);
 void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);
-void		ft_draw_3D(mlx_image_t *img, float ax, float ay, float bx, float by, int color);
-void	ft_draw_3D_2(t_data *data, t_fvector start, t_fvector end, mlx_texture_t *text, int text_pos);
-void		draw_line(mlx_image_t *img, int beginX, int beginY, int endX, int endY, int color);
 
 /* main.c */
 void		ft_clean_img(mlx_image_t *img_ray);

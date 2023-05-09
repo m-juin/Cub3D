@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/08 11:09:51 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/09 10:46:11 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,30 @@
 
 static void	ft_get_start(t_player *player, char **map)
 {
-	t_dvector	pos;
+	t_ivector	pos;
 
-	pos.y = 0;
-	while (map[(int)pos.y] != NULL)
+	pos.y = -1;
+	while (map[++pos.y] != NULL)
 	{
-		pos.x = 0;
-		while (map[(int)pos.y][(int)pos.x] != '\0')
+		pos.x = -1;
+		while (map[pos.y][++pos.x] != '\0')
 		{
-			if (map[(int)pos.y][(int)pos.x] == 'N' || map[(int)pos.y][(int)pos.x] == 'S'
-				|| map[(int)pos.y][(int)pos.x] == 'E' || map[(int)pos.y][(int)pos.x] == 'W')
+			if (map[pos.y][pos.x] == 'N' || map[pos.y][pos.x] == 'S'
+				|| map[pos.y][pos.x] == 'E' || map[pos.y][pos.x] == 'W')
 			{
-				player->map_pos = pos;
-				if (map[(int)pos.y][(int)pos.x] == 'N')
+				player->map_pos.x = pos.x;
+				player->map_pos.y = pos.y;
+				if (map[pos.y][pos.x] == 'N')
 					player->facing_dir = north;
-				else if (map[(int)pos.y][(int)pos.x] == 'S')
+				else if (map[pos.y][pos.x] == 'S')
 					player->facing_dir = south;
-				else if (map[(int)pos.y][(int)pos.x] == 'E')
+				else if (map[pos.y][pos.x] == 'E')
 					player->facing_dir = east;
 				else
 					player->facing_dir = west;
-				map[(int)pos.y][(int)pos.x] = '0';
+				map[pos.y][pos.x] = '0';
 			}
-			pos.x++;
 		}
-		pos.y++;
 	}
 }
 
@@ -91,6 +90,5 @@ t_player	*ft_parse_player(char **map)
 	player->target_pos = player->map_pos;
 	player->target_dir = player->facing_dir;
 	player->canmove = true;
-	//printf("PlayerX %f	PlayerY %f\n mapX %f	MapY %f\n", player->map_pos.x, player->map_pos.y, player->pos.x, player->pos.y);
 	return (player);
 }

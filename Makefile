@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/08 15:41:54 by mjuin            ###   ########.fr        #
+#    Updated: 2023/05/09 13:56:30 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRC =	srcs/main.c							\
 		srcs/Utils/free.c					\
 		srcs/Utils/colors.c					\
 		srcs/Utils/empty_line.c 			\
+		srcs/Utils/ft_draw_column_utils.c	\
+		srcs/Utils/ft_raycast_get.c			\
 		srcs/Parsing/ft_checkarg.c			\
 		srcs/Parsing/ft_checkmap.c			\
 		srcs/Parsing/ft_get_cub.c			\
@@ -42,6 +44,7 @@ SRC =	srcs/main.c							\
 		srcs/ft_printing.c					\
 		srcs/ft_raycast.c					\
 		srcs/ft_draw.c						\
+		srcs/ft_draw_column.c				\
 		srcs/Mlx/key_hook.c					\
 		srcs/Mlx/manage_collision.c			\
 

@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:28:53 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/08 16:37:56 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/09 10:38:40 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_dvector	collide_front(t_player *pl, t_data *data)
 {
-	t_dvector pos;
+	t_dvector	pos;
 
 	pos = pl->map_pos;
 	if (pl->facing_dir == north
@@ -31,9 +31,10 @@ static t_dvector	collide_front(t_player *pl, t_data *data)
 		pos.x -= 1;
 	return (pos);
 }
+
 static t_dvector	collide_back(t_player *pl, t_data *data)
 {
-	t_dvector pos;
+	t_dvector	pos;
 
 	pos = pl->map_pos;
 	if (pl->facing_dir == north
@@ -50,9 +51,10 @@ static t_dvector	collide_back(t_player *pl, t_data *data)
 		pos.x += 1;
 	return (pos);
 }
+
 static t_dvector	collide_right(t_player *pl, t_data *data)
 {
-	t_dvector pos;
+	t_dvector	pos;
 
 	pos = pl->map_pos;
 	if (pl->facing_dir == north
@@ -69,9 +71,10 @@ static t_dvector	collide_right(t_player *pl, t_data *data)
 		pos.y -= 1;
 	return (pos);
 }
+
 static t_dvector	collide_left(t_player *pl, t_data *data)
 {
-	t_dvector pos;
+	t_dvector	pos;
 
 	pos = pl->map_pos;
 	if (pl->facing_dir == north
@@ -88,11 +91,10 @@ static t_dvector	collide_left(t_player *pl, t_data *data)
 		pos.y += 1;
 	return (pos);
 }
-
 
 t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata)
 {
-	t_dvector move;
+	t_dvector	move;
 
 	move = player->map_pos;
 	if (keydata.key == MLX_KEY_W)

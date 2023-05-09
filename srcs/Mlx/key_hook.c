@@ -6,74 +6,42 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/08 15:07:32 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/09 10:37:16 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	movement_hook(mlx_key_data_t keydata, t_player	*player, t_data *data)
+static void	movement_hook(mlx_key_data_t keydata, t_player *pl, t_data *data)
 {
-	t_dvector target;
+	t_dvector	target;
 
-	if (keydata.key == MLX_KEY_W
-		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		target = collide(player, data, keydata);
-		if (target.x == player->map_pos.x && target.y == player->map_pos.y)
-			return ;
-		player->target_pos = target;
-		player->canmove = false;
-	}	
-	else if (keydata.key == MLX_KEY_S
-		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		target = collide(player, data, keydata);
-		if (target.x == player->map_pos.x && target.y == player->map_pos.y)
-			return ;
-		player->target_pos = target;
-		player->canmove = false;
-	}
-	else if (keydata.key == MLX_KEY_D
-		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		target = collide(player, data, keydata);
-		if (target.x == player->map_pos.x && target.y == player->map_pos.y)
-			return ;
-		player->target_pos = target;
-		player->canmove = false;
-	}	
-	else if (keydata.key == MLX_KEY_A
-		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		target = collide(player, data, keydata);
-		if (target.x == player->map_pos.x && target.y == player->map_pos.y)
-			return ;
-		player->target_pos = target;
-		player->canmove = false;
-	}
+	target = collide(pl, data, keydata);
+	if (target.x == pl->map_pos.x && target.y == pl->map_pos.y)
+		return ;
+	pl->target_pos = target;
+	pl->canmove = false;
 }
 
-static void	rotation_hook(mlx_key_data_t keydata, t_player *player, t_data *data)
+static void	rotation_hook(mlx_key_data_t keydata, t_player *pl, t_data *data)
 {
-
-	if (keydata.key == MLX_KEY_LEFT
-		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_PRESS
+			|| keydata.action == MLX_REPEAT))
 	{
-		if (player->facing_dir > 0)
-			player->target_dir -= 1;
+		if (pl->facing_dir > 0)
+			pl->target_dir -= 1;
 		else
-			player->target_dir = 3;
-		player->canmove = false;
+			pl->target_dir = 3;
+		pl->canmove = false;
 	}
-	else if (keydata.key == MLX_KEY_RIGHT
-		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	else if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_PRESS
+			|| keydata.action == MLX_REPEAT))
 	{
-		if (player->facing_dir < 3)
-			player->target_dir += 1;
+		if (pl->facing_dir < 3)
+			pl->target_dir += 1;
 		else
-			player->target_dir = 0;
-		player->canmove = false;
+			pl->target_dir = 0;
+		pl->canmove = false;
 	}
 }
 
@@ -86,7 +54,7 @@ static void	close_hook(mlx_key_data_t keydata)
 
 void	handle_key_hook(mlx_key_data_t keydata, void *param)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *)param;
 	if (data->player->canmove == true)
