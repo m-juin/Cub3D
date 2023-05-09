@@ -6,7 +6,7 @@
 #    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/09 15:01:15 by lobozier         ###   ########.fr        #
+#    Updated: 2023/05/09 15:05:45 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRC =	srcs/main.c							\
 		srcs/Utils/free.c					\
 		srcs/Utils/colors.c					\
 		srcs/Utils/empty_line.c 			\
+		srcs/Utils/ft_draw_column_utils.c	\
+		srcs/Utils/ft_raycast_get.c			\
 		srcs/Parsing/ft_checkarg.c			\
 		srcs/Parsing/ft_checkmap.c			\
 		srcs/Parsing/ft_get_cub.c			\
@@ -44,6 +46,7 @@ SRC =	srcs/main.c							\
 		srcs/ft_draw.c						\
 		srcs/ft_draw_minimap.c				\
 		srcs/minimap.c						\
+		srcs/ft_draw_column.c				\
 		srcs/Mlx/key_hook.c					\
 		srcs/Mlx/manage_collision.c			\
 

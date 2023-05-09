@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:45:20 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/08 15:54:37 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/09 10:39:37 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ static char	**ft_get_id_part(char **src)
 	return (id);
 }
 
-static t_ivector ft_get_size(char **map)
+static t_ivector	ft_get_size(char **map)
 {
-	t_ivector pos;
-	t_ivector size;
+	t_ivector	pos;
+	t_ivector	size;
 
 	pos.y = 0;
 	size.x = 0;

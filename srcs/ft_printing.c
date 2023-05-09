@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/09 13:47:51 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:04:26 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int col
 	if (bre->pos1.y > bre->pos2.y)
 		bre->yincr = -1;
 	if (bre->dx > bre->dy)
-		ft_print_x_lines(img, bre, color, text);
+		ft_print_x_lines(img, bre, c);
 	else
-		ft_print_y_lines(img, bre, color, text);
+		ft_print_y_lines(img, bre, c);
 	free(bre);
 }
