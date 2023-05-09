@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
+#    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/08 15:41:54 by mjuin            ###   ########.fr        #
+#    Updated: 2023/05/09 15:01:15 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,8 @@ SRC =	srcs/main.c							\
 		srcs/ft_printing.c					\
 		srcs/ft_raycast.c					\
 		srcs/ft_draw.c						\
+		srcs/ft_draw_minimap.c				\
+		srcs/minimap.c						\
 		srcs/Mlx/key_hook.c					\
 		srcs/Mlx/manage_collision.c			\
 

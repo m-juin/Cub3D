@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/08 12:31:17 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:56:28 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define WIDTH	1920
 # define HEIGHT	1080
 # define CSIZE	64
+# define MAP_CSIZE 8
 # define P3 3* M_PI_2
 # define DR M_PI / 180
 # define ROT DR * 5
@@ -167,7 +168,7 @@ t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
 /* ft_printing.c */
 // void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos);
 // void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color);
-void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
+//void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);
