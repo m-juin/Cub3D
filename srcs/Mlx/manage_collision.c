@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_collision.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:28:53 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/08 14:57:12 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:37:56 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static t_dvector	collide_left(t_player *pl, t_data *data)
 		pos.x += 1;
 	else if (pl->facing_dir == east
 		&& data->map[(int)pl->map_pos.y - 1][(int)pl->map_pos.x] != '1')
-		pos.y += 1;
+		pos.y -= 1;
 	else if (pl->facing_dir == west
 		&& data->map[(int)pl->map_pos.y + 1][(int)pl->map_pos.x] != '1')
 		pos.y += 1;
