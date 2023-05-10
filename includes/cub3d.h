@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/10 10:48:02 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:08:28 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@
 # define WIDTH	1920
 # define HEIGHT	1080
 # define CSIZE	64
-# define MAP_CSIZE 32
-# define P3 3* M_PI_2
-# define DR M_PI / 180
-# define ROT DR * 5
+# define DR  0.01745329251
+# define ROT 0.08726646255
 
 enum	e_dir
 {
@@ -62,12 +60,6 @@ typedef struct s_fvector
 	float	y;
 }	t_fvector;
 
-typedef struct s_pixel
-{
-	int	color;
-	int	state;
-}	t_pixel;
-
 typedef struct s_player
 {
 	t_dvector	map_pos;
@@ -77,17 +69,13 @@ typedef struct s_player
 	t_fvector	pos;
 	t_dvector	dir;
 	t_dvector	plane;
-	mlx_image_t	*img;
 	bool		canmove;
 }	t_player;
 
 typedef struct s_data
 {
-	/*t_pixel			**pixel_map;*/
 	mlx_t			*mlx;
-	mlx_image_t		*img_ray;
 	mlx_image_t		*img_3d;
-	mlx_image_t		*img_map;
 	t_player		*player;
 	mlx_texture_t	*north;
 	mlx_texture_t	*south;
@@ -99,21 +87,7 @@ typedef struct s_data
 	t_ivector		msize;
 }	t_data;
 
-typedef struct s_bresenham 
-{
-	t_ivector pos1;
-	t_ivector pos2;
-	int		xincr;
-	int		yincr;
-	float	ey;
-	float	ex;
-	float	dy;
-	float	dx;
-	int		gdx;
-	int		gdy;
-}			t_bresenham;
-
-typedef struct	s_calc_data
+typedef struct s_calc_data
 {
 	double		walldist;
 	t_ivector	map;
@@ -121,8 +95,7 @@ typedef struct	s_calc_data
 	t_dvector	delta_dist;
 }	t_calc_data;
 
-
-typedef	struct s_draw_data
+typedef struct s_draw_data
 {
 	t_ivector		pos;
 	mlx_texture_t	*text;
@@ -130,7 +103,6 @@ typedef	struct s_draw_data
 	int				width_pos;
 	int				side;
 }	t_draw_data;
-
 
 /*	Utils/exit.c	*/
 void		ft_exit(char *message, int exit_code);
@@ -185,18 +157,6 @@ void		handle_key_hook(mlx_key_data_t keydata, void *param);
 /* Mlx/manage_collision.c */
 t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
 
-/* ft_printing.c */
-// void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos);
-// void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color);
-//void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
-//void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
-void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry);
-
-/* ft_raycast_utils.c */
-float		deg_to_rad(int angle);
-float		dist(t_fvector a, t_fvector b, float angle);
-int			fix_ang(int angle);
-
 /* ft_raycast.c */
 void		ft_draw_ray3d(t_data *data);
 
@@ -207,7 +167,7 @@ int			ft_get_textx(t_data *data, t_dvector raydir,
 				t_draw_data draw, double wall);
 t_ivector	ft_get_step(t_dvector raydir);
 t_dvector	ft_get_sided(t_dvector raydir, t_ivector map, t_dvector pl,
-							t_dvector delta);
+				t_dvector delta);
 /*	Draw/ft_draw_column.c	*/
 void		ft_draw_column(t_data *data, t_draw_data draw, int textx);
 
@@ -224,13 +184,10 @@ void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);
 void		ft_clean_img(mlx_image_t *img_ray);
 mlx_image_t	*fill_image(int color, size_t x, size_t y, mlx_t *mlx);
 
-/* minimap.c */
-void	ft_draw_minimap(t_data *data);
-
 /* ft_move.c */
-bool	ft_move(t_data *data);
+bool		ft_move(t_data *data);
 
 /* ft_rotate.c */
-bool	ft_rotate(t_data *data);
+bool		ft_rotate(t_data *data);
 
 #endif

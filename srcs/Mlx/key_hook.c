@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/10 10:36:08 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/10 11:02:44 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	movement_hook(mlx_key_data_t keydata, t_player *pl, t_data *data)
 	pl->canmove = false;
 }
 
-static void	rotation_hook(mlx_key_data_t keydata, t_player *pl, t_data *data)
+static void	rotation_hook(mlx_key_data_t keydata, t_player *pl)
 {
 	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_PRESS
 			|| keydata.action == MLX_REPEAT))
@@ -62,7 +62,7 @@ void	handle_key_hook(mlx_key_data_t keydata, void *param)
 	if (data->player->canmove == true)
 	{
 		movement_hook(keydata, data->player, data);
-		rotation_hook(keydata, data->player, data);
+		rotation_hook(keydata, data->player);
 	}
 	close_hook(keydata, data);
 }

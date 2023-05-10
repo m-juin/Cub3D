@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
+#    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/10 10:47:28 by lobozier         ###   ########.fr        #
+#    Updated: 2023/05/10 10:58:40 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,6 @@ LIBFT_PATH = libft --no-print-directory
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 NAME =	cub3D
-
-BONUS = srcs/bonus/ft_draw_minimap.c		\
-		srcs/bonus/minimap.c				\
-		srcs/bonus/ft_printing.c
 
 SRC =	srcs/main.c							\
 		srcs/Utils/exit.c					\
