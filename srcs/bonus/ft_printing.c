@@ -6,21 +6,23 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/09 15:04:26 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:05:22 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, int color, mlx_texture_t *text)
+void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre)
 {
 	int	i;
 
 	i = 0;
 	while (i <= bre->dx)
 	{
-		if (bre->pos1.x > -1 && bre->pos1.x < WIDTH && bre->pos1.y > -1 && bre->pos1.y < HEIGHT)
-			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, get_rgba(255, 0, 0, 255));
+		if (bre->pos1.x > -1 && bre->pos1.x < WIDTH && bre->pos1.y > -1
+			&& bre->pos1.y < HEIGHT)
+			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, \
+			get_rgba(255, 0, 0, 255));
 		i++;
 		bre->ex = bre->ex - bre->dy;
 		if (bre->ex < 0)
@@ -32,31 +34,33 @@ void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, int color, mlx_texture
 	}
 }
 
-void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, int color, mlx_texture_t *text)
+void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre)
 {
 	int	i;
 
 	i = 0;
 	while (i <= bre->dy)
 	{
-		if (bre->pos1.x > -1 && bre->pos1.x < WIDTH && bre->pos1.y > -1 && bre->pos1.y < HEIGHT)
+		if (bre->pos1.x > -1 && bre->pos1.x < WIDTH && bre->pos1.y > -1
+			&& bre->pos1.y < HEIGHT)
 		{
-			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, color);
+			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, \
+			get_rgba(255, 0, 0, 255));
 		}
 		i++;
 		bre->ey = bre->ey - bre->dx;
 		if (bre->ey < 0)
 		{
-			bre->pos1.x  = bre->pos1.x + bre->xincr;
+			bre->pos1.x = bre->pos1.x + bre->xincr;
 			bre->ey = bre->ey + bre->dy;
 		}
 		bre->pos1.y = bre->pos1.y + bre->yincr;
 	}
 }
 
-void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color, mlx_texture_t *text)
+void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry)
 {
-	t_bresenham *bre;
+	t_bresenham	*bre;
 
 	bre = malloc(sizeof(t_bresenham) * 1);
 	bre->pos1.y = py;
@@ -76,8 +80,8 @@ void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int col
 	if (bre->pos1.y > bre->pos2.y)
 		bre->yincr = -1;
 	if (bre->dx > bre->dy)
-		ft_print_x_lines(img, bre, c);
+		ft_print_x_lines(img, bre);
 	else
-		ft_print_y_lines(img, bre, c);
+		ft_print_y_lines(img, bre);
 	free(bre);
 }

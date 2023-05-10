@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/09 14:58:41 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:26:48 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	fix_ang(int angle)
     return (angle);
 }
 
-void	ft_draw_ray3d(t_data *data)
+void	ft_draw_minimap(t_data *data)
 {
 	int	r = 0;
 	int	doffset;
@@ -51,10 +51,10 @@ void	ft_draw_ray3d(t_data *data)
 	float LineO;
 	float Camera_angle;
 
-	ft_clean_img(data->img_ray);
-	ft_clean_img(data->img_3d);
+	//ft_clean_img(data->img_ray);
+	//ft_clean_img(data->img_3d);
 	ray_angle = fix_ang(data->player->facing_dir + 30);
-	H.x = data->player->pos.x;
+	H.x = data->player->pos.x;	
 	H.y = data->player->pos.y;
 	V.x = data->player->pos.x;
 	V.y = data->player->pos.y;
@@ -154,7 +154,7 @@ void	ft_draw_ray3d(t_data *data)
 			ray_pos.y = H.y;
 			distT = distH;
 		}
-		draw_line(data->img_ray, data->player->pos.x + 4, data->player->pos.y + 4, ray_pos.x, ray_pos.y, get_rgba(255, 255, 255, 60));
+		ft_print_lines_v3(data->img_ray, data->player->pos.x + 4, data->player->pos.y + 4, ray_pos.x, ray_pos.y);
 		r++;
 		ray_angle = fix_ang(ray_angle - 1);
 	}

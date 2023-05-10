@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:58:34 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/09 15:00:48 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:20:37 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ mlx_image_t	*ft_draw_map(t_data *data)
 	t_ivector			pos;
 	mlx_image_t			*map;
 
-	map = fill_image(get_rgba(255, 255, 255, 255), 8 * MAP_CSIZE, 8 * MAP_CSIZE, data->mlx);
+	map = fill_image(get_rgba(255, 255, 255, 255), data->msize.x* MAP_CSIZE, data->msize.y * MAP_CSIZE, data->mlx);
 	pos.y = 0;
 	while (data->map[pos.y] != NULL)	
 	{

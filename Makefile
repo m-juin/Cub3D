@@ -6,7 +6,7 @@
 #    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/09 15:05:45 by lobozier         ###   ########.fr        #
+#    Updated: 2023/05/10 10:44:44 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,10 @@ LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 NAME =	cub3D
 
+BONUS = srcs/bonus/ft_draw_minimap.c		\
+		srcs/bonus/minimap.c				\
+		srcs/bonus/ft_printing.c
+
 SRC =	srcs/main.c							\
 		srcs/Utils/exit.c					\
 		srcs/Utils/free.c					\
@@ -41,14 +45,14 @@ SRC =	srcs/main.c							\
 		srcs/Parsing/ft_parsing_main.c		\
 		srcs/Parsing/ft_map_parsing.c		\
 		srcs/Parsing/ft_parse_player.c		\
-		srcs/ft_printing.c					\
 		srcs/ft_raycast.c					\
 		srcs/ft_draw.c						\
-		srcs/ft_draw_minimap.c				\
-		srcs/minimap.c						\
+		srcs/ft_move.c						\
+		srcs/ft_rotate.c					\
 		srcs/ft_draw_column.c				\
 		srcs/Mlx/key_hook.c					\
 		srcs/Mlx/manage_collision.c			\
+
 
 OBJ =	${SRC:.c=.o}
 

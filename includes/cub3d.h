@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/09 15:05:27 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:11:12 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define WIDTH	1920
 # define HEIGHT	1080
 # define CSIZE	64
-# define MAP_CSIZE 8
+# define MAP_CSIZE 32
 # define P3 3* M_PI_2
 # define DR M_PI / 180
 # define ROT DR * 5
@@ -189,7 +189,7 @@ t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
 // void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color);
 //void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
 //void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
-void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int color, mlx_texture_t *text);
+void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);
@@ -222,5 +222,14 @@ void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);
 /* main.c */
 void		ft_clean_img(mlx_image_t *img_ray);
 mlx_image_t	*fill_image(int color, size_t x, size_t y, mlx_t *mlx);
+
+/* minimap.c */
+void	ft_draw_minimap(t_data *data);
+
+/* ft_move.c */
+bool	ft_move(t_data *data);
+
+/* ft_rotate.c */
+bool	ft_rotate(t_data *data);
 
 #endif
