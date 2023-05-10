@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/09 13:55:21 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:36:53 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,17 @@ static void ft_update(void *param)
 		data->player->canmove = true;
 }
 
+void	ft_free_data(t_data *data)
+{
+	mlx_delete_texture(data->east);
+	mlx_delete_texture(data->west);
+	mlx_delete_texture(data->north);
+	mlx_delete_texture(data->south);
+	free(data->player);
+	ft_double_free(data->map);
+	free(data);
+}
+
 int main(int ac, char **av)
 {
 	t_data *data;
@@ -145,17 +156,12 @@ int main(int ac, char **av)
 	data = ft_parsing_main(av[1]);
 	data->player = ft_parse_player(data->map);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Raycast", true);
-	data->player->img = fill_image(get_rgba(0, 255, 255, 255), 8, 8, data->mlx);
-	data->img_map = ft_draw_map(data);
-	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), data->msize.x * CSIZE, data->msize.y * CSIZE, data->mlx);
 	data->img_3d = fill_image(get_rgba(0, 0, 0, 0), WIDTH, HEIGHT, data->mlx);
 	mlx_image_to_window(data->mlx, data->img_3d, 0, 0);
-	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
-	mlx_image_to_window(data->mlx, data->img_ray, 0, 0);
-	mlx_image_to_window(data->mlx, data->player->img, data->player->pos.x, data->player->pos.y);
 	ft_draw_ray3d(data);
 	mlx_key_hook(data->mlx, handle_key_hook, data);
 	mlx_loop_hook(data->mlx, ft_update, (void *)data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
+	ft_free_data(data);
 }

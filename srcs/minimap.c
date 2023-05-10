@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/09 14:58:41 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/10 09:33:18 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	deg_to_rad(int angle)
+/*float	deg_to_rad(int angle)
 {
     return (angle * DR);
 }
@@ -159,4 +159,4 @@ void	ft_draw_ray3d(t_data *data)
 		ray_angle = fix_ang(ray_angle - 1);
 	}
 }
-
+*/

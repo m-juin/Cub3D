@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/09 15:04:26 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/10 09:32:04 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, int color, mlx_texture_t *text)
+/*void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, int color, mlx_texture_t *text)
 {
 	int	i;
 
@@ -80,4 +80,4 @@ void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry, int col
 	else
 		ft_print_y_lines(img, bre, c);
 	free(bre);
-}
+}*/
