@@ -6,13 +6,13 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/10 10:49:19 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:38:38 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*float	deg_to_rad(int angle)
+float	deg_to_rad(int angle)
 {
     return (angle * DR);
 }
@@ -159,4 +159,3 @@ void	ft_draw_minimap(t_data *data)
 		ray_angle = fix_ang(ray_angle - 1);
 	}
 }
-*/

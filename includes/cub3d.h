@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/10 10:48:02 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:37:56 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_player
 
 typedef struct s_data
 {
-	/*t_pixel			**pixel_map;*/
 	mlx_t			*mlx;
 	mlx_image_t		*img_ray;
 	mlx_image_t		*img_3d;
@@ -186,10 +185,6 @@ void		handle_key_hook(mlx_key_data_t keydata, void *param);
 t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
 
 /* ft_printing.c */
-// void	ft_print_lines_v3(t_data *data, t_fvector start,t_fvector end, mlx_texture_t *text, int text_pos);
-// void	ft_print_lines_v3(t_data *data, int x, int drawStart, int drawEnd, int color);
-//void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
-//void	ft_print_lines_v3(mlx_image_t *img, int x, int drawStart, int drawEnd, int color);
 void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry);
 
 /* ft_raycast_utils.c */

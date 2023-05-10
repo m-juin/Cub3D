@@ -6,7 +6,7 @@
 #    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/10 10:47:28 by lobozier         ###   ########.fr        #
+#    Updated: 2023/05/10 12:56:39 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ NAME =	cub3D
 
 BONUS = srcs/bonus/ft_draw_minimap.c		\
 		srcs/bonus/minimap.c				\
-		srcs/bonus/ft_printing.c
+		srcs/bonus/ft_printing.c			\
+		srcs/bonus/main_bonus.c
 
 SRC =	srcs/main.c							\
 		srcs/Utils/exit.c					\
