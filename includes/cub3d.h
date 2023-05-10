@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/10 10:11:12 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:48:02 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void		ft_print_error(char *message);
 /*	Utils/free.c	*/
 void		*ft_double_free(char **array);
 void		ft_free_map_data(t_data *data);
+void		ft_free_data(t_data *data);
 
 /*	Utils/colors.c	*/
 int			get_rgba(int r, int g, int b, int a);

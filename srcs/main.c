@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/10 10:44:17 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:48:43 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,18 @@ static void	ft_update(void *param)
 		data->player->canmove = true;
 }
 
-int	main(int ac, char **av)
+void	ft_free_data(t_data *data)
+{
+	mlx_delete_texture(data->east);
+	mlx_delete_texture(data->west);
+	mlx_delete_texture(data->north);
+	mlx_delete_texture(data->south);
+	free(data->player);
+	ft_double_free(data->map);
+	free(data);
+}
+
+int main(int ac, char **av)
 {
 	t_data	*data;
 
@@ -80,4 +91,5 @@ int	main(int ac, char **av)
 	mlx_loop_hook(data->mlx, ft_update, (void *)data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
+	ft_free_data(data);
 }
