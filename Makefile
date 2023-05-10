@@ -6,7 +6,7 @@
 #    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/10 13:09:39 by mjuin            ###   ########.fr        #
+#    Updated: 2023/05/10 13:58:54 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ OBJ_MANDATORY =	${MANDATORY:.c=.o}
 
 OBJ_BONUS =	${BONUS:.c=.o}
 
-all:	${LIBMLX_NAME} ${LIBFT} ${NAME}
+all: ${NAME}
 
 $(LIBMLX_NAME):
 	@cmake -DDEBUG=1 -DGLFW_FETCH=0 $(LIBMLX)  -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4 ;
@@ -72,11 +72,11 @@ $(LIBMLX_NAME):
 	@printf "Compiling .c to .o \r"
 	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} $(HEADERS)
 	
-$(NAME): ${OBJ_MANDATORY} includes/cub3d.h
+$(NAME): ${LIBMLX_NAME} ${LIBFT} ${OBJ_MANDATORY} includes/cub3d.h
 	@${CC} ${CFLAGS} ${OBJ_MANDATORY} ${LIBFT} $(LIBS) $(HEADERS) -o ${NAME} 
 	@printf '\e[1;37m'"Compilation complete"'\e[m''\n'
 
-$(NAME_BONUS): ${OBJ_BONUS} includes/cub3d.h
+$(NAME_BONUS): ${LIBMLX_NAME} ${LIBFT} ${OBJ_BONUS} includes/cub3d.h
 	@${CC} ${CFLAGS} ${OBJ_BONUS} ${LIBFT} $(LIBS) $(HEADERS) -o ${NAME_BONUS} 
 	@printf '\e[1;37m'"Compilation complete"'\e[m''\n'
 
@@ -101,9 +101,6 @@ clean:
 	@n=1; \
 	for file in $(OBJ_BONUS); do \
 		if test -e $$file; then \
-			if [ $$n -eq 1 ]; then \
-				printf "Cleaning .o files \n"; \
-			fi; \
 			n=$$((n + 1)); \
 			rm $$file; \
 		fi \
