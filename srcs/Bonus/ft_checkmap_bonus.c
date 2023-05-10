@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:44:17 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/10 12:29:25 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/10 12:28:40 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,20 @@ static void	ft_normalize_map(char **map)
 static int	ft_check_case(char **map, t_ivector pos)
 {
 	if (pos.x != 0 && map[pos.y][pos.x - 1] != '1'
-		&& map[pos.y][pos.x - 1] != '0')
+		&& map[pos.y][pos.x - 1] != '0' && map[pos.y][pos.x - 1] != '2')
 		return (-1);
 	else if (pos.x == 0)
 		return (-1);
 	if (pos.y != 0 && map[pos.y - 1][pos.x] != '1'
-		&& map[pos.y - 1][pos.x] != '0')
+		&& map[pos.y - 1][pos.x] != '0' && map[pos.y - 1][pos.x] != '2')
 		return (-1);
 	else if (pos.y == 0)
 		return (-1);
 	if (map[pos.y + 1] == NULL || (map[pos.y + 1][pos.x] != '1'
-		&& map[pos.y + 1][pos.x] != '0'))
+		&& map[pos.y + 1][pos.x] != '0' && map[pos.y + 1][pos.x] != '2'))
 		return (-1);
-	if (map[pos.y][pos.x + 1] != '1' && map[pos.y][pos.x + 1] != '0')
+	if (map[pos.y][pos.x + 1] != '1' && map[pos.y][pos.x + 1] != '0'
+		&& map[pos.y][pos.x + 1] != '2')
 		return (-1);
 	return (1);
 }
@@ -98,7 +99,8 @@ static int	ft_check_wall(char **map)
 		pos.x = 0;
 		while (map[pos.y][pos.x] != '\0')
 		{
-			if (map[pos.y][pos.x] == '0' && ft_check_case(map, pos) == -1)
+			if ((map[pos.y][pos.x] == '0' || map[pos.y][pos.x] == '2')
+				&& ft_check_case(map, pos) == -1)
 				return (-1);
 			pos.x++;
 		}
