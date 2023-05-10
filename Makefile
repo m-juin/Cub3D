@@ -6,7 +6,7 @@
 #    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/10 14:01:45 by lobozier         ###   ########.fr        #
+#    Updated: 2023/05/10 14:27:45 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,12 +26,9 @@ LIBS	= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 NAME =	cub3D
 
-BONUS = srcs/bonus/ft_draw_minimap.c		\
-		srcs/bonus/minimap.c				\
-		srcs/bonus/ft_printing.c
+NAME_BONUS = cub3D_bonus
 
-COMMON = srcs/main.c						\
-		srcs/Utils/exit.c					\
+COMMON = srcs/Utils/exit.c					\
 		srcs/Utils/free.c					\
 		srcs/Utils/colors.c					\
 		srcs/Utils/empty_line.c 			\
@@ -57,9 +54,11 @@ BONUS = $(COMMON)							\
 		srcs/Bonus/ft_draw_minimap.c		\
 		srcs/Bonus/ft_printing.c			\
 		srcs/Bonus/minimap.c				\
+		srcs/Bonus/main_bonus.c				\
 
-MANDATORY =	$(COMMON)						\
+MANDATORY = $(COMMON)						\
 		srcs/Parsing/ft_checkmap.c			\
+		srcs/main.c
 
 OBJ_MANDATORY =	${MANDATORY:.c=.o}
 
