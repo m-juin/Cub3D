@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/10 16:15:27 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:04:49 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_pixel
 typedef struct s_player
 {
 	t_dvector	map_pos;
+	t_dvector	minimap_pos;
 	t_dvector	target_pos;
 	enum e_dir	target_dir;
 	enum e_dir	facing_dir;
@@ -189,7 +190,7 @@ void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);
-float		dist(t_fvector a, t_fvector b, float angle);
+float		dist(t_dvector a, t_fvector b, float angle);
 int			fix_ang(int angle);
 
 /* ft_raycast.c */
@@ -220,7 +221,7 @@ void		ft_clean_img(mlx_image_t *img_ray);
 mlx_image_t	*fill_image(int color, size_t x, size_t y, mlx_t *mlx);
 
 /* minimap.c */
-void	ft_draw_minimap(t_data *data);
+void	ft_draw_ray_minimap(t_data *data);
 
 /* ft_move.c */
 bool	ft_move(t_data *data);

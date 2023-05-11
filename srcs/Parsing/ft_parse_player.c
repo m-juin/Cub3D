@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_player.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/09 10:46:11 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/11 09:52:48 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ t_player	*ft_parse_player(char **map)
 	player->map_pos.y += 0.5;
 	player->pos.x = player->map_pos.x * CSIZE;
 	player->pos.y = player->map_pos.y * CSIZE;
+	player->minimap_pos.x = 8 * MAP_CSIZE / 2 + MAP_CSIZE / 2;
+	player->minimap_pos.y = 8 * MAP_CSIZE / 2 + MAP_CSIZE / 2;
 	player->target_pos = player->map_pos;
 	player->target_dir = player->facing_dir;
 	player->canmove = true;
