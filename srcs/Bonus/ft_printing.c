@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/11 12:16:11 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:20:57 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre)
 			&& bre->pos1.y > -1 && bre->pos1.y < HEIGHT)
 		{
 			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, \
-			get_rgba(0, 0, 0, 70));
+			get_rgba(255, 255, 255, 70));
 		}
 		i++;
 		bre->ex = bre->ex - bre->dy;
@@ -47,7 +47,7 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre)
 			&& bre->pos1.y < HEIGHT)
 		{
 			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, \
-			get_rgba(0, 0, 0, 70));
+			get_rgba(255, 255, 255, 70));
 		}
 		i++;
 		bre->ey = bre->ey - bre->dx;
