@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/12 13:18:58 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/13 14:31:54 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define P3 3* M_PI_2
 # define DR M_PI / 180
 # define ROT DR * 5
+# define RATIO 32
+# define RATIO2 32
 
 enum	e_dir
 {
@@ -73,7 +75,6 @@ typedef struct s_player
 	t_dvector	map_pos;
 	t_fvector	player_center;
 	t_fvector	minimap_pos;
-	t_fvector	minimap_offset;
 	t_dvector	target_pos;
 	enum e_dir	target_dir;
 	enum e_dir	facing_dir;

@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/12 13:52:43 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:05:29 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,14 @@ t_player	*ft_parse_player(char **map)
 	player->map_pos.y += 0.5;
 	player->pos.x = player->map_pos.x * CSIZE;
 	player->pos.y = player->map_pos.y * CSIZE;
-	player->player_center.x = 8 * MAP_CSIZE / 2;
-	player->player_center.y = 8 * MAP_CSIZE / 2;
 	player->minimap_pos.x = player->map_pos.x * MAP_CSIZE;
 	player->minimap_pos.y = player->map_pos.y * MAP_CSIZE;
-	player->minimap_offset.x = player->player_center.x - player->minimap_pos.x;
-	player->minimap_offset.y = player->player_center.y - player->minimap_pos.y;
-	if (player->minimap_offset.x > 0)
-		player->minimap_pos.x += player->minimap_offset.x - 16;
-	else
-		player->minimap_pos.x -= player->minimap_offset.x + 16;
-	if (player->minimap_offset.y > 0)	
-		player->minimap_pos.y += player->minimap_offset.y - 16;
-	else
-		player->minimap_pos.y -= player->minimap_offset.y + 16;
-	printf("centerY = %f\tcenterX = %f\tminiX = %f\tminiY = %f\n", player->player_center.x, player->player_center.y, player->minimap_pos.x,player->minimap_pos.y);
-	printf("offX = %f\toffY = %f\n",player->minimap_offset.x, player->minimap_offset.y);
+	player->player_center.x = 8 * MAP_CSIZE / 2;
+	player->player_center.y = 8 * MAP_CSIZE / 2;
+	if (player->minimap_pos.x <= 128)
+		player->player_center.x = 8 * MAP_CSIZE / 2 - 8;
+	if (player->minimap_pos.y <= 128)
+		player->player_center.y = 8 * MAP_CSIZE / 2 - 8;
 	player->target_pos = player->map_pos;
 	player->target_dir = player->facing_dir;
 	player->canmove = true;

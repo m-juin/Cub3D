@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/12 14:12:34 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:57:05 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int main(int ac, char **av)
 	data->img_3d = fill_image(get_rgba(0, 0, 0, 0), WIDTH, HEIGHT, data->mlx);
 	mlx_image_to_window(data->mlx, data->img_3d, 0, 0);
 	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
-	mlx_image_to_window(data->mlx, data->player->img, data->player->minimap_pos.x, data->player->minimap_pos.y);
-	//mlx_image_to_window(data->mlx, data->player->img, data->player->player_center.x, data->player->player_center.y);
+	//mlx_image_to_window(data->mlx, data->player->img, data->player->minimap_pos.x, data->player->minimap_pos.y);
+	mlx_image_to_window(data->mlx, data->player->img, data->player->player_center.x, data->player->player_center.y);
 	mlx_image_to_window(data->mlx, data->img_ray, 0, 0);
 	ft_draw_ray_minimap(data);
 	ft_draw_ray3d(data);
