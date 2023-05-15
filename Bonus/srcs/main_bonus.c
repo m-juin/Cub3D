@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 mlx_image_t	*fill_image(int color, size_t x, size_t y, mlx_t *mlx)
 {

@@ -3,22 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
+#    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/10 14:27:45 by lobozier         ###   ########.fr        #
+#    Updated: 2023/05/15 14:16:22 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC =	clang
 
-CFLAGS =	-g -Wextra -Wall -I./includes -I./MLX42/include/MLX42 -I./libft/include
+CFLAGS =	-g -Wextra -Wall -I./MLX42/include/MLX42 -I./libft/include
 
 LIBMLX	:= ./MLX42
 
 LIBMLX_NAME = ./MLX42/build/libmlx42.a
 
 LIBFT = libft/libft.a
+
+BONUS_PATH = Bonus/srcs/
+
+MANDATORY_PATH = Mandatory/srcs/
 
 LIBFT_PATH = libft --no-print-directory
 
@@ -28,41 +32,62 @@ NAME =	cub3D
 
 NAME_BONUS = cub3D_bonus
 
-COMMON = srcs/Utils/exit.c					\
-		srcs/Utils/free.c					\
-		srcs/Utils/colors.c					\
-		srcs/Utils/empty_line.c 			\
-		srcs/Utils/ft_draw_column_utils.c	\
-		srcs/Utils/ft_raycast_get.c			\
-		srcs/Parsing/ft_checkarg.c			\
-		srcs/Parsing/ft_get_cub.c			\
-		srcs/Parsing/ft_parse_data.c		\
-		srcs/Parsing/ft_get_rgb_from_id.c	\
-		srcs/Parsing/ft_parsing_main.c		\
-		srcs/Parsing/ft_map_parsing.c		\
-		srcs/Parsing/ft_parse_player.c		\
-		srcs/ft_raycast.c					\
-		srcs/ft_draw.c						\
-		srcs/ft_move.c						\
-		srcs/ft_rotate.c					\
-		srcs/ft_draw_column.c				\
-		srcs/Mlx/key_hook.c					\
-		srcs/Mlx/manage_collision.c			\
+BONUS = ${BONUS_PATH}Mlx/key_hook_bonus.c				\
+		${BONUS_PATH}Mlx/manage_collision_bonus.c		\
+		${BONUS_PATH}Parsing/ft_checkarg_bonus.c 		\
+		${BONUS_PATH}Parsing/ft_checkmap_bonus.c		\
+		${BONUS_PATH}Parsing/ft_get_cub_bonus.c			\
+		${BONUS_PATH}Parsing/ft_get_rgb_from_id_bonus.c	\
+		${BONUS_PATH}Parsing/ft_map_parsing_bonus.c		\
+		${BONUS_PATH}Parsing/ft_parse_data_bonus.c		\
+		${BONUS_PATH}Parsing/ft_parse_player_bonus.c	\
+		${BONUS_PATH}Parsing/ft_parsing_main_bonus.c	\
+		${BONUS_PATH}Utils/colors_bonus.c				\
+		${BONUS_PATH}Utils/empty_line_bonus.c			\
+		${BONUS_PATH}Utils/exit_bonus.c					\
+		${BONUS_PATH}Utils/free_bonus.c					\
+		${BONUS_PATH}Utils/ft_draw_column_utils_bonus.c	\
+		${BONUS_PATH}Utils/ft_raycast_get_bonus.c		\
+		${BONUS_PATH}ft_draw_bonus.c					\
+		${BONUS_PATH}ft_draw_column_bonus.c				\
+		${BONUS_PATH}ft_draw_minimap_bonus.c			\
+		${BONUS_PATH}ft_move_bonus.c					\
+		${BONUS_PATH}ft_printing_bonus.c				\
+		${BONUS_PATH}ft_raycast_bonus.c					\
+		${BONUS_PATH}ft_rotate_bonus.c					\
+		${BONUS_PATH}main_bonus.c						\
+		${BONUS_PATH}minimap_bonus.c					\
 
-BONUS = $(COMMON)							\
-		srcs/Bonus/ft_checkmap_bonus.c		\
-		srcs/Bonus/ft_draw_minimap.c		\
-		srcs/Bonus/ft_printing.c			\
-		srcs/Bonus/minimap.c				\
-		srcs/Bonus/main_bonus.c				\
+MANDATORY = ${MANDATORY_PATH}Mlx/key_hook.c				\
+		${MANDATORY_PATH}Mlx/manage_collision.c			\
+		${MANDATORY_PATH}Parsing/ft_checkarg.c 			\
+		${MANDATORY_PATH}Parsing/ft_checkmap.c			\
+		${MANDATORY_PATH}Parsing/ft_get_cub.c			\
+		${MANDATORY_PATH}Parsing/ft_get_rgb_from_id.c	\
+		${MANDATORY_PATH}Parsing/ft_map_parsing.c		\
+		${MANDATORY_PATH}Parsing/ft_parse_data.c		\
+		${MANDATORY_PATH}Parsing/ft_parse_player.c		\
+		${MANDATORY_PATH}Parsing/ft_parsing_main.c		\
+		${MANDATORY_PATH}Utils/colors.c					\
+		${MANDATORY_PATH}Utils/empty_line.c				\
+		${MANDATORY_PATH}Utils/exit.c					\
+		${MANDATORY_PATH}Utils/free.c					\
+		${MANDATORY_PATH}Utils/ft_draw_column_utils.c	\
+		${MANDATORY_PATH}Utils/ft_raycast_get.c			\
+		${MANDATORY_PATH}ft_draw.c						\
+		${MANDATORY_PATH}ft_draw_column.c				\
+		${MANDATORY_PATH}ft_move.c						\
+		${MANDATORY_PATH}ft_raycast.c					\
+		${MANDATORY_PATH}ft_rotate.c					\
+		${MANDATORY_PATH}main.c							\
 
-MANDATORY = $(COMMON)						\
-		srcs/Parsing/ft_checkmap.c			\
-		srcs/main.c
+OBJ_MANDATORY = ${MANDATORY:.c=.o}
 
-OBJ_MANDATORY =	${MANDATORY:.c=.o}
+OBJ_BONUS = ${BONUS:.c=.o}
 
-OBJ_BONUS =	${BONUS:.c=.o}
+${NAME}: INCLUDES = -I./Mandatory/includes
+
+${NAME_BONUS}: INCLUDES = -I./Bonus/includes
 
 all: ${NAME}
 
@@ -71,14 +96,14 @@ $(LIBMLX_NAME):
 
 .c.o:
 	@printf "Compiling .c to .o \r"
-	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} $(HEADERS)
+	@${CC} ${CFLAGS} ${INCLUDES} -c $< -o ${<:.c=.o} $(HEADERS)
 	
-$(NAME): ${LIBMLX_NAME} ${LIBFT} ${OBJ_MANDATORY} includes/cub3d.h
+$(NAME): ${LIBMLX_NAME} ${LIBFT} ${OBJ_MANDATORY}
 	@${CC} ${CFLAGS} ${OBJ_MANDATORY} ${LIBFT} $(LIBS) $(HEADERS) -o ${NAME} 
 	@printf '\e[1;37m'"Compilation complete"'\e[m''\n'
 
-$(NAME_BONUS): ${LIBMLX_NAME} ${LIBFT} ${OBJ_BONUS} includes/cub3d.h
-	@${CC} ${CFLAGS} ${OBJ_BONUS} ${LIBFT} $(LIBS) $(HEADERS) -o ${NAME_BONUS} 
+$(NAME_BONUS): ${LIBMLX_NAME} ${LIBFT} ${OBJ_BONUS}
+	@${CC} ${CFLAGS} -I./Bonus/includes ${OBJ_BONUS} ${LIBFT} $(LIBS) $(HEADERS) -o ${NAME_BONUS} 
 	@printf '\e[1;37m'"Compilation complete"'\e[m''\n'
 
 $(LIBFT):

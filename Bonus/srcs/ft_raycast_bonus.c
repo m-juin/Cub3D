@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_raycast.c                                       :+:      :+:    :+:   */
+/*   ft_raycast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/09 13:50:38 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/15 11:26:57 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	ft_process_ray(t_data *data, t_calc_data *calc,
 		t_draw_data *draw, t_ivector step)
 {
-	while (data->map[calc->map.y][calc->map.x] != '1')
+	while (data->map[calc->map.y][calc->map.x] == '0'
+		|| data->map[calc->map.y][calc->map.x] == '3')
 	{
 		if (calc->side_dist.x < calc->side_dist.y)
 		{
