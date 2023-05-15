@@ -6,13 +6,13 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:58:34 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/12 13:21:06 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:23:40 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	ft_draw_case_map(mlx_image_t *img, t_ivector pos, int color)
+static void	ft_draw_case_map(mlx_image_t *img, t_ivector pos, int color)
 {
 	t_ivector	pos2;
 
@@ -29,18 +29,17 @@ void	ft_draw_case_map(mlx_image_t *img, t_ivector pos, int color)
 	}
 }
 
-mlx_image_t	*ft_draw_map(t_data *data)
+void	ft_draw_minimap(mlx_image_t *map, t_data *data)
 {
 	t_ivector			pos;
 	t_ivector			minimap;
-	mlx_image_t			*map;
 
-	map = fill_image(get_rgba(255, 255, 255, 255), 8 * MAP_CSIZE, 8 * MAP_CSIZE, data->mlx);
-	pos.y = data->player->map_pos.y - 4;
+	pos.y = (int)data->player->map_pos.y - 4;
 	minimap.y = 0;
-	while (minimap.y < 8)	
+	//printf("MapY = %f\t MapX= %f\n", data->player->map_pos.x, data->player->map_pos.y);
+	while (minimap.y < 8)
 	{
-		pos.x = data->player->map_pos.x - 4;
+		pos.x = (int)data->player->map_pos.x - 3;
 		minimap.x = 0;
 		while (minimap.x < 8)
 		{
@@ -60,5 +59,4 @@ mlx_image_t	*ft_draw_map(t_data *data)
 		pos.y++;
 		minimap.y++;
 	}
-	return (map);
 }
