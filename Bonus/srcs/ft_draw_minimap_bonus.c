@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw_minimap.c                                  :+:      :+:    :+:   */
+/*   ft_draw_minimap_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:58:34 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/15 15:23:40 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:41:51 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_draw_minimap(mlx_image_t *map, t_data *data)
 
 	pos.y = (int)data->player->map_pos.y - 4;
 	minimap.y = 0;
-	//printf("MapY = %f\t MapX= %f\n", data->player->map_pos.x, data->player->map_pos.y);
 	while (minimap.y < 8)
 	{
 		pos.x = (int)data->player->map_pos.x - 3;

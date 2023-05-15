@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:06:05 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/15 15:05:05 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:36:11 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,7 @@ bool	ft_move(t_data *data)
 			data->player->map_pos.y -= 0.05;
 		else if (data->player->map_pos.y < data->player->target_pos.y)
 			data->player->map_pos.y += 0.05;
-		data->player->minimap_pos.x = data->player->map_pos.x * MAP_CSIZE;
-		data->player->minimap_pos.y = data->player->map_pos.y * MAP_CSIZE;
-		data->player->minimap_offset.x = data->player->player_center.x - data->player->minimap_pos.x;
-		data->player->minimap_offset.y = data->player->player_center.y - data->player->minimap_pos.y;
 		ft_draw_ray3d(data);
-		ft_draw_ray_minimap(data);
 		if (ft_check_pos(data, 2) == true)
 			return (true);
 		else

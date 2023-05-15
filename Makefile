@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
+#    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/15 14:16:22 by mjuin            ###   ########.fr        #
+#    Updated: 2023/05/15 15:42:21 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ BONUS = ${BONUS_PATH}Mlx/key_hook_bonus.c				\
 		${BONUS_PATH}Utils/free_bonus.c					\
 		${BONUS_PATH}Utils/ft_draw_column_utils_bonus.c	\
 		${BONUS_PATH}Utils/ft_raycast_get_bonus.c		\
-		${BONUS_PATH}ft_draw_bonus.c					\
 		${BONUS_PATH}ft_draw_column_bonus.c				\
 		${BONUS_PATH}ft_draw_minimap_bonus.c			\
 		${BONUS_PATH}ft_move_bonus.c					\

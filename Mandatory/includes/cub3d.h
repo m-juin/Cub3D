@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 15:30:21 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:40:37 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,8 @@
 # define WIDTH	1920
 # define HEIGHT	1080
 # define CSIZE	64
-# define MAP_CSIZE 32
-# define P3 3* M_PI_2
 # define DR M_PI / 180
 # define ROT DR * 5
-# define RATIO 32
-# define RATIO2 32
 
 enum	e_dir
 {
@@ -73,9 +69,6 @@ typedef struct s_pixel
 typedef struct s_player
 {
 	t_dvector	map_pos;
-	t_fvector	player_center;
-	t_fvector	minimap_pos;
-	t_fvector	minimap_offset;
 	t_dvector	target_pos;
 	enum e_dir	target_dir;
 	enum e_dir	facing_dir;
@@ -84,7 +77,6 @@ typedef struct s_player
 	t_dvector	plane;
 	mlx_image_t	*img;
 	bool		canmove;
-	int			player_angle;
 }	t_player;
 
 typedef struct s_data
@@ -103,20 +95,6 @@ typedef struct s_data
 	char			**map;
 	t_ivector		msize;
 }	t_data;
-
-typedef struct s_bresenham 
-{
-	t_ivector pos1;
-	t_ivector pos2;
-	int		xincr;
-	int		yincr;
-	float	ey;
-	float	ex;
-	float	dy;
-	float	dx;
-	int		gdx;
-	int		gdy;
-}			t_bresenham;
 
 typedef struct	s_calc_data
 {

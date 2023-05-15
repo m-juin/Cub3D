@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 13:47:42 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/15 15:39:08 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@
 # define HEIGHT	1080
 # define CSIZE	64
 # define MAP_CSIZE 32
-# define P3 3* M_PI_2
 # define DR M_PI / 180
 # define ROT DR * 5
-# define RATIO 32
-# define RATIO2 32
+
 
 enum	e_dir
 {
@@ -75,6 +73,7 @@ typedef struct s_player
 	t_dvector	map_pos;
 	t_fvector	player_center;
 	t_fvector	minimap_pos;
+	t_fvector	minimap_offset;
 	t_dvector	target_pos;
 	enum e_dir	target_dir;
 	enum e_dir	facing_dir;
@@ -190,7 +189,7 @@ void		handle_key_hook(mlx_key_data_t keydata, void *param);
 t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
 
 /* ft_printing.c */
-void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry);
+void	ft_print_lines_v3(mlx_image_t *img, t_data *data, t_fvector ray_pos);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);
@@ -217,8 +216,8 @@ int			get_color(int x, int y, mlx_texture_t *text);
 t_ivector	get_draw_data(int lineh, mlx_image_t *img);
 
 /* ft_draw.c */
-mlx_image_t	*ft_draw_map(t_data *data);
 void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);
+void		ft_draw_minimap(mlx_image_t *map, t_data *data);
 
 /* main.c */
 void		ft_clean_img(mlx_image_t *img_ray);

@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 15:44:10 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/15 14:51:48 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:36:43 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,9 @@ static bool	ft_rotate_bis(t_data *data)
 		data->player->facing_dir = data->player->target_dir;
 		ft_get_rotation(data->player->facing_dir, data->player);
 		ft_draw_ray3d(data);
-		ft_draw_ray_minimap(data);
 		return (true);
 	}
 	ft_draw_ray3d(data);
-	ft_draw_ray_minimap(data);
 	return (false);
 }
 
