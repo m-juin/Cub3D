@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/12 13:20:57 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:27:41 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre)
 	i = 0;
 	while (i <= bre->dx)
 	{
-		if (bre->pos1.x > -1 && bre->pos1.x < WIDTH \
-			&& bre->pos1.y > -1 && bre->pos1.y < HEIGHT)
+		if (bre->pos1.x > -1 && bre->pos1.x < 256 \
+			&& bre->pos1.y > -1 && bre->pos1.y < 256)
 		{
 			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, \
 			get_rgba(255, 255, 255, 70));
@@ -43,8 +43,8 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre)
 	i = 0;
 	while (i <= bre->dy)
 	{
-		if (bre->pos1.x > -1 && bre->pos1.x < WIDTH && bre->pos1.y > -1
-			&& bre->pos1.y < HEIGHT)
+		if (bre->pos1.x > -1 && bre->pos1.x < 256 && bre->pos1.y > -1
+			&& bre->pos1.y < 256)
 		{
 			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, \
 			get_rgba(255, 255, 255, 70));
@@ -60,15 +60,15 @@ void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre)
 	}
 }
 
-void	ft_print_lines_v3(mlx_image_t *img, int px, int py, int rx, int ry)
+void	ft_print_lines_v3(mlx_image_t *img, t_data *data, t_fvector ray_pos)
 {
 	t_bresenham	*bre;
 
 	bre = malloc(sizeof(t_bresenham) * 1);
-	bre->pos1.y = py;
-	bre->pos2.y = ry;
-	bre->pos1.x = px;
-	bre->pos2.x = rx;
+	bre->pos1.y = data->player->player_center.y;
+	bre->pos2.y = ray_pos.y;
+	bre->pos1.x = data->player->player_center.x;
+	bre->pos2.x = ray_pos.x;
 	bre->ey = abs(bre->pos2.y - bre->pos1.y);
 	bre->ex = abs(bre->pos2.x - bre->pos1.x);
 	bre->dx = bre->ex * 2;
