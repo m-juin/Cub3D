@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 15:11:14 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/17 13:38:33 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,6 @@ static void	ft_update(void *param)
 		data->player->canmove = true;
 }
 
-void	ft_free_data(t_data *data)
-{
-	mlx_delete_texture(data->east);
-	mlx_delete_texture(data->west);
-	mlx_delete_texture(data->north);
-	mlx_delete_texture(data->south);
-	free(data->player);
-	ft_double_free(data->map);
-	free(data);
-}
-
 int main(int ac, char **av)
 {
 	t_data	*data;
@@ -88,6 +77,7 @@ int main(int ac, char **av)
 	data->img_map = fill_image(get_rgba(255, 255, 255, 255), 8 * MAP_CSIZE, 8 * MAP_CSIZE, data->mlx);
 	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), data->msize.x * MAP_CSIZE, data->msize.y * MAP_CSIZE, data->mlx);
 	data->img_3d = fill_image(get_rgba(0, 0, 0, 0), WIDTH, HEIGHT, data->mlx);
+	data->enemy_list = ft_parse_enemy(data);
 	mlx_image_to_window(data->mlx, data->img_3d, 0, 0);
 	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
 	mlx_image_to_window(data->mlx, data->player->img, data->player->player_center.x - 4, data->player->player_center.y - 4);
@@ -98,5 +88,5 @@ int main(int ac, char **av)
 	mlx_loop_hook(data->mlx, ft_update, (void *)data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
-	ft_free_data(data);
+	ft_free_map_data(data);
 }

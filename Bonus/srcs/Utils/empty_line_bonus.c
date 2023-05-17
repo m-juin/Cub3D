@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   empty_line.c                                       :+:      :+:    :+:   */
+/*   empty_line_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:35:51 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/21 15:16:05 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/16 11:03:18 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	ft_check_identifier_empty_line(char **id)
 			lpos++;
 		if (id[pos][lpos] != '\0' && id[pos][lpos] != '\n'
 		&& ft_strncmp(&id[pos][lpos], "NO ", 3) != 0
+		&& ft_strncmp(&id[pos][lpos], "DO ", 3) != 0
 		&& ft_strncmp(&id[pos][lpos], "SO ", 3) != 0
 		&& ft_strncmp(&id[pos][lpos], "EA ", 3) != 0
 		&& ft_strncmp(&id[pos][lpos], "WE ", 3) != 0

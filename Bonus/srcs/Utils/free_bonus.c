@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:59:51 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/24 16:40:13 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/16 11:31:24 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ void	ft_free_map_data(t_data *data)
 		mlx_delete_texture(data->north);
 	if (data->south != NULL)
 		mlx_delete_texture(data->south);
+	if (data->door != NULL)
+		mlx_delete_texture(data->door);
+	if (data->player != NULL)
+		free(data->player);
 	ft_double_free(data->map);
 	free(data);
 }

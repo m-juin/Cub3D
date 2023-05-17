@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 15:39:08 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:36:15 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define MAP_CSIZE 32
 # define DR M_PI / 180
 # define ROT DR * 5
-
+# define ENEMY_RATIO 16
 
 enum	e_dir
 {
@@ -68,6 +68,13 @@ typedef struct s_pixel
 	int	state;
 }	t_pixel;
 
+typedef struct s_enemy
+{
+	t_dvector	map_pos;
+
+}	t_enemy;
+
+
 typedef struct s_player
 {
 	t_dvector	map_pos;
@@ -96,6 +103,9 @@ typedef struct s_data
 	mlx_texture_t	*south;
 	mlx_texture_t	*east;
 	mlx_texture_t	*west;
+	mlx_texture_t	*door;
+	mlx_texture_t	**animation;
+	t_enemy			**enemy_list;
 	int				ground;
 	int				top;
 	char			**map;
@@ -124,7 +134,6 @@ typedef struct	s_calc_data
 	t_dvector	delta_dist;
 }	t_calc_data;
 
-
 typedef	struct s_draw_data
 {
 	t_ivector		pos;
@@ -150,6 +159,9 @@ int			get_r(int rgba);
 int			get_g(int rgba);
 int			get_b(int rgba);
 int			get_a(int rgba);
+
+/*	Utils/count_door_bonus.c	*/
+int			ft_count_door(char **map);
 
 /*	Utils/empty_line.c	*/
 int			ft_check_identifier_empty_line(char **id);
@@ -181,6 +193,12 @@ char		**ft_parse_map(char **src);
 /*	Parsing/ft_parse_player.c	*/
 t_player	*ft_parse_player(char	**map);
 void		ft_get_rotation(enum e_dir start_dir, t_player *player);
+
+/*	Parsing/ft_load_animation_bonus.c	*/
+mlx_texture_t	**ft_load_animation();
+
+/*	Parsing/ft_parse_enemy_bonus.c	*/
+t_enemy 		**ft_parse_enemy(t_data *data);
 
 /*	Mlx/key_hook.c	*/
 void		handle_key_hook(mlx_key_data_t keydata, void *param);

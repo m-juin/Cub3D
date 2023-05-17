@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 11:33:16 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/16 11:26:59 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	close_hook(mlx_key_data_t keydata, t_data *data)
 	if (keydata.key != MLX_KEY_ESCAPE || keydata.action != MLX_RELEASE)
 		return ;
 	mlx_terminate(data->mlx);
-	ft_free_data(data);
+	ft_free_map_data(data);
 	ft_exit("", 0);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing_main.c                                  :+:      :+:    :+:   */
+/*   ft_parsing_main_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:45:20 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/09 10:39:37 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/17 13:41:05 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,12 @@ t_data	*ft_parsing_main(char *path)
 	if (data == NULL)
 		ft_exit("Error on malloc", 1);
 	ft_check_map(data);
+	data->animation = ft_load_animation();
+	if (data->animation == NULL)
+	{
+		ft_free_map_data(data);
+		ft_exit("", 1);
+	}
 	data->msize = ft_get_size(data->map);
 	return (data);
 }

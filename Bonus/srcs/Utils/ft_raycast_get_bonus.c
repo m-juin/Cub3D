@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:49:38 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 11:04:59 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/16 10:32:21 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_get_texture(t_data *data, t_draw_data *draw, t_calc_data *calc)
 			draw->text = data->north;
 	}
 	if (data->map[calc->map.y][calc->map.x] == '2')
-		draw->text = data->north;
+		draw->text = data->door;
 }
 
 t_dvector	ft_get_delta(t_dvector raydir)

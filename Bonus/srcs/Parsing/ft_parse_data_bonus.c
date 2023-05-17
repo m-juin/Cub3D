@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_data.c                                    :+:      :+:    :+:   */
+/*   ft_parse_data_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:28:11 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/28 12:25:34 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/16 11:01:04 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_data	*ft_parse_data(char **identifiers, char **map)
 	if (data == NULL)
 		return (NULL);
 	data->north = get_texture_from_id("NO ", identifiers);
+	data->door = get_texture_from_id("DO ", identifiers);
 	data->south = get_texture_from_id("SO ", identifiers);
 	data->east = get_texture_from_id("EA ", identifiers);
 	data->west = get_texture_from_id("WE ", identifiers);
@@ -105,7 +106,7 @@ t_data	*ft_parse_data(char **identifiers, char **map)
 	data->map = ft_parse_map(map);
 	if (data->north == NULL || data->south == NULL || data->east == NULL
 		|| data->west == NULL || get_a(data->top) < 255
-		|| get_a(data->ground) < 255 || data->map == NULL)
+		|| get_a(data->ground) < 255 || data->map == NULL || data->door == NULL)
 	{
 		ft_free_map_data(data);
 		return (NULL);
