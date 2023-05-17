@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/17 13:05:33 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:17:16 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ t_player	*ft_parse_player(char **map)
 	player->player_center.y = 8 * MAP_CSIZE / 2 + MAP_CSIZE / 2;
 	player->minimap_offset.x = player->player_center.x - player->minimap_pos.x;
 	player->minimap_offset.y = player->player_center.y - player->minimap_pos.y;
-	//printf("OffX = %f\tOffY = %f\n", player->minimap_offset.x,player->minimap_offset.y);
 	player->target_pos = player->map_pos;
 	player->target_dir = player->facing_dir;
 	player->canmove = true;
