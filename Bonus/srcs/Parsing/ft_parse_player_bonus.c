@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:11:32 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 15:43:48 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/17 13:05:33 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_get_rotation(enum e_dir start_dir, t_player *player)
 	{
 		player->dir.x = 1;
 		player->plane.y = 0.66;
-		player->player_angle = 0;
+		player->player_angle = 360;
 	}
 	else
 	{
@@ -93,18 +93,11 @@ t_player	*ft_parse_player(char **map)
 	player->pos.y = player->map_pos.y * CSIZE;
 	player->minimap_pos.x = player->map_pos.x * MAP_CSIZE;
 	player->minimap_pos.y = player->map_pos.y * MAP_CSIZE;
-	player->minimap_pos.x = player->map_pos.x * MAP_CSIZE;
-	player->minimap_pos.y = player->map_pos.y * MAP_CSIZE;
-	if (player->minimap_pos.x > 128)
-		player->player_center.x = 8 * MAP_CSIZE / 2 + MAP_CSIZE / 2;
-	else
-		player->player_center.x = 8 * MAP_CSIZE / 2 - MAP_CSIZE / 2;
-	if (player->minimap_pos.y > 128)
-		player->player_center.y = 8 * MAP_CSIZE / 2 + MAP_CSIZE / 2;
-	else
-		player->player_center.y = 8 * MAP_CSIZE / 2 - MAP_CSIZE / 2;
+	player->player_center.x = 8 * MAP_CSIZE / 2 - MAP_CSIZE / 2;
+	player->player_center.y = 8 * MAP_CSIZE / 2 + MAP_CSIZE / 2;
 	player->minimap_offset.x = player->player_center.x - player->minimap_pos.x;
 	player->minimap_offset.y = player->player_center.y - player->minimap_pos.y;
+	//printf("OffX = %f\tOffY = %f\n", player->minimap_offset.x,player->minimap_offset.y);
 	player->target_pos = player->map_pos;
 	player->target_dir = player->facing_dir;
 	player->canmove = true;

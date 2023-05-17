@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/17 13:38:33 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/17 15:04:46 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static void	ft_update(void *param)
 	data = (t_data *)param;
 	mover = ft_move(data);
 	rotr = ft_rotate(data);
-	if (mover == true && rotr == true)
+	if (mover == true && rotr == true && data->player->canmove != true)
+	{
 		data->player->canmove = true;
 }
 
