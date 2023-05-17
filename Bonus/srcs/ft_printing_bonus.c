@@ -6,25 +6,24 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/17 13:03:54 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:17:15 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre)
+void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i <= bre->delta.x)
 	{
+		if (data->map[(int)(bre->pos1.y - data->player->minimap_offset.y) / MAP_CSIZE][(int)(bre->pos1.x - data->player->minimap_offset.x) / MAP_CSIZE] == '1')
+			return ;
 		if (bre->pos1.x > -1 && bre->pos1.x < 256 \
 			&& bre->pos1.y > -1 && bre->pos1.y < 256)
-		{
-			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, \
-			get_rgba(255, 255, 255, 70));
-		}
+			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, get_rgba(255, 255, 255, 70));
 		i++;
 		bre->error.x = bre->error.x - bre->delta.y;
 		if (bre->error.x < 0)
@@ -36,20 +35,18 @@ void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre)
 	}
 }
 
-void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre)
+void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i <= bre->delta.y)
 	{
-
+		if (data->map[(int)(bre->pos1.y - data->player->minimap_offset.y) / MAP_CSIZE][(int)(bre->pos1.x - data->player->minimap_offset.x) / MAP_CSIZE] == '1')
+			return ;
 		if (bre->pos1.x > -1 && bre->pos1.x < 256 && bre->pos1.y > -1
 			&& bre->pos1.y < 256)
-		{
-			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, \
-			get_rgba(255, 255, 255, 70));
-		}
+			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, get_rgba(255, 255, 255, 70));
 		i++;
 		bre->error.y = bre->error.y - bre->delta.x;
 		if (bre->error.y < 0)
@@ -82,8 +79,8 @@ void	ft_print_lines(mlx_image_t *img, t_data *data, t_fvector ray_pos)
 	if (bre->pos1.y > bre->pos2.y)
 		bre->incr.y = -1;
 	if (bre->delta.x > bre->delta.y)
-		ft_print_x_lines(img, bre);
+		ft_print_x_lines(img, bre, data);
 	else
-		ft_print_y_lines(img, bre);
+		ft_print_y_lines(img, bre, data);
 	free(bre);
 }

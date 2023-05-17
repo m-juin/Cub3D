@@ -147,7 +147,6 @@ void	ft_draw_ray_minimap(t_data *data)
 			ray_pos[r].y = 0;
 		if (ray_pos[r].y >= 256)
 			ray_pos[r].y = 255;
-		//ft_print_lines_v3(data->img_ray, data, ray_pos[r]);
 		r++;
 		ray_angle = fix_ang(ray_angle - 1);
 	}

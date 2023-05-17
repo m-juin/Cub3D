@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:30:35 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/17 12:47:14 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:17:34 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    ft_draw_fov(mlx_image_t *img, t_data *data, t_fvector ray_pos[])
         {
             while (ray_save.x < ray_pos[r + 1].x)
             {
-                ray_save.x += 1;
+                ray_save.x += 0.5;
                 ft_print_lines(data->img_ray, data, ray_save);
             }
         }
@@ -33,16 +33,15 @@ void    ft_draw_fov(mlx_image_t *img, t_data *data, t_fvector ray_pos[])
         {
             while (ray_save.x > ray_pos[r + 1].x)
             {
-                ray_save.x -= 1;
+                ray_save.x -= 0.5;
                 ft_print_lines(data->img_ray, data, ray_save);
             }
         }
-        //ray_save.x = ray_pos[r].x;
         if (ray_save.y > ray_pos[r + 1].y)
         {
             while (ray_save.y > ray_pos[r + 1].y)
             {
-                ray_save.y -= 1;
+                ray_save.y -= 0.5;
                 ft_print_lines(data->img_ray, data, ray_save);
             }
         }
@@ -50,7 +49,7 @@ void    ft_draw_fov(mlx_image_t *img, t_data *data, t_fvector ray_pos[])
         {
             while (ray_save.y < ray_pos[r + 1].y)
             {
-                ray_save.y += 1;
+                ray_save.y += 0.5;
                 ft_print_lines(data->img_ray, data, ray_save);
             }
         }

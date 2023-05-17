@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/17 15:07:16 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/17 15:19:32 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ static void	ft_update(void *param)
 	if (mover == true && rotr == true && data->player->canmove != true)
 	{
 		data->player->canmove = true;
+		data->player->minimap_pos.x = data->player->map_pos.x * MAP_CSIZE;
+		data->player->minimap_pos.y = data->player->map_pos.y * MAP_CSIZE;
+		data->player->minimap_offset.x = data->player->player_center.x - data->player->minimap_pos.x;
+		data->player->minimap_offset.y = data->player->player_center.y - data->player->minimap_pos.y;
+		ft_draw_ray_minimap(data);
 	}
 }
 
