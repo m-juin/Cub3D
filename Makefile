@@ -6,7 +6,7 @@
 #    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/15 15:42:21 by lobozier         ###   ########.fr        #
+#    Updated: 2023/05/17 11:35:46 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ BONUS = ${BONUS_PATH}Mlx/key_hook_bonus.c				\
 		${BONUS_PATH}ft_rotate_bonus.c					\
 		${BONUS_PATH}main_bonus.c						\
 		${BONUS_PATH}minimap_bonus.c					\
+		${BONUS_PATH}draw_fov_bonus.c					\
 
 MANDATORY = ${MANDATORY_PATH}Mlx/key_hook.c				\
 		${MANDATORY_PATH}Mlx/manage_collision.c			\

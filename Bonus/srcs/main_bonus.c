@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 15:11:14 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/17 13:05:25 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,15 @@ static void	ft_update(void *param)
 	data = (t_data *)param;
 	mover = ft_move(data);
 	rotr = ft_rotate(data);
-	if (mover == true && rotr == true)
+	if (mover == true && rotr == true && data->player->canmove != true)
+	{
 		data->player->canmove = true;
+		data->player->minimap_pos.x = data->player->map_pos.x * MAP_CSIZE;
+		data->player->minimap_pos.y = data->player->map_pos.y * MAP_CSIZE;
+		data->player->minimap_offset.x = data->player->player_center.x - data->player->minimap_pos.x;
+		data->player->minimap_offset.y = data->player->player_center.y - data->player->minimap_pos.y + MAP_CSIZE / 2;
+		ft_draw_ray_minimap(data);
+	}
 }
 
 void	ft_free_data(t_data *data)

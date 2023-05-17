@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 15:39:08 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:17:50 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,16 +104,11 @@ typedef struct s_data
 
 typedef struct s_bresenham 
 {
-	t_ivector pos1;
-	t_ivector pos2;
-	int		xincr;
-	int		yincr;
-	float	ey;
-	float	ex;
-	float	dy;
-	float	dx;
-	int		gdx;
-	int		gdy;
+	t_ivector	pos1;
+	t_ivector	pos2;
+	t_ivector	incr;
+	t_fvector	error;
+	t_fvector	delta;
 }			t_bresenham;
 
 typedef struct	s_calc_data
@@ -189,7 +184,7 @@ void		handle_key_hook(mlx_key_data_t keydata, void *param);
 t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
 
 /* ft_printing.c */
-void	ft_print_lines_v3(mlx_image_t *img, t_data *data, t_fvector ray_pos);
+void	ft_print_lines(mlx_image_t *img, t_data *data, t_fvector ray_pos);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);
@@ -202,11 +197,10 @@ void		ft_draw_ray3d(t_data *data);
 /* ft_raycast_get.c */
 t_dvector	ft_get_delta(t_dvector raydir);
 void		ft_get_texture(t_data *data, t_draw_data *draw, t_calc_data *calc);
-int			ft_get_textx(t_data *data, t_dvector raydir,
-				t_draw_data draw, double wall);
+int			ft_get_textx(t_data *data, t_dvector raydir, t_draw_data draw, double wall);
 t_ivector	ft_get_step(t_dvector raydir);
-t_dvector	ft_get_sided(t_dvector raydir, t_ivector map, t_dvector pl,
-							t_dvector delta);
+t_dvector	ft_get_sided(t_dvector raydir, t_ivector map, t_dvector pl, t_dvector delta);
+
 /*	Draw/ft_draw_column.c	*/
 void		ft_draw_column(t_data *data, t_draw_data draw, int textx);
 
@@ -231,5 +225,8 @@ bool	ft_move(t_data *data);
 
 /* ft_rotate.c */
 bool	ft_rotate(t_data *data);
+
+/*	ft_draw_fov_bonus.c */
+void	ft_draw_fov(mlx_image_t *img, t_data *data, t_fvector ray_pos[]);
 
 #endif

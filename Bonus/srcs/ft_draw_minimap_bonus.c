@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:58:34 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/15 15:41:51 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:37:32 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	ft_draw_case_map(mlx_image_t *img, t_ivector pos, int color)
 		pos2.x = 0;
 		while (pos2.x < MAP_CSIZE)
 		{
-			mlx_put_pixel(img, ((pos.x * MAP_CSIZE) + pos2.x), ((pos.y * MAP_CSIZE) + pos2.y), color);
+			if ((pos.x * MAP_CSIZE) + pos2.x >= 0 && (pos.y * MAP_CSIZE) + pos2.y >= 0)
+				mlx_put_pixel(img, ((pos.x * MAP_CSIZE) + pos2.x), ((pos.y * MAP_CSIZE) + pos2.y), color);
 			pos2.x++;
 		}
 		pos2.y++;
@@ -34,11 +35,11 @@ void	ft_draw_minimap(mlx_image_t *map, t_data *data)
 	t_ivector			pos;
 	t_ivector			minimap;
 
-	pos.y = (int)data->player->map_pos.y - 4;
+	pos.y = (int)data->player->minimap_pos.y / MAP_CSIZE - 4;
 	minimap.y = 0;
 	while (minimap.y < 8)
 	{
-		pos.x = (int)data->player->map_pos.x - 3;
+		pos.x = (int)data->player->minimap_pos.x / MAP_CSIZE - 3;
 		minimap.x = 0;
 		while (minimap.x < 8)
 		{
@@ -48,6 +49,8 @@ void	ft_draw_minimap(mlx_image_t *map, t_data *data)
 				ft_draw_case_map(map, minimap, get_rgba(0, 0, 0, 255));
 			else if (data->map[pos.y][pos.x] == '2')
 				ft_draw_case_map(map, minimap, get_rgba(150, 0, 100, 255));
+			else if (data->map[pos.y][pos.x] == '3')
+				ft_draw_case_map(map, minimap, get_rgba(50, 100, 200, 255));
 			else if (data->map[pos.y][pos.x] == ' ')
 				ft_draw_case_map(map, minimap, get_rgba(255, 255, 255, 25));
 			else
