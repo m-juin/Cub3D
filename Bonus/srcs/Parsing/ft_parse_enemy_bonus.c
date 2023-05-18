@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_enemy_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:39:07 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/17 15:03:33 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/17 16:13:41 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_ivector ft_get_random_pos(t_ivector mapsize)
 	return (pos);
 }
 
-static bool ft_is_valid(t_ivector npos, t_enemy **list, int pos, t_data *data)
+/*static bool ft_is_valid(t_ivector npos, t_enemy **list, int pos, t_data *data)
 {
 	int pos2;
 
@@ -98,7 +98,7 @@ static t_enemy	*ft_create_enemy(t_enemy **list, int pos, t_data *data)
 	new_enemy->map_pos.x = newpos.x;
 	new_enemy->map_pos.y = newpos.y;
 	return (new_enemy);
-}
+}*/
 
 t_enemy **ft_parse_enemy(t_data *data)
 {
@@ -114,7 +114,7 @@ t_enemy **ft_parse_enemy(t_data *data)
 	pos = 0;
 	while (pos < count)
 	{
-		list[pos] = ft_create_enemy(list, pos, data);
+		//list[pos] = ft_create_enemy(list, pos, data);
 		pos++;
 	}
 	return (list);

@@ -40,7 +40,7 @@ void	ft_draw_ray_minimap(t_data *data)
 	float		ray_angle;
 	float		aTan;
 	float		nTan;
-	t_fvector	ray_pos[60];
+	t_fvector	ray_pos;
 	t_fvector	ray_offset;
 	t_fvector	H;
 	t_fvector	V;
@@ -49,106 +49,97 @@ void	ft_draw_ray_minimap(t_data *data)
 
 	r = 0;
 	ft_clean_img(data->img_ray);
-	ft_clean_img(data->img_map);
 	ft_draw_minimap(data->img_map, data);
-	ray_angle = fix_ang(data->player->player_angle + 30);
+	ray_angle = deg_to_rad(fix_ang(data->player->player_angle - 32));
 	H = data->player->minimap_pos;
 	V = data->player->minimap_pos;
-	while (r < 60)
+	while (r < 384)
 	{
 		distV = INFINITY;
 		doffset = 0;
-		nTan = tan(deg_to_rad(ray_angle));
-		if (cos(deg_to_rad(ray_angle)) > 0.001)
+		nTan = tan(ray_angle);
+		if (cos(ray_angle) > 0.001)
 		{
-			ray_pos[r].x = (((int)data->player->minimap_pos.x / MAP_CSIZE) * MAP_CSIZE) + MAP_CSIZE;
-			ray_pos[r].y = (data->player->minimap_pos.x - ray_pos[r].x) * nTan + data->player->minimap_pos.y;
+			ray_pos.x = (((int)data->player->minimap_pos.x / MAP_CSIZE) * MAP_CSIZE) + MAP_CSIZE;
+			ray_pos.y = (data->player->minimap_pos.x - ray_pos.x) * nTan + data->player->minimap_pos.y;
 			ray_offset.x = MAP_CSIZE;
 			ray_offset.y = -ray_offset.x * nTan;
 		}
-		else if (cos(deg_to_rad(ray_angle)) < -0.001)
+		else if (cos(ray_angle) < -0.001)
 		{
-			ray_pos[r].x = (((int)data->player->minimap_pos.x / MAP_CSIZE) * MAP_CSIZE) - 0.0001;
-			ray_pos[r].y = (data->player->minimap_pos.x - ray_pos[r].x) * nTan + data->player->minimap_pos.y;
+			ray_pos.x = (((int)data->player->minimap_pos.x / MAP_CSIZE) * MAP_CSIZE) - 0.0001;
+			ray_pos.y = (data->player->minimap_pos.x - ray_pos.x) * nTan + data->player->minimap_pos.y;
 			ray_offset.x = -MAP_CSIZE;
 			ray_offset.y = -ray_offset.x * nTan;
 		}
 		else
 		{
-			ray_pos[r] = data->player->minimap_pos;
+			ray_pos = data->player->minimap_pos;
 			doffset = data->msize.x;
 		}
 		while (doffset < data->msize.x)
 		{
-			map.x = (int)ray_pos[r].x / MAP_CSIZE;
-			map.y = (int)ray_pos[r].y / MAP_CSIZE;
-			if (map.x > -1 && map.x < data->msize.x && map.y > -1 && map.y < data->msize.y && data->map[map.y][map.x] == '1')
+			map.x = (int)ray_pos.x / MAP_CSIZE;
+			map.y = (int)ray_pos.y / MAP_CSIZE;
+			if (map.x > -1 && map.x < data->msize.x && map.y > -1 && map.y < data->msize.y && (data->map[map.y][map.x] == '1' || data->map[map.y][map.x] == '2'))
 			{
-				V = ray_pos[r];
-				distV = dist(data->player->minimap_pos, ray_pos[r], ray_angle);
+				V = ray_pos;
+				distV = dist(data->player->minimap_pos, ray_pos, ray_angle);
 				doffset = data->msize.x;
 			}
 			else
 			{
-				ray_pos[r].x += ray_offset.x;
-				ray_pos[r].y += ray_offset.y;
+				ray_pos.x += ray_offset.x;
+				ray_pos.y += ray_offset.y;
 				doffset += 1;
 			}
 		}
 		distH = INFINITY;
 		doffset = 0;
 		aTan = 1.0f / nTan;
-		if (sin(deg_to_rad(ray_angle)) > 0.001)
+		if (sin(ray_angle) > 0.001)
 		{
-			ray_pos[r].y = (((int)data->player->minimap_pos.y / MAP_CSIZE) * MAP_CSIZE) - 0.0001;
-			ray_pos[r].x = (data->player->minimap_pos.y - ray_pos[r].y) * aTan + data->player->minimap_pos.x;
+			ray_pos.y = (((int)data->player->minimap_pos.y / MAP_CSIZE) * MAP_CSIZE) - 0.0001;
+			ray_pos.x = (data->player->minimap_pos.y - ray_pos.y) * aTan + data->player->minimap_pos.x;
 			ray_offset.y = -MAP_CSIZE;
 			ray_offset.x = -ray_offset.y * aTan;
 		}
-		else if (sin(deg_to_rad(ray_angle)) < -0.001)
+		else if (sin(ray_angle) < -0.001)
 		{
-			ray_pos[r].y = (((int)data->player->minimap_pos.y / MAP_CSIZE) * MAP_CSIZE) + MAP_CSIZE;
-			ray_pos[r].x = (data->player->minimap_pos.y - ray_pos[r].y) * aTan + data->player->minimap_pos.x;
+			ray_pos.y = (((int)data->player->minimap_pos.y / MAP_CSIZE) * MAP_CSIZE) + MAP_CSIZE;
+			ray_pos.x = (data->player->minimap_pos.y - ray_pos.y) * aTan + data->player->minimap_pos.x;
 			ray_offset.y = MAP_CSIZE;
 			ray_offset.x = -ray_offset.y * aTan;
 		}
 		else 
 		{
-			ray_pos[r] = data->player->minimap_pos;
+			ray_pos = data->player->minimap_pos;
 			doffset = data->msize.y;
 		}
 		while (doffset < data->msize.y)
 		{
-			map.x = (int)ray_pos[r].x / MAP_CSIZE;
-			map.y = (int)ray_pos[r].y / MAP_CSIZE;
-			if (map.x > -1 && map.x < data->msize.x && map.y > -1 && map.y < data->msize.y && data->map[map.y][map.x] == '1')
+			map.x = (int)ray_pos.x / MAP_CSIZE;
+			map.y = (int)ray_pos.y / MAP_CSIZE;
+			if (map.x > -1 && map.x < data->msize.x && map.y > -1 && map.y < data->msize.y && (data->map[map.y][map.x] == '1' || data->map[map.y][map.x] == '2'))
 			{
-				H = ray_pos[r];
-				distH = dist(data->player->minimap_pos, ray_pos[r], ray_angle);
+				H = ray_pos;
+				distH = dist(data->player->minimap_pos, ray_pos, ray_angle);
 				doffset = data->msize.y;
 			}
 			else
 			{
-				ray_pos[r].x += ray_offset.x;
-				ray_pos[r].y += ray_offset.y;
+				ray_pos.x += ray_offset.x;
+				ray_pos.y += ray_offset.y;
 				doffset += 1;
 			}
 		}
-		ray_pos[r] = H;
+		ray_pos = H;
 		if (distV < distH)
-			ray_pos[r] = V;
-		ray_pos[r].x += data->player->minimap_offset.x;
-		ray_pos[r].y += data->player->minimap_offset.y;
-		if (ray_pos[r].x < 0)
-			ray_pos[r].x = 0;
-		if (ray_pos[r].x >= 256)
-			ray_pos[r].x = 255;
-		if (ray_pos[r].y < 0)
-			ray_pos[r].y = 0;
-		if (ray_pos[r].y >= 256)
-			ray_pos[r].y = 255;
+			ray_pos = V;
+		ray_pos.x += data->player->minimap_offset.x;
+		ray_pos.y += data->player->minimap_offset.y;
+		ft_print_lines(data->img_ray, data, ray_pos);
 		r++;
-		ray_angle = fix_ang(ray_angle - 1);
+		ray_angle = ray_angle + DR / 6;
 	}
-	ft_draw_fov(data->img_ray, data, ray_pos);
 }

@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:58:34 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/17 11:37:32 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:27:57 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	ft_draw_case_map(mlx_image_t *img, t_ivector pos, int color)
 	t_ivector	pos2;
 
 	pos2.y = 0;
+	if (toredraw(pos.x * MAP_CSIZE, pos.y * MAP_CSIZE, color, img) == false)
+		return ;
 	while (pos2.y < MAP_CSIZE)
 	{
 		pos2.x = 0;

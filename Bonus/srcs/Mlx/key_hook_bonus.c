@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/16 11:26:59 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/18 10:09:38 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,17 @@ static void door_hook(mlx_key_data_t keydata, t_data *data)
 		return ;
 	looked = get_looked(data);
 	if (data->map[looked.y][looked.x] == '2')
+	{
 		data->map[looked.y][looked.x] = '3';
+		ft_draw_ray3d(data);
+		ft_draw_ray_minimap(data);
+	}
 	else if (data->map[looked.y][looked.x] == '3')
+	{
 		data->map[looked.y][looked.x] = '2';
-	ft_draw_ray3d(data);
+		ft_draw_ray3d(data);
+		ft_draw_ray_minimap(data);
+	}
 }
 
 static void	close_hook(mlx_key_data_t keydata, t_data *data)

@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw_column_utils.c                             :+:      :+:    :+:   */
+/*   ft_draw_column_utils_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:46:49 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/09 13:48:57 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/18 10:23:29 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-bool	toredraw(int x, int y, int color, t_data *data)
+bool	toredraw(int x, int y, int color, mlx_image_t *img)
 {
 	size_t	pos;
 
-	pos = (y * 4) * data->img_3d->width + (x * 4);
-	if (data->img_3d->pixels[pos] != get_r(color)
-		|| data->img_3d->pixels[pos + 1] != get_g(color)
-		|| data->img_3d->pixels[pos + 2] != get_b(color)
-		|| data->img_3d->pixels[pos + 3] != get_a(color))
+	pos = (y * 4) * img->width + (x * 4);
+	if (img->pixels[pos] != get_r(color)
+		|| img->pixels[pos + 1] != get_g(color)
+		|| img->pixels[pos + 2] != get_b(color)
+		|| img->pixels[pos + 3] != get_a(color))
 		return (true);
 	return (false);
 }
