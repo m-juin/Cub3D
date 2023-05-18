@@ -6,14 +6,14 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:39:07 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/17 16:13:41 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:39:07 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 #include <time.h>
 
-static int ft_count_empty(char **map, size_t map_width)
+static int	ft_count_empty(char **map, size_t map_width)
 {
 	t_ivector	pos;
 	int			count;
@@ -56,9 +56,9 @@ static t_enemy	**malloc_list(int count)
 	return (list);
 }
 
-static t_ivector ft_get_random_pos(t_ivector mapsize)
+static t_ivector	ft_get_random_pos(t_ivector mapsize)
 {
-	t_ivector pos;
+	t_ivector	pos;
 
 	srand(time(NULL));
 	pos.x = rand() % (mapsize.x - 1);
@@ -100,7 +100,7 @@ static t_enemy	*ft_create_enemy(t_enemy **list, int pos, t_data *data)
 	return (new_enemy);
 }*/
 
-t_enemy **ft_parse_enemy(t_data *data)
+t_enemy	**ft_parse_enemy(t_data *data)
 {
 	int		count;
 	int		pos;

@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/18 10:09:38 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:37:02 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	rotation_hook(mlx_key_data_t keydata, t_player *pl, t_data *data)
 	}
 }
 
-static t_ivector get_looked(t_data *data)
+static t_ivector	get_looked(t_data *data)
 {
 	t_ivector	looked;
 
@@ -62,7 +62,7 @@ static t_ivector get_looked(t_data *data)
 	return (looked);
 }
 
-static void door_hook(mlx_key_data_t keydata, t_data *data)
+static void	door_hook(mlx_key_data_t keydata, t_data *data)
 {
 	t_ivector	looked;
 

@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:58:34 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/18 10:27:57 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:40:35 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_draw_minimap(mlx_image_t *map, t_data *data)
 			else if (data->map[pos.y][pos.x] == ' ')
 				ft_draw_case_map(map, minimap, get_rgba(255, 255, 255, 25));
 			else
-				ft_draw_case_map(map, minimap, get_rgba(100, 100, 100, 255));	
+				ft_draw_case_map(map, minimap, get_rgba(100, 100, 100, 255));
 			pos.x++;
 			minimap.x++;
 		}

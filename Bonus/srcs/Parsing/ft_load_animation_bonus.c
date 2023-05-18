@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_load_animation_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:44:27 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/17 10:29:31 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/18 10:38:25 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static char *ft_get_path(int count)
+static char	*ft_get_path(int count)
 {
 	char	*iotaed;
 	char	*path;
@@ -23,11 +23,11 @@ static char *ft_get_path(int count)
 	return (path);
 }
 
-static int ft_count_anim()
+static int	ft_count_anim(void)
 {
-	int fd;
-	int count;
-	char *path;
+	int		fd;
+	int		count;
+	char	*path;
 
 	fd = 0;
 	count = 0;
@@ -59,9 +59,9 @@ static mlx_texture_t	*ft_load_texture(int count)
 	return (text);
 }
 
-mlx_texture_t	**ft_load_animation()
+mlx_texture_t	**ft_load_animation(void)
 {
-	int 			size;
+	int				size;
 	mlx_texture_t	**list;
 
 	size = ft_count_anim();

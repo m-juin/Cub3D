@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/28 09:14:57 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/12 11:06:48by lobozier         ###   ########.fr       */
+/*   Created: 2023/05/18 10:40:59 by lobozier          #+#    #+#             */
+/*   Updated: 2023/05/18 10:47:34 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 float	deg_to_rad(int angle)
 {
-    return (angle * DR);
+	return (angle * DR);
 }
 
 float	dist(t_fvector a, t_fvector b, float angle)
 {
-    return (cos(deg_to_rad(angle)) * (b.x - a.x) - \
-            sin(deg_to_rad(angle)) * (b.y - a.y));
+	return (cos(deg_to_rad(angle)) * (b.x - a.x) - \
+	sin(deg_to_rad(angle)) * (b.y - a.y));
 }
 
 int	fix_ang(int angle)
 {
-    if (angle > 358)
-        angle -= 359;
-    if (angle < -1)
-        angle += 359;
-    return (angle);
+	if (angle > 358)
+		angle -= 359;
+	if (angle < -1)
+		angle += 359;
+	return (angle);
 }
 
 void	ft_draw_ray_minimap(t_data *data)
@@ -38,39 +38,39 @@ void	ft_draw_ray_minimap(t_data *data)
 	int			doffset;
 	t_ivector	map;
 	float		ray_angle;
-	float		aTan;
-	float		nTan;
+	float		a_tan;
+	float		n_tan;
 	t_fvector	ray_pos;
 	t_fvector	ray_offset;
-	t_fvector	H;
-	t_fvector	V;
-	float		distH;
-	float		distV;
+	t_fvector	hor;
+	t_fvector	ver;
+	float		dist_hor;
+	float		dist_ver;
 
 	r = 0;
 	ft_clean_img(data->img_ray);
 	ft_draw_minimap(data->img_map, data);
 	ray_angle = deg_to_rad(fix_ang(data->player->player_angle - 32));
-	H = data->player->minimap_pos;
-	V = data->player->minimap_pos;
+	hor = data->player->minimap_pos;
+	ver = data->player->minimap_pos;
 	while (r < 384)
 	{
-		distV = INFINITY;
+		dist_ver = INFINITY;
 		doffset = 0;
-		nTan = tan(ray_angle);
+		n_tan = tan(ray_angle);
 		if (cos(ray_angle) > 0.001)
 		{
 			ray_pos.x = (((int)data->player->minimap_pos.x / MAP_CSIZE) * MAP_CSIZE) + MAP_CSIZE;
-			ray_pos.y = (data->player->minimap_pos.x - ray_pos.x) * nTan + data->player->minimap_pos.y;
+			ray_pos.y = (data->player->minimap_pos.x - ray_pos.x) * n_tan + data->player->minimap_pos.y;
 			ray_offset.x = MAP_CSIZE;
-			ray_offset.y = -ray_offset.x * nTan;
+			ray_offset.y = -ray_offset.x * n_tan;
 		}
 		else if (cos(ray_angle) < -0.001)
 		{
 			ray_pos.x = (((int)data->player->minimap_pos.x / MAP_CSIZE) * MAP_CSIZE) - 0.0001;
-			ray_pos.y = (data->player->minimap_pos.x - ray_pos.x) * nTan + data->player->minimap_pos.y;
+			ray_pos.y = (data->player->minimap_pos.x - ray_pos.x) * n_tan + data->player->minimap_pos.y;
 			ray_offset.x = -MAP_CSIZE;
-			ray_offset.y = -ray_offset.x * nTan;
+			ray_offset.y = -ray_offset.x * n_tan;
 		}
 		else
 		{
@@ -83,8 +83,8 @@ void	ft_draw_ray_minimap(t_data *data)
 			map.y = (int)ray_pos.y / MAP_CSIZE;
 			if (map.x > -1 && map.x < data->msize.x && map.y > -1 && map.y < data->msize.y && (data->map[map.y][map.x] == '1' || data->map[map.y][map.x] == '2'))
 			{
-				V = ray_pos;
-				distV = dist(data->player->minimap_pos, ray_pos, ray_angle);
+				ver = ray_pos;
+				dist_ver = dist(data->player->minimap_pos, ray_pos, ray_angle);
 				doffset = data->msize.x;
 			}
 			else
@@ -94,24 +94,24 @@ void	ft_draw_ray_minimap(t_data *data)
 				doffset += 1;
 			}
 		}
-		distH = INFINITY;
+		dist_hor = INFINITY;
 		doffset = 0;
-		aTan = 1.0f / nTan;
+		a_tan = 1.0f / n_tan;
 		if (sin(ray_angle) > 0.001)
 		{
 			ray_pos.y = (((int)data->player->minimap_pos.y / MAP_CSIZE) * MAP_CSIZE) - 0.0001;
-			ray_pos.x = (data->player->minimap_pos.y - ray_pos.y) * aTan + data->player->minimap_pos.x;
+			ray_pos.x = (data->player->minimap_pos.y - ray_pos.y) * a_tan + data->player->minimap_pos.x;
 			ray_offset.y = -MAP_CSIZE;
-			ray_offset.x = -ray_offset.y * aTan;
+			ray_offset.x = -ray_offset.y * a_tan;
 		}
 		else if (sin(ray_angle) < -0.001)
 		{
 			ray_pos.y = (((int)data->player->minimap_pos.y / MAP_CSIZE) * MAP_CSIZE) + MAP_CSIZE;
-			ray_pos.x = (data->player->minimap_pos.y - ray_pos.y) * aTan + data->player->minimap_pos.x;
+			ray_pos.x = (data->player->minimap_pos.y - ray_pos.y) * a_tan + data->player->minimap_pos.x;
 			ray_offset.y = MAP_CSIZE;
-			ray_offset.x = -ray_offset.y * aTan;
+			ray_offset.x = -ray_offset.y * a_tan;
 		}
-		else 
+		else
 		{
 			ray_pos = data->player->minimap_pos;
 			doffset = data->msize.y;
@@ -122,8 +122,8 @@ void	ft_draw_ray_minimap(t_data *data)
 			map.y = (int)ray_pos.y / MAP_CSIZE;
 			if (map.x > -1 && map.x < data->msize.x && map.y > -1 && map.y < data->msize.y && (data->map[map.y][map.x] == '1' || data->map[map.y][map.x] == '2'))
 			{
-				H = ray_pos;
-				distH = dist(data->player->minimap_pos, ray_pos, ray_angle);
+				hor = ray_pos;
+				dist_hor = dist(data->player->minimap_pos, ray_pos, ray_angle);
 				doffset = data->msize.y;
 			}
 			else
@@ -133,9 +133,9 @@ void	ft_draw_ray_minimap(t_data *data)
 				doffset += 1;
 			}
 		}
-		ray_pos = H;
-		if (distV < distH)
-			ray_pos = V;
+		ray_pos = hor;
+		if (dist_ver < dist_hor)
+			ray_pos = ver;
 		ray_pos.x += data->player->minimap_offset.x;
 		ray_pos.y += data->player->minimap_offset.y;
 		ft_print_lines(data->img_ray, data, ray_pos);
