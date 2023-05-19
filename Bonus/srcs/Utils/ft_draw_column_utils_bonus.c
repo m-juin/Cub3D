@@ -6,13 +6,13 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:46:49 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/18 10:23:29 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:58:05 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-bool	toredraw(int x, int y, int color, mlx_image_t *img)
+bool	to_redraw(int x, int y, int color, mlx_image_t *img)
 {
 	size_t	pos;
 
