@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/18 11:24:29 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/19 10:54:14 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # define MAP_CSIZE 32
 # define DR M_PI / 180
 # define ROT DR * 5
-# define ENEMY_RATIO 32
 
 enum	e_dir
 {
@@ -68,11 +67,13 @@ typedef struct s_pixel
 	int	state;
 }	t_pixel;
 
-typedef struct s_enemy
+typedef struct s_door
 {
-	t_dvector	map_pos;
-
-}	t_enemy;
+	t_ivector		map_pos;
+	mlx_texture_t	**animation;
+	int				anim_state;
+	int				anim_count;
+}	t_door;
 
 
 typedef struct s_player
@@ -105,7 +106,7 @@ typedef struct s_data
 	mlx_texture_t	*west;
 	mlx_texture_t	*door;
 	mlx_texture_t	**animation;
-	t_enemy			**enemy_list;
+	t_door			**door_list;
 	int				ground;
 	int				top;
 	char			**map;
@@ -192,8 +193,8 @@ void		ft_get_rotation(enum e_dir start_dir, t_player *player);
 /*	Parsing/ft_load_animation_bonus.c	*/
 mlx_texture_t	**ft_load_animation();
 
-/*	Parsing/ft_parse_enemy_bonus.c	*/
-t_enemy 		**ft_parse_enemy(t_data *data);
+/*	Parsing/ft_parse_door_bonus.c	*/
+t_door 		**ft_parse_door(t_data *data);
 
 /*	Mlx/key_hook.c	*/
 void		handle_key_hook(mlx_key_data_t keydata, void *param);

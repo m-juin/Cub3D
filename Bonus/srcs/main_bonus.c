@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/18 11:33:41 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/19 10:49:51 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int ac, char **av)
 	data->img_map = fill_image(get_rgba(255, 255, 255, 255), 8 * MAP_CSIZE, 8 * MAP_CSIZE, data->mlx);
 	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), 8 * MAP_CSIZE, 8 * MAP_CSIZE, data->mlx);
 	data->img_3d = fill_image(get_rgba(0, 0, 0, 0), WIDTH, HEIGHT, data->mlx);
-	data->enemy_list = ft_parse_enemy(data);
+	data->door_list = ft_parse_door(data);
 	mlx_image_to_window(data->mlx, data->img_3d, 0, 0);
 	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
 	mlx_image_to_window(data->mlx, data->player->img, data->player->player_center.x - 4, data->player->player_center.y - 4);

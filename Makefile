@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
+#    By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/18 10:28:28 by lobozier         ###   ########.fr        #
+#    Updated: 2023/05/19 10:42:36 by mjuin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ BONUS = ${BONUS_PATH}Mlx/key_hook_bonus.c				\
 		${BONUS_PATH}Parsing/ft_parse_player_bonus.c	\
 		${BONUS_PATH}Parsing/ft_parsing_main_bonus.c	\
 		${BONUS_PATH}Parsing/ft_load_animation_bonus.c	\
-		${BONUS_PATH}Parsing/ft_parse_enemy_bonus.c		\
+		${BONUS_PATH}Parsing/ft_parse_door_bonus.c		\
 		${BONUS_PATH}Utils/colors_bonus.c				\
 		${BONUS_PATH}Utils/count_door_bonus.c			\
 		${BONUS_PATH}Utils/empty_line_bonus.c			\
