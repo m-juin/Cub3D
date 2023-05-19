@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw_column_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:46:49 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/09 13:48:57 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/18 14:36:22 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	toredraw(int x, int y, int color, t_data *data)
+bool	to_redraw(int x, int y, int color, t_data *data)
 {
 	size_t	pos;
 

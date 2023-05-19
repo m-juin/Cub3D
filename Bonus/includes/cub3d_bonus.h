@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/18 11:24:29 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/18 14:35:39 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ t_dvector	ft_get_sided(t_dvector raydir, t_ivector map, t_dvector pl, t_dvector 
 void		ft_draw_column(t_data *data, t_draw_data draw, int textx);
 
 /*	Utils/ft_draw_column_utils.c	*/
-bool		toredraw(int x, int y, int color, mlx_image_t *img);
+bool		to_redraw(int x, int y, int color, mlx_image_t *img);
 int			get_color(int x, int y, mlx_texture_t *text);
 t_ivector	get_draw_data(int lineh, mlx_image_t *img);
 

@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:45:05 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 14:20:51 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:36:18 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_draw_top(int end, t_data *data, int x)
 	y = 0;
 	while (y < end)
 	{
-		if (toredraw(x, y, data->top, data) == true)
+		if (to_redraw(x, y, data->top, data) == true)
 			mlx_put_pixel(data->img_3d, x, y, data->top);
 		y++;
 	}
@@ -29,7 +29,7 @@ static void	ft_draw_floor(int start, t_data *data, int x)
 {
 	while ((unsigned int)start < data->img_3d->height)
 	{
-		if (toredraw(x, start, data->ground, data) == true)
+		if (to_redraw(x, start, data->ground, data) == true)
 			mlx_put_pixel(data->img_3d, x, start, data->ground);
 		start++;
 	}
@@ -49,7 +49,7 @@ static void	ft_draw_wall(t_draw_data draw, t_data *data, int textx)
 		texty = ((int)texpos & (draw.text->height - 1));
 		texpos += step;
 		color = get_color(textx, texty, draw.text);
-		if (toredraw(draw.width_pos, draw.pos.x, color, data) == true)
+		if (to_redraw(draw.width_pos, draw.pos.x, color, data) == true)
 			mlx_put_pixel(data->img_3d, draw.width_pos, draw.pos.x, color);
 		draw.pos.x++;
 	}

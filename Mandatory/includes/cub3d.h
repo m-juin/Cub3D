@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 15:40:37 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:36:10 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ t_dvector	ft_get_sided(t_dvector raydir, t_ivector map, t_dvector pl,
 void		ft_draw_column(t_data *data, t_draw_data draw, int textx);
 
 /*	Utils/ft_draw_column_utils.c	*/
-bool		toredraw(int x, int y, int color, t_data *data);
+bool		to_redraw(int x, int y, int color, t_data *data);
 int			get_color(int x, int y, mlx_texture_t *text);
 t_ivector	get_draw_data(int lineh, mlx_image_t *img);
 

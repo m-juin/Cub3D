@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_enemy_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:39:07 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/18 11:22:06 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/18 15:19:44 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_enemy	**ft_parse_enemy(t_data *data)
 	pos = 0;
 	while (pos < count)
 	{
-		list[pos] = ft_create_enemy(list, pos, data);
+		//list[pos] = ft_create_enemy(list, pos, data);
 		pos++;
 	}
 	return (list);
