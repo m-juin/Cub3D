@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 08:30:27 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/18 11:36:15 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:57:57 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, t_data *data)
 {
-	int	i;
+	int			i;
+	t_ivector	pos;
 
 	i = 0;
 	while (i <= bre->delta.x)
 	{
-		if (data->map[(int)(bre->pos1.y - data->player->minimap_offset.y) / MAP_CSIZE][(int)(bre->pos1.x - data->player->minimap_offset.x) / MAP_CSIZE] == '1' || \
-		data->map[(int)(bre->pos1.y - data->player->minimap_offset.y) / MAP_CSIZE][(int)(bre->pos1.x - data->player->minimap_offset.x) / MAP_CSIZE] == '2')
+		pos.y = (int)(bre->pos1.y - data->player->minimap_offset.y) / MAP_CSIZE;
+		pos.x = (int)(bre->pos1.x - data->player->minimap_offset.x) / MAP_CSIZE;
+		if (data->map[pos.y][pos.x] == '1' || data->map[pos.y][pos.x] == '2')
 			return ;
 		if (bre->pos1.x > -1 && bre->pos1.x < MAP_CSIZE * 8 \
 			&& bre->pos1.y > -1 && bre->pos1.y < MAP_CSIZE * 8)
-			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, get_rgba(255, 255, 255, 70));
+			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, \
+			get_rgba(255, 255, 255, 70));
 		i++;
 		bre->error.x = bre->error.x - bre->delta.y;
 		if (bre->error.x < 0)
@@ -38,17 +41,20 @@ void	ft_print_x_lines(mlx_image_t *img, t_bresenham *bre, t_data *data)
 
 void	ft_print_y_lines(mlx_image_t *img, t_bresenham *bre, t_data *data)
 {
-	int	i;
+	int			i;
+	t_ivector	pos;
 
 	i = 0;
 	while (i <= bre->delta.y)
 	{
-		if (data->map[(int)(bre->pos1.y - data->player->minimap_offset.y) / MAP_CSIZE][(int)(bre->pos1.x - data->player->minimap_offset.x) / MAP_CSIZE] == '1' || \
-		data->map[(int)(bre->pos1.y - data->player->minimap_offset.y) / MAP_CSIZE][(int)(bre->pos1.x - data->player->minimap_offset.x) / MAP_CSIZE] == '2')
+		pos.y = (int)(bre->pos1.y - data->player->minimap_offset.y) / MAP_CSIZE;
+		pos.x = (int)(bre->pos1.x - data->player->minimap_offset.x) / MAP_CSIZE;
+		if (data->map[pos.y][pos.x] == '1' || data->map[pos.y][pos.x] == '2')
 			return ;
 		if (bre->pos1.x > -1 && bre->pos1.x < MAP_CSIZE * 8 && bre->pos1.y > -1
 			&& bre->pos1.y < MAP_CSIZE * 8)
-			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, get_rgba(255, 255, 255, 70));
+			mlx_put_pixel(img, bre->pos1.x, bre->pos1.y, \
+			get_rgba(255, 255, 255, 70));
 		i++;
 		bre->error.y = bre->error.y - bre->delta.x;
 		if (bre->error.y < 0)

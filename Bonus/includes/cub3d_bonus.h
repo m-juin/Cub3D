@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/19 15:32:20 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/20 13:37:57 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,10 @@ typedef struct s_data
 	mlx_texture_t	*west;
 	mlx_texture_t	*door;
 	mlx_texture_t	**animation;
-	t_door			**door_list;
+	t_enemy			**enemy_list;
 	int				ground;
 	int				top;
 	char			**map;
-	t_ivector		msize;
 }	t_data;
 
 typedef struct s_bresenham 
@@ -121,6 +120,18 @@ typedef struct s_bresenham
 	t_fvector	error;
 	t_fvector	delta;
 }			t_bresenham;
+
+typedef struct s_minimap
+{
+	t_fvector	ray_pos;
+	t_fvector	ray_offset;
+	t_fvector	side;
+	t_ivector	map;
+	float		dist;
+	float		tan;
+	float		ray_angle;
+	int			offset;
+}			t_minimap;
 
 typedef struct	s_calc_data
 {
@@ -140,16 +151,16 @@ typedef	struct s_draw_data
 }	t_draw_data;
 
 
-/*	Utils/exit.c	*/
+/*	Utils/exit_bonus.c	*/
 void		ft_exit(char *message, int exit_code);
 void		ft_print_error(char *message);
 
-/*	Utils/free.c	*/
+/*	Utils/free_bonus.c	*/
 void		*ft_double_free(char **array);
 void		ft_free_map_data(t_data *data);
 void		ft_free_data(t_data *data);
 
-/*	Utils/colors.c	*/
+/*	Utils/colors_bonus.c	*/
 int			get_rgba(int r, int g, int b, int a);
 int			get_r(int rgba);
 int			get_g(int rgba);
@@ -159,34 +170,34 @@ int			get_a(int rgba);
 /*	Utils/count_door_bonus.c	*/
 int			ft_count_door(char **map);
 
-/*	Utils/empty_line.c	*/
+/*	Utils/empty_line_bonus.c	*/
 int			ft_check_identifier_empty_line(char **id);
 int			ft_line_is_empty(char *line);
 
-/*	Parsing/ft_checkarg.c	*/
+/*	Parsing/ft_checkarg_bonus.c	*/
 void		ft_checkarg(int ac, char **av);
 int			ft_try_open(const char *path);
 
-/*	Parsing/ft_checkmap.c	*/
+/*	Parsing/ft_checkmap_bonus.c	*/
 void		ft_check_map(t_data *data);
 
-/*	Parsing/ft_get_cub.c	*/
+/*	Parsing/ft_get_cub_bonus.c	*/
 char		**ft_get_cub(const char *path);
 
-/*	Parsing/ft_parse_data.c	*/
+/*	Parsing/ft_parse_data_bonus.c	*/
 t_data		*ft_parse_data(char **identifiers, char **map);
 char		*search_texture_path(char *identifier, char **data);
 
-/*	Parsing/ft_get_rgb_from_id.c	*/
+/*	Parsing/ft_get_rgb_from_id_bonus.c	*/
 int			ft_get_rgb_from_id(char *id, char **data);
 
-/*	Parsing/ft_parsing_main.c	*/
+/*	Parsing/ft_parsing_main_bonus.c	*/
 t_data		*ft_parsing_main(char *path);
 
-/*	Parsing/ft_map_parsing.	*/
+/*	Parsing/ft_map_parsing_bonus.c	*/
 char		**ft_parse_map(char **src);
 
-/*	Parsing/ft_parse_player.c	*/
+/*	Parsing/ft_parse_player_bonus.c	*/
 t_player	*ft_parse_player(char	**map);
 void		ft_get_rotation(enum e_dir start_dir, t_player *player);
 
@@ -196,53 +207,57 @@ mlx_texture_t	**ft_load_animation();
 /*	Parsing/ft_parse_door_bonus.c	*/
 t_door 		**ft_parse_door(t_data *data);
 
-/*	Mlx/key_hook.c	*/
+/*	Mlx/key_hook_bonus.c	*/
 void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
-/* Mlx/manage_collision.c */
+/* Mlx/manage_collision_bonus.c */
 t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
 
-/* ft_printing.c */
-void	ft_print_lines(mlx_image_t *img, t_data *data, t_fvector ray_pos);
-
-/* ft_raycast_utils.c */
-float		deg_to_rad(int angle);
-float		dist(t_fvector a, t_fvector b, float angle);
-int			fix_ang(int angle);
-
-/* ft_raycast.c */
+/* ft_raycast_bonus.c */
 void		ft_draw_ray3d(t_data *data);
 
-/* ft_raycast_get.c */
+/* Utils/ft_raycast_get_bonus.c */
 t_dvector	ft_get_delta(t_dvector raydir);
 void		ft_get_texture(t_data *data, t_draw_data *draw, t_calc_data *calc);
 int			ft_get_textx(t_data *data, t_dvector raydir, t_draw_data draw, double wall);
 t_ivector	ft_get_step(t_dvector raydir);
 t_dvector	ft_get_sided(t_dvector raydir, t_ivector map, t_dvector pl, t_dvector delta);
 
-/*	Draw/ft_draw_column.c	*/
+/*	ft_draw_column_bonus.c	*/
 void		ft_draw_column(t_data *data, t_draw_data draw, int textx);
 
-/*	Utils/ft_draw_column_utils.c	*/
+/*	Utils/ft_draw_column_utils_bonus.c	*/
 bool		to_redraw(int x, int y, int color, mlx_image_t *img);
 int			get_color(int x, int y, mlx_texture_t *text);
 t_ivector	get_draw_data(int lineh, mlx_image_t *img);
 
-/* ft_draw.c */
+/* ft_draw_minimap_bonus.c */
 void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);
 void		ft_draw_minimap(mlx_image_t *map, t_data *data);
 
-/* main.c */
+/* main_bonus.c */
 void		ft_clean_img(mlx_image_t *img_ray);
 mlx_image_t	*fill_image(int color, size_t x, size_t y, mlx_t *mlx);
 
-/* minimap.c */
-void	ft_draw_ray_minimap(t_data *data);
+/* ft_move_bonus.c */
+bool		ft_move(t_data *data);
 
-/* ft_move.c */
-bool	ft_move(t_data *data);
+/* ft_rotate_bonus.c */
+bool		ft_rotate(t_data *data);
 
-/* ft_rotate.c */
-bool	ft_rotate(t_data *data);
+/* Minimap/ft_fov_utils_bonus.c */
+void		ft_vertical_rays(t_data *data, t_minimap *map);
+void		ft_vertical_rays_bis(t_data *data, t_minimap *map);
+void		ft_horizontal_rays(t_data *data, t_minimap *map);
+void		ft_horizontal_rays_bis(t_data *data, t_minimap *map);
+
+/* Minimap/ft_printing_bonus.c */
+void		ft_print_lines(mlx_image_t *img, t_data *data, t_fvector ray_pos);
+
+/* Minimap/minimap_bonus.c */
+void		ft_draw_ray_minimap(t_data *data);
+float		deg_to_rad(int angle);
+float		dist(t_fvector a, t_fvector b, float angle);
+int			fix_ang(int angle);
 
 #endif
