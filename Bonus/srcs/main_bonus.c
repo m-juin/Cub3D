@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/18 14:33:48 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:14:45 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ static void	ft_update(void *param)
 		data->player->canmove = true;
 		data->player->minimap_pos.x = data->player->map_pos.x * MAP_CSIZE;
 		data->player->minimap_pos.y = data->player->map_pos.y * MAP_CSIZE;
-		data->player->minimap_offset.x = data->player->player_center.x - data->player->minimap_pos.x;
-		data->player->minimap_offset.y = data->player->player_center.y - data->player->minimap_pos.y;
+		data->player->minimap_offset.x = data->player->player_center.x \
+		- data->player->minimap_pos.x;
+		data->player->minimap_offset.y = data->player->player_center.y \
+		- data->player->minimap_pos.y;
 		ft_draw_ray_minimap(data);
 	}
 }
@@ -81,13 +83,16 @@ int	main(int ac, char **av)
 	data->player = ft_parse_player(data->map);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Raycast", true);
 	data->player->img = fill_image(get_rgba(75, 200, 75, 255), 8, 8, data->mlx);
-	data->img_map = fill_image(get_rgba(255, 255, 255, 255), 8 * MAP_CSIZE, 8 * MAP_CSIZE, data->mlx);
-	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), 8 * MAP_CSIZE, 8 * MAP_CSIZE, data->mlx);
+	data->img_map = fill_image(get_rgba(255, 255, 255, 255), \
+	8 * MAP_CSIZE, 8 * MAP_CSIZE, data->mlx);
+	data->img_ray = fill_image(get_rgba(0, 0, 0, 0), \
+		8 * MAP_CSIZE, 8 * MAP_CSIZE, data->mlx);
 	data->img_3d = fill_image(get_rgba(0, 0, 0, 0), WIDTH, HEIGHT, data->mlx);
 	data->enemy_list = ft_parse_enemy(data);
 	mlx_image_to_window(data->mlx, data->img_3d, 0, 0);
 	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
-	mlx_image_to_window(data->mlx, data->player->img, data->player->player_center.x - 4, data->player->player_center.y - 4);
+	mlx_image_to_window(data->mlx, data->player->img, \
+	data->player->player_center.x - 4, data->player->player_center.y - 4);
 	mlx_image_to_window(data->mlx, data->img_ray, 0, 0);
 	ft_draw_ray_minimap(data);
 	ft_draw_ray3d(data);

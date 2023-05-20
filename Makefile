@@ -6,7 +6,7 @@
 #    By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 15:23:54 by mjuin             #+#    #+#              #
-#    Updated: 2023/05/18 10:28:28 by lobozier         ###   ########.fr        #
+#    Updated: 2023/05/20 13:23:29 by lobozier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,13 +52,15 @@ BONUS = ${BONUS_PATH}Mlx/key_hook_bonus.c				\
 		${BONUS_PATH}Utils/ft_draw_column_utils_bonus.c	\
 		${BONUS_PATH}Utils/ft_raycast_get_bonus.c		\
 		${BONUS_PATH}ft_draw_column_bonus.c				\
-		${BONUS_PATH}ft_draw_minimap_bonus.c			\
 		${BONUS_PATH}ft_move_bonus.c					\
-		${BONUS_PATH}ft_printing_bonus.c				\
+		${BONUS_PATH}Minimap/ft_draw_minimap_bonus.c	\
+		${BONUS_PATH}Minimap/ft_printing_bonus.c		\
+		${BONUS_PATH}Minimap/minimap_bonus.c			\
+		${BONUS_PATH}Minimap/ft_fov_utils_bonus.c		\
 		${BONUS_PATH}ft_raycast_bonus.c					\
 		${BONUS_PATH}ft_rotate_bonus.c					\
 		${BONUS_PATH}main_bonus.c						\
-		${BONUS_PATH}minimap_bonus.c					\
+
 
 MANDATORY = ${MANDATORY_PATH}Mlx/key_hook.c				\
 		${MANDATORY_PATH}Mlx/manage_collision.c			\
