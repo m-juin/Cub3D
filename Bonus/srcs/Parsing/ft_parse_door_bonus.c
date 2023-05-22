@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:39:07 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/19 10:57:11 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/22 10:55:05 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ static t_door	*ft_create_door(t_data *data, t_ivector pos)
 	door->anim_count = count - 1;
 	door->animation = data->animation;
 	if (door->anim_count != 0)
-		door->anim_state = rand() % door->anim_count;
+		door->anim_state = rand() % (door->anim_count + 1);
 	else
 		door->anim_state = 0;
+	door->anim_speed = ((rand() % 5) + 1) * 50;
+	door->speed_count = 0;
 	return (door);
 }
 

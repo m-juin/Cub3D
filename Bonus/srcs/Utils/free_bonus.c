@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:59:51 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/16 11:31:24 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/22 10:04:01 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_free_map_data(t_data *data)
 		mlx_delete_texture(data->door);
 	if (data->player != NULL)
 		free(data->player);
-	ft_double_free(data->map);
+	if (data->map != NULL)
+		ft_double_free(data->map);
 	free(data);
 }
