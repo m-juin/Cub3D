@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:59:51 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/22 10:04:01 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/22 14:18:39 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,42 @@ void	*ft_double_free(char **array)
 	return (NULL);
 }
 
+static void	ft_simple_free(void *target)
+{
+	if (target != NULL)
+		free(target);
+}
+
+static void	ft_free_door(t_door **door_list)
+{
+	int	pos;
+
+	pos = 0;
+	if (door_list == NULL)
+		return ;
+	while (door_list[pos] != NULL)
+	{
+		free(door_list[pos]);
+		pos++;
+	}
+	free(door_list);
+}
+
+static void	ft_free_anim(mlx_texture_t **text)
+{
+	int	pos;
+
+	pos = 0;
+	if (text == NULL)
+		return ;
+	while (text[pos] != NULL)
+	{
+		mlx_delete_texture(text[pos]);
+		pos++;
+	}
+	free(text);
+}
+
 void	ft_free_map_data(t_data *data)
 {
 	if (data == NULL)
@@ -42,9 +78,9 @@ void	ft_free_map_data(t_data *data)
 		mlx_delete_texture(data->south);
 	if (data->door != NULL)
 		mlx_delete_texture(data->door);
-	if (data->player != NULL)
-		free(data->player);
-	if (data->map != NULL)
-		ft_double_free(data->map);
+	ft_free_door(data->door_list);
+	ft_simple_free(data->player);
+	ft_double_free(data->map);
+	ft_free_anim(data->animation);
 	free(data);
 }

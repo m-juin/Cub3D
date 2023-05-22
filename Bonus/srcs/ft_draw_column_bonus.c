@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw_column_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:45:05 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/18 15:08:17 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:11:27 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static void	ft_draw_wall(t_draw_data draw, t_data *data, int textx)
 		texty = ((int)texpos & (draw.text->height - 1));
 		texpos += step;
 		color = get_color(textx, texty, draw.text);
-		//printf("%d\n", color);
 		if (to_redraw(draw.width_pos, draw.pos.x, color, data->img_3d) == true)
 			mlx_put_pixel(data->img_3d, draw.width_pos, draw.pos.x, color);
 		draw.pos.x++;
