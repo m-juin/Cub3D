@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/20 13:37:57 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:27:57 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_door
 	mlx_texture_t	**animation;
 	int				anim_state;
 	int				anim_count;
+	int				anim_speed;
+	int				speed_count;
 }	t_door;
 
 
@@ -106,10 +108,11 @@ typedef struct s_data
 	mlx_texture_t	*west;
 	mlx_texture_t	*door;
 	mlx_texture_t	**animation;
-	t_enemy			**enemy_list;
+	t_door			**door_list;
 	int				ground;
 	int				top;
 	char			**map;
+	t_ivector		msize;
 }	t_data;
 
 typedef struct s_bresenham 

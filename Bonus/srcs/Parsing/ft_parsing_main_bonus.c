@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:45:20 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/17 13:41:05 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/22 10:10:53 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ t_data	*ft_parsing_main(char *path)
 	mapped = ft_get_map_part(identifiers);
 	identifiers = ft_get_id_part(identifiers);
 	data = ft_parse_data(identifiers, mapped);
+	data->player = NULL;
 	ft_double_free(identifiers);
 	ft_double_free(mapped);
 	if (data == NULL)
