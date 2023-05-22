@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 10:40:59 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/20 13:10:47 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:01:54 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 float	deg_to_rad(int angle)
 {
-	return (angle * DR);
+	return (angle * RAD);
 }
 
 float	dist(t_fvector a, t_fvector b, float angle)
@@ -25,7 +25,7 @@ float	dist(t_fvector a, t_fvector b, float angle)
 
 int	fix_ang(int angle)
 {
-	if (angle > 358)
+	if (angle > 359)
 		angle -= 359;
 	if (angle < -1)
 		angle += 359;
@@ -37,6 +37,7 @@ void	ft_init_map(t_minimap *map, t_data *data)
 	map->offset = 0;
 	map->dist = INFINITY;
 	map->side = data->player->minimap_pos;
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 }
 
 void	ft_draw_ray_minimap(t_data *data)
@@ -50,7 +51,7 @@ void	ft_draw_ray_minimap(t_data *data)
 	ft_clean_img(data->img_ray);
 	ft_draw_minimap(data->img_map, data);
 	map.ray_angle = deg_to_rad(fix_ang(data->player->player_angle - 32));
-	while (r < 384)
+	while (r < 512)
 	{
 		ft_init_map(&map, data);
 		ft_vertical_rays(data, &map);
@@ -64,6 +65,6 @@ void	ft_draw_ray_minimap(t_data *data)
 		ray_pos.y += data->player->minimap_offset.y;
 		ft_print_lines(data->img_ray, data, ray_pos);
 		r++;
-		map.ray_angle = map.ray_angle + DR / 6;
+		map.ray_angle = map.ray_angle + RAD / 8;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/22 10:54:22 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/22 15:02:40 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int	main(int ac, char **av)
 	ft_draw_ray_minimap(data);
 	ft_draw_ray3d(data);
 	mlx_key_hook(data->mlx, handle_key_hook, data);
+	mlx_cursor_hook(data->mlx, cursor_hook, data);
 	mlx_loop_hook(data->mlx, ft_update, (void *)data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

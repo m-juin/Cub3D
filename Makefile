@@ -1,4 +1,3 @@
-
 CC =	clang
 
 CFLAGS =	-g -Wextra -Wall -I./MLX42/include/MLX42 -I./libft/include
@@ -49,6 +48,7 @@ BONUS = ${BONUS_PATH}Mlx/key_hook_bonus.c				\
 		${BONUS_PATH}ft_raycast_bonus.c					\
 		${BONUS_PATH}ft_rotate_bonus.c					\
 		${BONUS_PATH}main_bonus.c						\
+		${BONUS_PATH}Mlx/mouse_hook_bonus.c				\
 
 
 MANDATORY = ${MANDATORY_PATH}Mlx/key_hook.c				\
@@ -76,7 +76,7 @@ MANDATORY = ${MANDATORY_PATH}Mlx/key_hook.c				\
 
 OBJ_MANDATORY = ${MANDATORY:.c=.o}
 
-OBJ_BONUS = ${BONUS:.c=.o}
+OBJ_BONUS = ${BONUS:.c=.o}	
 
 ${NAME}: INCLUDES = -I./Mandatory/includes
 

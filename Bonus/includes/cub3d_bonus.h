@@ -1,12 +1,12 @@
-n /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/22 10:27:57 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/22 16:00:41 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,21 @@ n /* ************************************************************************** 
 /* Minimap defines */
 
 # define MAP_CSIZE 32
-# define DR 0.01745329251
+# define RAD 0.01745329251
 # define ROT 0.08726646259
+
+typedef struct s_ivector	t_ivector;
+typedef struct s_dvector	t_dvector;
+typedef struct s_fvector	t_fvector;
+typedef struct s_pixel		t_pixel;
+typedef struct s_door		t_door;
+typedef struct s_player		t_player;
+typedef struct s_data		t_data;
+typedef struct s_bresenham	t_bresenham;
+typedef struct s_minimap	t_minimap;
+typedef struct s_calc_data	t_calc_data;
+typedef struct s_draw_data	t_draw_data;
+typedef struct s_cursor		t_cursor;
 
 enum	e_dir
 {
@@ -46,31 +59,31 @@ enum	e_dir
 	west = 3,
 };
 
-typedef struct s_ivector
+struct s_ivector
 {
 	int	x;
 	int	y;
-}	t_ivector;
+};
 
-typedef struct s_dvector
+struct s_dvector
 {
 	double	x;
 	double	y;
-}	t_dvector;
+};
 
-typedef struct s_fvector
+struct s_fvector
 {
 	float	x;
 	float	y;
-}	t_fvector;
+};
 
-typedef struct s_pixel
+struct s_pixel
 {
 	int	color;
 	int	state;
-}	t_pixel;
+};
 
-typedef struct s_door
+struct s_door
 {
 	t_ivector		map_pos;
 	mlx_texture_t	**animation;
@@ -78,10 +91,9 @@ typedef struct s_door
 	int				anim_count;
 	int				anim_speed;
 	int				speed_count;
-}	t_door;
+};
 
-
-typedef struct s_player
+struct s_player
 {
 	t_dvector	map_pos;
 	t_fvector	player_center;
@@ -96,9 +108,9 @@ typedef struct s_player
 	mlx_image_t	*img;
 	bool		canmove;
 	int			player_angle;
-}	t_player;
+};
 
-typedef struct s_data
+struct s_data
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img_ray;
@@ -112,22 +124,23 @@ typedef struct s_data
 	mlx_texture_t	*door;
 	mlx_texture_t	**animation;
 	t_door			**door_list;
+	t_ivector		msize;
+	t_cursor		*cursor;
 	int				ground;
 	int				top;
 	char			**map;
-	t_ivector		msize;
-}	t_data;
+};
 
-typedef struct s_bresenham 
+struct s_bresenham 
 {
 	t_ivector	pos1;
 	t_ivector	pos2;
 	t_ivector	incr;
 	t_fvector	error;
 	t_fvector	delta;
-}			t_bresenham;
+};
 
-typedef struct s_minimap
+struct s_minimap
 {
 	t_fvector	ray_pos;
 	t_fvector	ray_offset;
@@ -137,24 +150,30 @@ typedef struct s_minimap
 	float		tan;
 	float		ray_angle;
 	int			offset;
-}			t_minimap;
+};
 
-typedef struct	s_calc_data
+struct s_calc_data
 {
 	double		walldist;
 	t_ivector	map;
 	t_dvector	side_dist;
 	t_dvector	delta_dist;
-}	t_calc_data;
+};
 
-typedef	struct s_draw_data
+struct s_draw_data
 {
 	t_ivector		pos;
 	mlx_texture_t	*text;
 	int				lineh;
 	int				width_pos;
 	int				side;
-}	t_draw_data;
+};
+
+struct s_cursor
+{
+	t_ivector	prev_pos;
+	enum e_dir	side;
+};
 
 
 /*	Utils/exit_bonus.c	*/
@@ -216,6 +235,10 @@ t_door 		**ft_parse_door(t_data *data);
 /*	Mlx/key_hook_bonus.c	*/
 void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
+/*	Mlx/mouse_hook_bonus.c	*/
+void		rotation_hook(mlx_key_data_t keydata, t_player *pl);
+void    	cursor_hook(double x, double y, void *param);
+
 /* Mlx/manage_collision_bonus.c */
 t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
 
@@ -240,6 +263,7 @@ t_ivector	get_draw_data(int lineh, mlx_image_t *img);
 /* ft_draw_minimap_bonus.c */
 void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);
 void		ft_draw_minimap(mlx_image_t *map, t_data *data);
+int			fix_ang(int angle);
 
 /* main_bonus.c */
 void		ft_clean_img(mlx_image_t *img_ray);
