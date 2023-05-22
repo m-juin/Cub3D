@@ -40,6 +40,7 @@ BONUS = ${BONUS_PATH}Mlx/key_hook_bonus.c				\
 		${BONUS_PATH}Utils/free_bonus.c					\
 		${BONUS_PATH}Utils/ft_draw_column_utils_bonus.c	\
 		${BONUS_PATH}Utils/ft_raycast_get_bonus.c		\
+		${BONUS_PATH}Utils/door_utils_bonus.c		\
 		${BONUS_PATH}ft_draw_column_bonus.c				\
 		${BONUS_PATH}ft_move_bonus.c					\
 		${BONUS_PATH}Minimap/ft_draw_minimap_bonus.c	\

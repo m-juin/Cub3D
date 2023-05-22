@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/22 10:27:57 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/22 14:18:03 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct s_door
 	int				anim_speed;
 	int				speed_count;
 }	t_door;
-
 
 typedef struct s_player
 {
@@ -233,6 +232,10 @@ void		ft_draw_column(t_data *data, t_draw_data draw, int textx);
 bool		to_redraw(int x, int y, int color, mlx_image_t *img);
 int			get_color(int x, int y, mlx_texture_t *text);
 t_ivector	get_draw_data(int lineh, mlx_image_t *img);
+
+/*	Utils/door_utils_bonus	*/
+t_door	*ft_get_door(t_ivector map_pos, t_door **doors);
+void	ft_update_doors(t_door **door_list, t_data *data);
 
 /* ft_draw_minimap_bonus.c */
 void		ft_draw_case(mlx_image_t *img, t_ivector pos, int color);

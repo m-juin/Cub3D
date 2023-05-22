@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:49:38 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/19 15:31:13 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/22 14:13:12 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,6 @@ int	ft_get_textx(t_data *data, t_dvector raydir,
 	if (draw.side == 1 && raydir.y < 0)
 		textx = draw.text->width - textx - 1;
 	return (textx);
-}
-
-static	t_door *ft_get_door(t_ivector map_pos, t_door **doors)
-{
-	size_t pos;
-
-	pos = 0;
-	while (doors != NULL && doors[pos] != NULL)
-	{
-		if (doors[pos]->map_pos.x == map_pos.x
-			&& doors[pos]->map_pos.y == map_pos.y)
-		{
-			return (doors[pos]);
-		}
-		pos++;
-	}
-	return (NULL);
 }
 
 void	ft_get_texture(t_data *data, t_draw_data *draw, t_calc_data *calc)

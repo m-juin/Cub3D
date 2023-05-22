@@ -3,31 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rotate_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 15:44:10 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/17 10:38:00 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:21:15 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static bool	ft_rotate_bis(t_data *data)
+static bool	ft_rotate_bis(t_data *data, t_player *pl)
 {
 	bool	good;
 
 	good = false;
-	if (data->player->target_dir == north && data->player->dir.y < -0.998
-		&& data->player->dir.y > -1.002)
+	if (pl->target_dir == north && pl->dir.y < -0.998 && pl->dir.y > -1.002)
 		good = true;
-	else if (data->player->target_dir == south && data->player->dir.y < 1.002
-		&& data->player->dir.y > 0.998)
+	else if (pl->target_dir == south && pl->dir.y < 1.002 && pl->dir.y > 0.998)
 		good = true;
-	else if (data->player->target_dir == west && data->player->dir.x < -0.998
-		&& data->player->dir.x > -1.002)
+	else if (pl->target_dir == west && pl->dir.x < -0.998
+		&& pl->dir.x > -1.002)
 		good = true;
-	else if (data->player->target_dir == east && data->player->dir.x < 1.002
-		&& data->player->dir.x > 0.998)
+	else if (pl->target_dir == east && pl->dir.x < 1.002 && pl->dir.x > 0.998)
 		good = true;
 	if (good == true)
 	{
@@ -90,7 +87,7 @@ bool	ft_rotate(t_data *data)
 		data->player->target_dir != data->player->facing_dir)
 	{
 		if (ft_check_rot_1(data, old_dir_x, old_plane_x) == true \
-		&& ft_rotate_bis(data) == true)
+		&& ft_rotate_bis(data, data->player) == true)
 			return (true);
 		return (false);
 	}
