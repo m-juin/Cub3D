@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:28:53 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/15 11:13:18 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/22 15:33:29 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,13 @@ t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata)
 	t_dvector	move;
 
 	move = player->map_pos;
-	if (keydata.key == MLX_KEY_W)
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE)
 		move = collide_front(player, data);
-	else if (keydata.key == MLX_KEY_S)
+	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_RELEASE)
 		move = collide_back(player, data);
-	else if (keydata.key == MLX_KEY_D)
+	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
 		move = collide_right(player, data);
-	else if (keydata.key == MLX_KEY_A)
+	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_RELEASE)
 		move = collide_left(player, data);
 	return (move);
 }

@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:12:44 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/22 14:13:28 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/22 15:23:06 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	ft_update_doors(t_door **door_list, t_data *data)
 {
-	int	pos;
+	int		pos;
+	bool	redraw;
 
-	if (door_list[0]->anim_count == 0)
+	redraw = false;
+	if (door_list[0] == NULL || door_list[0]->anim_count == 0)
 		return ;
 	pos = 0;
 	while (door_list[pos] != NULL)
@@ -29,10 +31,12 @@ void	ft_update_doors(t_door **door_list, t_data *data)
 				door_list[pos]->anim_state = 0;
 			else
 				door_list[pos]->anim_state++;
-			ft_draw_ray3d(data);
+			redraw = true;
 		}
 		pos++;
 	}
+	if (redraw == true)
+		ft_draw_ray3d(data);
 }
 
 t_door	*ft_get_door(t_ivector map_pos, t_door **doors)
