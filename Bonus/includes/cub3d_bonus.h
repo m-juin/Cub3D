@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/22 16:11:09 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:09:23 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_bresenham	t_bresenham;
 typedef struct s_minimap	t_minimap;
 typedef struct s_calc_data	t_calc_data;
 typedef struct s_draw_data	t_draw_data;
-typedef struct s_cursor		t_cursor;
 
 enum	e_dir
 {
@@ -126,7 +125,6 @@ struct s_data
 	mlx_texture_t	**animation;
 	t_door			**door_list;
 	t_ivector		msize;
-	t_cursor		*cursor;
 	int				ground;
 	int				top;
 	char			**map;
@@ -169,13 +167,6 @@ struct s_draw_data
 	int				width_pos;
 	int				side;
 };
-
-struct s_cursor
-{
-	t_ivector	prev_pos;
-	enum e_dir	side;
-};
-
 
 /*	Utils/exit_bonus.c	*/
 void		ft_exit(char *message, int exit_code);
@@ -236,9 +227,8 @@ t_door 		**ft_parse_door(t_data *data);
 /*	Mlx/key_hook_bonus.c	*/
 void		handle_key_hook(mlx_key_data_t keydata, void *param);
 
-/*	Mlx/mouse_hook_bonus.c	*/
+/*	Mlx/rotation_hook_bonus.c	*/
 void		rotation_hook(mlx_key_data_t keydata, t_player *pl);
-void    	cursor_hook(double x, double y, void *param);
 
 /* Mlx/manage_collision_bonus.c */
 t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);

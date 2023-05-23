@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:45:20 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/22 15:33:46 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:49:31 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,19 +100,6 @@ static t_ivector	ft_get_size(char **map)
 	return (size);
 }
 
-void	ft_cursor_init(t_data *data)
-{
-	data->cursor = malloc(sizeof(t_cursor) * 1);
-	if (data->cursor == NULL)
-	{
-		free(data);
-		ft_exit("Error on malloc", 1);
-	}
-	data->cursor->prev_pos.x = -1;
-	data->cursor->prev_pos.y = -1;
-	data->cursor->side = south;
-}
-
 t_data	*ft_parsing_main(char *path)
 {
 	char		**identifiers;
@@ -128,7 +115,6 @@ t_data	*ft_parsing_main(char *path)
 	if (data == NULL)
 		ft_exit("Error on malloc", 1);
 	data->player = NULL;
-	ft_cursor_init(data);
 	ft_check_map(data);
 	data->animation = ft_load_animation();
 	if (data->animation == NULL)
