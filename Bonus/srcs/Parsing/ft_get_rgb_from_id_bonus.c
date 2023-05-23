@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:07:01 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/23 12:18:35 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/23 13:50:04 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,41 +21,54 @@ static int	is_valid_rgb(char *str)
 	while (str[pos])
 	{
 		if (ft_isdigit(str[pos]) == 0)
-			return (1);
+			return (-1);
 		pos++;
 	}
+	if (pos > 3)
+		return (-1);
 	atoied = ft_atoi(str);
 	if (atoied > 255 || atoied < 0)
 		return (-1);
 	return (1);
 }
 
+static char	**ft_ensured_split(char *str)
+{
+	char	**str_sp;
+
+	str_sp = ft_split(str, ',');
+	if (str_sp == NULL || str_sp[0] == NULL || str_sp[1] == NULL
+		|| str_sp[2] == NULL || str_sp[3] != NULL)
+	{
+		ft_double_free(str_sp);
+		return (NULL);
+	}
+	return (str_sp);
+}
+
 static int	color_from_str(char *str)
 {
-	char	**splitted_str;
+	char	**str_sp;
 	int		pos;
 	int		ret;
 
 	pos = 0;
-	splitted_str = ft_split(str, ',');
-	if (splitted_str == NULL || splitted_str[0] == NULL
-		|| splitted_str[1] == NULL || splitted_str[2] == NULL)
+	str_sp = ft_ensured_split(str);
+	if (str_sp == NULL)
 		return (get_rgba(0, 0, 0, 1));
-	if (splitted_str[3] != NULL)
-		return (get_rgba(0, 0, 0, 2));
 	while (pos < 3)
 	{
-		splitted_str[pos] = ft_free_strtrim(splitted_str[pos], " ");
-		if (is_valid_rgb(splitted_str[pos]) < 1)
+		str_sp[pos] = ft_free_strtrim(str_sp[pos], " ");
+		if (is_valid_rgb(str_sp[pos]) < 1)
 		{
-			ft_double_free(splitted_str);
+			ft_double_free(str_sp);
 			return (get_rgba(0, 0, 0, 3));
 		}
 		pos++;
 	}
-	ret = get_rgba(ft_atoi(splitted_str[0]), ft_atoi(splitted_str[1]),
-			ft_atoi(splitted_str[2]), 255);
-	ft_double_free(splitted_str);
+	ret = get_rgba(ft_atoi(str_sp[0]), ft_atoi(str_sp[1]),
+			ft_atoi(str_sp[2]), 255);
+	ft_double_free(str_sp);
 	return (ret);
 }
 
