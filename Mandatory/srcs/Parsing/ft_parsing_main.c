@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:45:20 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/09 10:39:37 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/23 11:28:53 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,17 @@ static char	**ft_get_id_part(char **src)
 	char	**id;
 
 	sep = ft_get_sep_line(src) + 1;
-	if (sep == -1)
+	if (sep == -1 || sep == 0)
+	{
+		ft_double_free(src);
 		return (NULL);
+	}
 	id = malloc((sep) * sizeof(char *));
 	if (id == NULL)
+	{
+		ft_double_free(src);
 		return (NULL);
+	}
 	id[sep - 1] = NULL;
 	sep--;
 	while (sep > 0)

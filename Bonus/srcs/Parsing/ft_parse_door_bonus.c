@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:39:07 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/22 15:00:26 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/23 12:20:04 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static t_door	*ft_create_door(t_data *data, t_ivector pos)
 
 static void	ft_fill_list(t_door **list, t_data *data)
 {
-	t_ivector	newpos;
 	t_ivector	pos;
 	int			count;
 
@@ -83,7 +82,6 @@ static void	ft_fill_list(t_door **list, t_data *data)
 t_door	**ft_parse_door(t_data *data)
 {
 	int		count;
-	int		pos;
 	t_door	**list;
 
 	count = ft_count_door(data->map);

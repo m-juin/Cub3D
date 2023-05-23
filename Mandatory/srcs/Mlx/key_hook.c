@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 12:15:25 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/15 14:48:20 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:58:11 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	movement_hook(mlx_key_data_t keydata, t_player *pl, t_data *data)
 	pl->canmove = false;
 }
 
-static void	rotation_hook(mlx_key_data_t keydata, t_player *pl, t_data *data)
+static void	rotation_hook(mlx_key_data_t keydata, t_player *pl)
 {
 	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_PRESS
 			|| keydata.action == MLX_REPEAT))
@@ -62,7 +62,7 @@ void	handle_key_hook(mlx_key_data_t keydata, void *param)
 	if (data->player->canmove == true)
 	{
 		movement_hook(keydata, data->player, data);
-		rotation_hook(keydata, data->player, data);
+		rotation_hook(keydata, data->player);
 	}
 	close_hook(keydata, data);
 }

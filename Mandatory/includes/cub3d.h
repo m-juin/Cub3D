@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:28:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/18 14:36:10 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:52:00 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@
 
 /* Window defines */
 
-# define WIDTH	1920
-# define HEIGHT	1080
+# define WIDTH	1280
+# define HEIGHT	720
 # define CSIZE	64
-# define DR M_PI / 180
-# define ROT DR * 5
+# define ROT 0.08726646259
 
 enum	e_dir
 {
@@ -96,7 +95,7 @@ typedef struct s_data
 	t_ivector		msize;
 }	t_data;
 
-typedef struct	s_calc_data
+typedef struct s_calc_data
 {
 	double		walldist;
 	t_ivector	map;
@@ -104,8 +103,7 @@ typedef struct	s_calc_data
 	t_dvector	delta_dist;
 }	t_calc_data;
 
-
-typedef	struct s_draw_data
+typedef struct s_draw_data
 {
 	t_ivector		pos;
 	mlx_texture_t	*text;
@@ -113,7 +111,6 @@ typedef	struct s_draw_data
 	int				width_pos;
 	int				side;
 }	t_draw_data;
-
 
 /*	Utils/exit.c	*/
 void		ft_exit(char *message, int exit_code);
@@ -169,7 +166,8 @@ void		handle_key_hook(mlx_key_data_t keydata, void *param);
 t_dvector	collide(t_player *player, t_data *data, mlx_key_data_t keydata);
 
 /* ft_printing.c */
-void	ft_print_lines_v3(mlx_image_t *img, t_data *data, t_fvector ray_pos);
+void		ft_print_lines_v3(mlx_image_t *img, t_data *data,
+				t_fvector ray_pos);
 
 /* ft_raycast_utils.c */
 float		deg_to_rad(int angle);
@@ -186,7 +184,7 @@ int			ft_get_textx(t_data *data, t_dvector raydir,
 				t_draw_data draw, double wall);
 t_ivector	ft_get_step(t_dvector raydir);
 t_dvector	ft_get_sided(t_dvector raydir, t_ivector map, t_dvector pl,
-							t_dvector delta);
+				t_dvector delta);
 /*	Draw/ft_draw_column.c	*/
 void		ft_draw_column(t_data *data, t_draw_data draw, int textx);
 
@@ -204,12 +202,12 @@ void		ft_clean_img(mlx_image_t *img_ray);
 mlx_image_t	*fill_image(int color, size_t x, size_t y, mlx_t *mlx);
 
 /* minimap.c */
-void	ft_draw_ray_minimap(t_data *data);
+void		ft_draw_ray_minimap(t_data *data);
 
 /* ft_move.c */
-bool	ft_move(t_data *data);
+bool		ft_move(t_data *data);
 
 /* ft_rotate.c */
-bool	ft_rotate(t_data *data);
+bool		ft_rotate(t_data *data);
 
 #endif

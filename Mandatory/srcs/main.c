@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:29:08 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/10 10:48:43 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:52:24 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_free_data(t_data *data)
 	free(data);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data	*data;
 

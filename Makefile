@@ -1,6 +1,6 @@
 CC =	clang
 
-CFLAGS =	-g -Wextra -Wall -I./MLX42/include/MLX42 -I./libft/include
+CFLAGS =	-g -Wextra -Wall -Werror -I./MLX42/include/MLX42 -I./libft/include
 
 LIBMLX	:= ./MLX42
 
