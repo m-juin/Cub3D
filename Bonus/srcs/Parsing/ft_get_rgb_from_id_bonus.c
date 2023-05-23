@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_rgb_from_id_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:07:01 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/23 12:18:35 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/23 13:48:07 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_valid_rgb(char *str)
 	while (str[pos])
 	{
 		if (ft_isdigit(str[pos]) == 0)
-			return (1);
+			return (-1);
 		pos++;
 	}
 	atoied = ft_atoi(str);
