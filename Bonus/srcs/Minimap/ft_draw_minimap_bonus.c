@@ -6,7 +6,7 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:58:34 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/20 13:21:34 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:01:50 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,14 @@ void	ft_draw_minimap(mlx_image_t *map, t_data *data)
 		while (minimap.x < 8)
 		{
 			if (pos.x >= data->msize.x || pos.y >= data->msize.y \
-			|| pos.x < 0 || pos.y < 0)
-				ft_draw_case_map(map, minimap, get_rgba(124, 100, 76, 175));
+			|| pos.x < 0 || pos.y < 0 || data->map[pos.y][pos.x] == ' ')
+				ft_draw_case_map(map, minimap, get_rgba(125, 100, 75, 175));
 			else if (data->map[pos.y][pos.x] == '1')
 				ft_draw_case_map(map, minimap, get_rgba(0, 0, 0, 255));
 			else if (data->map[pos.y][pos.x] == '2')
-				ft_draw_case_map(map, minimap, get_rgba(150, 0, 100, 255));
+				ft_draw_case_map(map, minimap, get_rgba(175, 25, 0, 255));
 			else if (data->map[pos.y][pos.x] == '3')
-				ft_draw_case_map(map, minimap, get_rgba(50, 100, 200, 255));
-			else if (data->map[pos.y][pos.x] == ' ')
-				ft_draw_case_map(map, minimap, get_rgba(124, 100, 76, 175));
+				ft_draw_case_map(map, minimap, get_rgba(175, 25, 50, 255));
 			else
 				ft_draw_case_map(map, minimap, get_rgba(100, 100, 100, 255));
 			pos.x++;
