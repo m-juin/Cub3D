@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:28:11 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/16 11:01:04 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/23 12:57:39 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,19 @@ static mlx_texture_t	*get_texture_from_id(char *id, char **data)
 	return (text);
 }
 
+t_data	*ft_init_data(void)
+{
+	t_data	*data;
+
+	data = malloc(1 * sizeof(t_data));
+	if (data == NULL)
+		return (NULL);
+	data->player = NULL;
+	data->door_list = NULL;
+	data->animation = NULL;
+	return (data);
+}
+
 t_data	*ft_parse_data(char **identifiers, char **map)
 {
 	t_data	*data;
@@ -93,11 +106,10 @@ t_data	*ft_parse_data(char **identifiers, char **map)
 		return (NULL);
 	if (ft_check_identifier_empty_line(identifiers) == -1)
 		return (NULL);
-	data = malloc(1 * sizeof(t_data));
+	data = ft_init_data();
 	if (data == NULL)
 		return (NULL);
 	data->north = get_texture_from_id("NO ", identifiers);
-	data->door = get_texture_from_id("DO ", identifiers);
 	data->south = get_texture_from_id("SO ", identifiers);
 	data->east = get_texture_from_id("EA ", identifiers);
 	data->west = get_texture_from_id("WE ", identifiers);
@@ -106,7 +118,7 @@ t_data	*ft_parse_data(char **identifiers, char **map)
 	data->map = ft_parse_map(map);
 	if (data->north == NULL || data->south == NULL || data->east == NULL
 		|| data->west == NULL || get_a(data->top) < 255
-		|| get_a(data->ground) < 255 || data->map == NULL || data->door == NULL)
+		|| get_a(data->ground) < 255 || data->map == NULL)
 	{
 		ft_free_map_data(data);
 		return (NULL);

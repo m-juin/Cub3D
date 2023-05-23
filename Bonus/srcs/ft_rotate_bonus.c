@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rotate_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 15:44:10 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/23 09:42:39 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:57:04 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ static void	ft_check_rot_2(t_data *data, double old_dir_x, double old_plane_x)
 
 static bool	ft_check_rot_1(t_data *data, double old_dir_x, double old_plane_x)
 {
-	if ((data->player->facing_dir == north && data->player->target_dir == west) \
-		|| (data->player->facing_dir > data->player->target_dir && \
-		(data->player->target_dir != north || data->player->facing_dir != west)))
+	if ((data->player->facing_dir == north
+			&& data->player->target_dir == west)
+		|| (data->player->facing_dir > data->player->target_dir
+			&& (data->player->target_dir != north
+				|| data->player->facing_dir != west)))
 	{
 		data->player->dir.x = data->player->dir.x * cos(-ROT) \
 		- data->player->dir.y * sin(-ROT);
@@ -65,7 +67,8 @@ static bool	ft_check_rot_1(t_data *data, double old_dir_x, double old_plane_x)
 		data->player->plane.y = old_plane_x * sin(-ROT) \
 		+ data->player->plane.y * cos(-ROT);
 	}
-	else if ((data->player->facing_dir == west && data->player->target_dir == north)
+	else if ((data->player->facing_dir == west
+			&& data->player->target_dir == north)
 		|| data->player->facing_dir < data->player->target_dir)
 	{
 		ft_check_rot_2(data, old_dir_x, old_plane_x);

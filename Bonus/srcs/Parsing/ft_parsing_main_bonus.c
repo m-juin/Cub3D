@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 14:45:20 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/23 12:21:06 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/23 12:28:11 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ t_data	*ft_parsing_main(char *path)
 	ft_double_free(mapped);
 	if (data == NULL)
 		ft_exit("Error on malloc", 1);
-	data->player = NULL;
 	ft_check_map(data);
 	data->animation = ft_load_animation();
 	if (data->animation == NULL)
