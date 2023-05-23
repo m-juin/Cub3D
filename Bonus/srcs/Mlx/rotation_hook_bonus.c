@@ -6,32 +6,11 @@
 /*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:00:28 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/22 16:07:40 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:45:00 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-
-void    cursor_hook(double x, double y, void *param)
-{
-    t_data	*data;
-
-	data = (t_data *)param;
-	if (x > WIDTH / 2)
-	{
-		data->cursor->side = west;
-		mlx_set_mouse_pos(data->mlx, WIDTH / 2, HEIGHT / 2);
-		data->player->player_angle = fix_ang(data->player->player_angle - 1);
-		ft_draw_ray_minimap(data);
-	}
-	else if (x < WIDTH / 2)
-	{
-		data->cursor->side = east;
-		mlx_set_mouse_pos(data->mlx, WIDTH / 2, HEIGHT / 2);
-		data->player->player_angle = fix_ang(data->player->player_angle + 1);
-		ft_draw_ray_minimap(data);	
-	}
-}
 
 void	rotation_hook(mlx_key_data_t keydata, t_player *pl)
 {

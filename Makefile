@@ -22,6 +22,7 @@ NAME_BONUS = cub3D_bonus
 
 BONUS = ${BONUS_PATH}Mlx/key_hook_bonus.c				\
 		${BONUS_PATH}Mlx/manage_collision_bonus.c		\
+		${BONUS_PATH}Mlx/rotation_hook_bonus.c			\
 		${BONUS_PATH}Parsing/ft_checkarg_bonus.c 		\
 		${BONUS_PATH}Parsing/ft_checkmap_bonus.c		\
 		${BONUS_PATH}Parsing/ft_get_cub_bonus.c			\
@@ -49,8 +50,6 @@ BONUS = ${BONUS_PATH}Mlx/key_hook_bonus.c				\
 		${BONUS_PATH}ft_raycast_bonus.c					\
 		${BONUS_PATH}ft_rotate_bonus.c					\
 		${BONUS_PATH}main_bonus.c						\
-		${BONUS_PATH}Mlx/mouse_hook_bonus.c				\
-
 
 MANDATORY = ${MANDATORY_PATH}Mlx/key_hook.c				\
 		${MANDATORY_PATH}Mlx/manage_collision.c			\
