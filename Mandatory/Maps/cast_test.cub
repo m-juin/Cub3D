@@ -1,8 +1,8 @@
-NO ./Assets/Textures/NO.png
-SO ./Assets/Textures/SO.png
-WE ./Assets/Textures/WE.png
-EA ./Assets/Textures/EA.png
-F 220,100,25
+NO ./Assets/Textures/NO2.png
+SO ./Assets/Textures/SO2.png
+WE ./Assets/Textures/WE2.png
+EA ./Assets/Textures/EA2.png
+F 20,100,25
 C 25,30,205
 
 11111111
