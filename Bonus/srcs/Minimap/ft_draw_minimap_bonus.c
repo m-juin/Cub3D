@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw_minimap_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:58:34 by lobozier          #+#    #+#             */
-/*   Updated: 2023/05/23 13:57:30 by lobozier         ###   ########.fr       */
+/*   Updated: 2023/05/24 09:52:00 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_draw_case_map(mlx_image_t *img, t_ivector pos, int color)
 }
 
 void	ft_chose_case_color(mlx_image_t *map, t_data *data, \
-	t_ivector pos, t_ivetor minimap)
+	t_ivector pos, t_ivector minimap)
 {
 	if (pos.x >= data->msize.x || pos.y >= data->msize.y \
 		|| pos.x < 0 || pos.y < 0 || data->map[pos.y][pos.x] == ' ')

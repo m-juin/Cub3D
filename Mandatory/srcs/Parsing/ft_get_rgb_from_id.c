@@ -6,7 +6,7 @@
 /*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:07:01 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/23 13:52:58 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/24 10:51:43 by mjuin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	is_valid_rgb(char *str)
 {
 	size_t	pos;
+	size_t	pos2;
 	int		atoied;
 
 	pos = 0;
@@ -24,7 +25,10 @@ static int	is_valid_rgb(char *str)
 			return (-1);
 		pos++;
 	}
-	if (pos > 3)
+	pos2 = 0;
+	while (str[pos2] == '0')
+		pos2++;
+	if (pos - pos2 > 3)
 		return (-1);
 	atoied = ft_atoi(str);
 	if (atoied > 255 || atoied < 0)
