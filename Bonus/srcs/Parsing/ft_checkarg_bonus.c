@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_checkarg.c                                      :+:      :+:    :+:   */
+/*   ft_checkarg_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:06:12 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/21 11:21:57 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/24 10:29:05 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	ft_checkarg(int ac, char **av)
 	if (path_len <= 4)
 		ft_exit("Invalid map path", 1);
 	else if (ft_strfind(&av[1][path_len - 4], ".cub") == -1)
+		ft_exit("Invalid map extension (.cub expected)", 1);
+	else if (av[1][path_len - 5] == '/')
 		ft_exit("Invalid map extension (.cub expected)", 1);
 	if (ft_try_open(av[1]) == -1)
 		exit(1);

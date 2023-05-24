@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_data_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:28:11 by mjuin             #+#    #+#             */
-/*   Updated: 2023/05/23 12:57:39 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/24 10:52:15 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ static mlx_texture_t	*get_texture_from_id(char *id, char **data)
 	if (path == NULL)
 		return (NULL);
 	path_len = ft_strlen(path);
-	if (ft_strfind(&path[path_len - 4], ".png") == -1)
+	if (path_len <= 4 || ft_strfind(&path[path_len - 4], ".png") == -1 \
+		|| path[path_len - 5] == '/')
 	{
 		ft_print_error("Invalid texture(.png expected)");
 		free(path);
