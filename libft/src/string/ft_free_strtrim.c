@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_strtrim.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuin <mjuin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lobozier <lobozier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 09:41:34 by mjuin             #+#    #+#             */
-/*   Updated: 2023/04/19 09:44:03 by mjuin            ###   ########.fr       */
+/*   Updated: 2023/05/23 14:52:51 by lobozier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-char *ft_free_strtrim(char *str, char const *charset)
+char	*ft_free_strtrim(char *str, char const *charset)
 {
 	char	*tmp;
 

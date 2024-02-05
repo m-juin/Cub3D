@@ -1,0 +1,14 @@
+NO ./Assets/Textures/wall_two.png
+SO ./Assets/Textures/wall_four.png
+WE ./Assets/Textures/wall_three.png
+EA ./Assets/Textures/wall_one.png
+
+F 12,100,25
+C 25,30,205
+
+111111 11111111111111
+100000100000000000001
+100000100W00020000001
+120000000000000000001
+100000000000000002001
+111111111111111111111
