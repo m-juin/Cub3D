@@ -109,6 +109,20 @@ The project executable have 2 required input:
 
 ``re`` to fclean then make.
 
+# Controls
+
+``W A S D`` for moving character the player.
+``Right Arrow Left Arrow`` for rotation the player.
+``Space`` FOr opening and closing doors.
+
 # Warning 
 Be sure to keep at last one 0.png in the ./Assets/Textures/Animation/ folder.
 Animation loop can be changed by adding more png in the folder named with the previous number + 1. (0.png 1.png 2.png) 
+
+# Screenshots
+
+<img width="720" alt="Screenshot" src="https://github.com/m-juin/Cub3D/blob/master/Assets/Screens/Cub3D001.png">
+<img width="720" alt="Screenshot" src="https://github.com/m-juin/Cub3D/blob/master/Assets/Screens/Cub3D002.png">
+<img width="720" alt="Screenshot" src="https://github.com/m-juin/Cub3D/blob/master/Assets/Screens/Cub3D003.png">
+
+BrickWall.png Designed by Dotstudio / Freepik
