@@ -57,12 +57,8 @@ static void	ft_draw_wall(t_draw_data draw, t_data *data, int textx)
 
 void	ft_draw_column(t_data *data, t_draw_data draw, int textx)
 {
-	double		step;
-	int			texpos;
 
 	draw.pos = get_draw_data(draw.lineh, data->img_3d);
-	step = 1.0 * draw.text->height / draw.lineh;
-	texpos = ((draw.pos.x - data->img_3d->height / 2 + draw.lineh / 2) * step);
 	ft_draw_top(draw.pos.x, data, draw.width_pos);
 	ft_draw_wall(draw, data, textx);
 	ft_draw_floor(draw.pos.y, data, draw.width_pos);

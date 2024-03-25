@@ -1,7 +1,7 @@
-NO ./Assets/Textures/wall_two.png
-SO ./Assets/Textures/wall_four.png
-WE ./Assets/Textures/wall_three.png
-EA ./Assets/Textures/wall_one.png
+NO ./Assets/Textures/BrickWall.png
+SO ./Assets/Textures/BrickWall.png
+WE ./Assets/Textures/BrickWall.png
+EA ./Assets/Textures/BrickWall.png
 F 20,100,25
 C 25,30,205
 

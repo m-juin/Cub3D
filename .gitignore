@@ -2,9 +2,11 @@ libft/*.a
 libft/**/*.o
 MLX42/build/
 srcs/**/*.o
+Bonus/**/*.o
 *.so
 *.out
 *.swp
 *.tmp
 .vscode/
 cub3D
+cub3D_bonus
