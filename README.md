@@ -112,8 +112,10 @@ The project executable have 2 required input:
 # Controls
 
 ``W A S D`` for moving character the player.
+
 ``Right Arrow Left Arrow`` for rotation the player.
-``Space`` FOr opening and closing doors.
+
+``Space`` For opening and closing doors.
 
 # Warning 
 Be sure to keep at last one 0.png in the ./Assets/Textures/Animation/ folder.
